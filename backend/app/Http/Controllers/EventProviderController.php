@@ -15,13 +15,14 @@ class EventProviderController extends Controller
         // ah taing os ng trov move tv "/Controller/Api" folder
 
 
-        // brer ah nis if we want to process data further (EX: )
+        // brer ah nis if we want to process data further
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
         ]);
 
+        // By using Validator, we can validate and customize the error response and
         if($validator->fails()) {
             // If validation fails, return error response tv oy user
             return response()->json([

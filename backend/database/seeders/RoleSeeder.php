@@ -13,7 +13,7 @@ class RoleSeeder extends Seeder
 
         DB::table('roles')->insertOrIgnore([
             ['id' => $roles['admin'], 'role_name' => 'admin'],
-            ['id' => $roles['event_provider'], 'role_name' => 'event_provider'],
+            ['id' => $roles['event-provider'], 'role_name' => 'event-provider'],
             ['id' => $roles['user'], 'role_name' => 'user'],
         ]);
     }
