@@ -17,6 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \App\Http\Middleware\RoleGuard::class,
         ]);
 
+        // $middleware->api([
+        //     'throttle:api',
+        // ]);
 
     })
     ->withExceptions(function (Exceptions $exceptions) {

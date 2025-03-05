@@ -20,10 +20,10 @@ const router = createRouter({
         },
       ],
       beforeEnter: () => {
-        const token = localStorage.getItem('token')
-        if (!token) {
-          return { name: 'admin-login' }
-        }
+        // const token = localStorage.getItem('token')
+        // if (!token) {
+        //   return { name: 'admin-login' }
+        // }
       },
     },
   ],
