@@ -6,13 +6,6 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\OrganizationController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/niger', function () {
-    return response()->json([
-        'message' => 'Server is up'
-    ]);
-})->middleware('auth:sanctum');
-
-
 // auth
 Route::post('/register', [AuthController::class, 'user_register']);
 Route::post('/user/login', [AuthController::class, 'user_login']);
@@ -27,21 +20,32 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/profile', [AuthController::class, 'profile']);
 
-
     // event provider
-    Route::apiResource('event-provider', EventProviderController::class)
-        ->only(['store', 'update', 'destroy'])
-        ->middleware(['role:admin', 'role:event-provider']);
+    // /api/admin/event-providers
+    // admin full permission
+    Route::prefix('admin')->middleware('role:admin')->group(function () {
+        Route::apiResource('event-providers', EventProviderController::class)
+            ->names('admin.event-providers');
+    });
 
-    // Route::apiResource('event-provider/admin', EventProviderController::class)
-        ->only(['index', 'show']);
+    // /api/provider/event-providers
+    // event provider only view and update cannot delete or create themselves
+    Route::prefix('provider')->middleware('role:event-provider')->group(function () {
+        Route::apiResource('event-providers', EventProviderController::class)
+            ->only(['index', 'show', 'update'])
+            ->names('provider.event-providers');
+    });
+
+    // general
+    Route::apiResource('event-providers', EventProviderController::class)
+        ->only(['index', 'show'])
+        ->names('event-providers');
 
 
     // event category
     Route::apiResource('event-category', EventCategoryController::class)
         ->only(['store', 'update', 'destroy'])
-
-    //         ->middleware(['role:admin']);
+        ->middleware(['role:admin']);
 
     Route::apiResource('event-category', EventCategoryController::class)
         ->only(['index', 'show']);

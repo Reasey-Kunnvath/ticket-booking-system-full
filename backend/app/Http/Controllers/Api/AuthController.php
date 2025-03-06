@@ -104,11 +104,6 @@ class AuthController extends Controller
         ]);
         $request->user()->tokens()->delete();
 
-<<<<<<< HEAD:backend/app/Http/Controllers/AuthController.php
-        // return response()->json([
-        //     'message' => 'logout hz hz'
-        // ]);
-=======
         return $this->successResponse(null, 'logged out');
     }
 
@@ -117,6 +112,5 @@ class AuthController extends Controller
         return $this->successResponse([
             'user' => $request->user()
         ]);
->>>>>>> 62f57f8e3702e81e5f4e21b7e0547c7712312638:backend/app/Http/Controllers/Api/AuthController.php
     }
 }
