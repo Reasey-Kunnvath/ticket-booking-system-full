@@ -24,7 +24,9 @@ class RoleGuard
 
         if ($user->role_id !== config('roles.' . $role)) {
             return response()->json([
-                'message' => 'Forbidden Resource'
+                'alert' => 'Forbidden Resource',
+                'message' => 'You must log in as ' . $role . ' to access this route',
+                'data' => $user
             ], 403);
         }
 

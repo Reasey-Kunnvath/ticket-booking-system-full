@@ -98,6 +98,10 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        return response()->json([
+            'message' => 'logout hz hz',
+            'data' => $request->all()
+        ]);
         $request->user()->tokens()->delete();
 
         return $this->successResponse(null, 'logged out');
