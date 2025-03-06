@@ -29,10 +29,10 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     // /api/provider/event-providers
-    // event provider only view and update cannot delete or create themselves
+    // event provider only view and update and create new resource cannot delete or create themselves
     Route::prefix('provider')->middleware('role:event-provider')->group(function () {
         Route::apiResource('event-providers', EventProviderController::class)
-            ->only(['index', 'show', 'update'])
+            ->only(['index', 'store','show', 'update'])
             ->names('provider.event-providers');
     });
 
