@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\EventCategoryController;
 use App\Http\Controllers\Api\EventProviderController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\OrganizationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/niger', function () {
@@ -42,6 +43,16 @@ Route::middleware('auth:sanctum')->group(function () {
         ->middleware(['role:admin']);
 
     Route::apiResource('event-category', EventCategoryController::class)
+        ->only(['index', 'show']);
+
+
+
+    // organization
+    Route::apiResource('organization', OrganizationController::class)
+        ->only(['store', 'update', 'destroy'])
+        ->middleware(['role:admin']);
+
+    Route::apiResource('organization', OrganizationController::class)
         ->only(['index', 'show']);
 
 

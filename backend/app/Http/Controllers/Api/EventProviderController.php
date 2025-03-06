@@ -25,6 +25,12 @@ class EventProviderController extends Controller
         return false;
     }
 
+    public function index()
+    {
+        $eventProviders = User::where('role_id', config('roles.event-provider'))->get();
+        return $this->successResponse($eventProviders);
+    }
+
     public function store(Request $request)
     {
 
