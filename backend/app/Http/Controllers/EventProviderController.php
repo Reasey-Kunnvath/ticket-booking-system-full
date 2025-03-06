@@ -9,12 +9,18 @@ use Illuminate\Support\Facades\Validator;
 
 class EventProviderController extends Controller
 {
-    //
+    public function index(Request $request){
+        #testing (Can be removed)
+        return response()->json([
+            'status' => 1,
+            'success' => true,
+            'message' => 'Hello ' . $request->role . ' from Event Provider Route',
+        ]);
+    }
+
     public function store(Request $request)
     {
         // ah taing os ng trov move tv "/Controller/Api" folder
-
-
         // brer ah nis if we want to process data further
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -49,7 +55,7 @@ class EventProviderController extends Controller
             'message' => 'Event provider created successfully',
             'data' => new ExampleResource($user), // kleng nis yg parse thru format dae yg tem build hz knong /Http/Resources/ExampleResource.php
             // in knong test api like postman yg ban format sth like this:
-            // data:{
+            // {
                     // success => true,
                     // message => 'Event provider created successfully',
                     // data: {
