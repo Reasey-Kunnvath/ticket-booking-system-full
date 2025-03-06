@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -21,29 +23,29 @@ class AuthController extends Controller
 
     private function login_handler($request, $role_id)
     {
-        $request->validate([
+
+        $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:5',
         ]);
 
+        if ($validator->fails()) {
+            return $this->badRequestResponse($validator->errors()->messages());
+        }
+
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'message' => 'Invalid credentials'
-            ], 401);
+            return $this->unauthorizedResponse("Invalid credentials");
         }
 
         $valid_role = $this->role_check($user, $role_id);
 
         if (!$valid_role) {
-            return response()->json([
-                'message' => 'khos role hz dawg'
-            ], 403);
+            return $this->forbiddenResponse("invalid role");
         }
 
-        return response()->json([
-            'message' => 'Success',
+        return $this->successResponse([
             'access_token' => $this->generate_token($user),
             'user' => $user
         ]);
@@ -66,11 +68,17 @@ class AuthController extends Controller
 
     public function user_register(Request $request)
     {
-        $request->validate([
+
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:5',
+
         ]);
+
+        if ($validator->fails()) {
+            return $this->badRequestResponse($validator->errors()->messages());
+        }
 
         $hash_password = Hash::make($request->password);
 
@@ -83,18 +91,22 @@ class AuthController extends Controller
 
         $access_token = $this->generate_token($user);
 
-        return response()->json([
-            'message' => 'User registered successfully',
+        return $this->successResponse([
             'access_token' => $access_token
-        ]);
+        ], 'User registered successfully');
     }
 
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
 
-        return response()->json([
-            'message' => 'logout hz hz'
+        return $this->successResponse(null, 'logged out');
+    }
+
+    public function profile(Request $request)
+    {
+        return $this->successResponse([
+            'user' => $request->user()
         ]);
     }
 }

@@ -24,7 +24,7 @@ class RoleGuard
 
         if ($user->role_id !== config('roles.' . $role)) {
             return response()->json([
-                'message' => 'khos role'
+                'message' => 'Forbidden Resource'
             ], 403);
         }
 
