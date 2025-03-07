@@ -1,4 +1,6 @@
-type TUser = {
+import type { RouteRecordRaw } from 'vue-router'
+
+export type TUser = {
   id: number
   name: string
   email: string
@@ -7,7 +9,17 @@ type TUser = {
 }
 
 export type TLoginResponse = {
-  access_token: string | null
-  user: TUser | null
+  success: boolean
   message: string
+  data: {
+    access_token: string
+    user: TUser
+  }
+}
+
+export type TBaseRouteProps = RouteRecordRaw & { label: string; icon: string }
+
+export type TDashboardLoginFormValue = {
+  email: string
+  password: string
 }
