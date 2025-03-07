@@ -6,7 +6,7 @@ const api = axios.create({
   baseURL,
   headers: {
     // dak jg derm3 oy laravel throw friendly error
-    // Accept: 'application/json',
+    Accept: 'application/json',
   },
 })
 
