@@ -82,6 +82,9 @@ class AuthController extends Controller
 
         $hash_password = Hash::make($request->password);
 
+        // Just discovered this method of hashing password
+        $hash_pwd = password_hash($request->password, PASSWORD_ARGON2ID);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -91,8 +94,9 @@ class AuthController extends Controller
 
         $access_token = $this->generate_token($user);
 
+
         return $this->successResponse([
-            'access_token' => $access_token
+            // 'access_token' => $access_token
         ], 'User registered successfully');
     }
 
