@@ -1,3 +1,4 @@
+import type { LucideIcon } from 'lucide-vue-next'
 import type { RouteRecordRaw } from 'vue-router'
 
 export type TUser = {
@@ -17,7 +18,7 @@ export type TLoginResponse = {
   }
 }
 
-export type TBaseRouteProps = RouteRecordRaw & { label: string; icon: string }
+export type TBaseRouteProps = RouteRecordRaw & { label: string; icon: LucideIcon }
 
 export type TDashboardLoginFormValue = {
   email: string
