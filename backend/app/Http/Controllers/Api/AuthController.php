@@ -23,7 +23,6 @@ class AuthController extends Controller
 
     private function login_handler($request, $role_id)
     {
-
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:5',
