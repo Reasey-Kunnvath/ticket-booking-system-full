@@ -1,3 +1,4 @@
+import { handleLogout } from '@/common/helper/auth.helper'
 import axios from 'axios'
 import { toast } from 'vue3-toastify'
 
@@ -25,13 +26,14 @@ api.interceptors.response.use(
     return response
   },
   (error) => {
+    console.log(error)
     handleErrorResponse(error)
     return Promise.reject(error)
   },
 )
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const handleErrorResponse = (error: any) => {
+const handleErrorResponse = async (error: any) => {
   let errorMessage = 'An unexpected error occurred.'
 
   if (error.response) {
@@ -54,6 +56,14 @@ const handleErrorResponse = (error: any) => {
     // 5 seconds
     autoClose: 5000,
   })
+
+  if (error?.response?.status === 401) {
+    // jam 3 seconds before redirect tv login page
+    await new Promise((resolve) => setTimeout(resolve, 2000))
+
+    window.location.href = '/admin/login'
+    handleLogout()
+  }
 }
 
 export default api

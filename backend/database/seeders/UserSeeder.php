@@ -25,6 +25,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@admin.com',
             'password' => bcrypt('12345678'),
             'role_id' => $admin_role_id,
+            'phone_number' => '012222333',
         ]);
 
         User::factory()->create([
@@ -32,6 +33,7 @@ class UserSeeder extends Seeder
             'email' => 'eventprovider@eventprovider.com',
             'password' => bcrypt('12345678'),
             'role_id' => $event_provider_role_id,
+            'phone_number' => '023222333',
         ]);
 
         User::factory()->create([
@@ -39,6 +41,7 @@ class UserSeeder extends Seeder
             'email' => 'user@user.com',
             'password' => bcrypt('12345678'),
             'role_id' => $user_role_id,
+            'phone_number' => '021222333',
         ]);
     }
 }

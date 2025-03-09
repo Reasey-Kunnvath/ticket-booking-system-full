@@ -9,9 +9,9 @@ const adminRoutes: TBaseRouteProps[] = [
     icon: LayoutDashboard,
   },
   {
-    path: '/dashboard/admin/event-provider',
-    component: () => import('../views/dashboard/admin/event-provider-page.vue'),
-    label: 'Event Provider',
+    path: '/dashboard/admin/users',
+    component: () => import('../views/dashboard/admin/users/users-page.vue'),
+    label: 'User',
     icon: Users,
   },
 ]
