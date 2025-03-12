@@ -15,8 +15,8 @@ export const userContext = reactive({
   },
 })
 
-const useUserContext = () => {
+const useAuth = () => {
   return userContext
 }
 
-export default useUserContext
+export default useAuth

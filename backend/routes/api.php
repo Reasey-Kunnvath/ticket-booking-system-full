@@ -61,10 +61,14 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::apiResource('dashboard', AdminDashboardController::class)
             ->names('admin.dashboard');
 
+        // for roles
+        Route::apiResource('roles', AdminRoleController::class)
+            ->names('admin.roles');
+
         // for financials (Sales and Analytics, Review Payout Request, and orders)
         Route::apiResource('orders', AdminOrderController::class)
             ->names('admin.orders');
-        Route::apiResource('transactions',AdminTransactionController::class)
+        Route::apiResource('transactions', AdminTransactionController::class)
             ->names('admin.transactions');
         Route::apiResource('payouts', AdminPayoutController::class)
             ->names('admin.payouts');
@@ -92,7 +96,6 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         // for partnerships
         Route::apiResource('partnerships', AdminPartnershipController::class)
             ->names('admin.partnerships');
-
     });
 
     // For role == event-provider
@@ -113,38 +116,37 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
             ->only(['index']);
         Route::apiResource('request-payout', EPRequestPayoutController::class)
             ->names('provider.request-payout')
-            ->only(['index','store']);
+            ->only(['index', 'store']);
 
         // for support tickets
         Route::apiResource('support-ticket', EPSupportTicketController::class)
             ->names('provider.support-ticket')
-            ->only(['index','show','store']);
-
+            ->only(['index', 'show', 'store']);
     });
 
     // For role == user
     //Route: /api/v1/user/resourcename
     Route::prefix('user')->middleware('role:user')->group(function () {
         // for profile section
-        Route::prefix('profile')->group(function(){
+        Route::prefix('profile')->group(function () {
             Route::apiResource('information', UProfileController::class)
                 ->names('user.profile.information')
-                ->only(['index','show','update']);
+                ->only(['index', 'show', 'update']);
             Route::apiResource('order-history', UOrderController::class)
                 ->names('user.profile.order-history')
-                ->only(['index','show']);
+                ->only(['index', 'show']);
             Route::apiResource('change-password', UProfileController::class)
                 ->names('user.profile.change-password')
                 ->only(['update']);
             Route::apiResource('billing-information', UBillingInfoController::class)
                 ->names('user.profile.billing-information')
-                ->only(['index','show','update']);
+                ->only(['index', 'show', 'update']);
         });
 
         // for home
         Route::apiResource('home', UHomeController::class)
             ->names('user.home')
-            ->only(['index','show']);
+            ->only(['index', 'show']);
 
 
         // for all events and event by category
@@ -161,7 +163,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         // for cart
         Route::apiResource('cart', UCartController::class)
             ->names('user.cart')
-            ->only(['index','store','destroy']);
+            ->only(['index', 'store', 'destroy']);
 
         // for partnership request
         Route::post('/become-a-partner', [PartnershipRequestController::class, 'partnership_request']);

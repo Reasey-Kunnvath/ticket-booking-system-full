@@ -1,4 +1,4 @@
-import './assets/main.css'
+import './assets/base.css'
 import 'vue3-toastify/dist/index.css'
 
 import { createApp } from 'vue'

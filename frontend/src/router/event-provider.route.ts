@@ -1,4 +1,5 @@
 import type { TBaseRouteProps } from '@/common/types'
+import { LayoutDashboard, LucidePartyPopper } from 'lucide-vue-next'
 
 const eventProviderRoutes: TBaseRouteProps[] = [
   {
@@ -6,14 +7,14 @@ const eventProviderRoutes: TBaseRouteProps[] = [
     name: 'event-provider-dashboard',
     component: () => import('@/views/dashboard/event-provider/dashboard-page.vue'),
     label: 'Dashboard',
-    icon: 'bx bx-home',
+    icon: LayoutDashboard,
   },
   {
     path: '/dashboard/event-provider/event',
     name: 'event-provider-dashboard-event',
     component: () => import('@/views/dashboard/event-provider/event-page.vue'),
     label: 'Event',
-    icon: 'bx bx-home',
+    icon: LucidePartyPopper,
   },
 ]
 

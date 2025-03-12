@@ -5,8 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import useUserContext from '@/stores/user.context'
+import useAuth from '@/stores/user.context'
 import { ROLE_NAME } from '@/common/constants/default.const'
 
-const userContext = useUserContext()
+const userContext = useAuth()
 </script>

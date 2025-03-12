@@ -1,13 +1,18 @@
+<template>
+  <div class="flex h-screen w-full bg-background text-foreground">
+    <DashboardSidebar />
+    <div class="flex flex-1 flex-col pl-0 md:pl-64">
+      <DashboardHeader />
+      <main class="p-4">
+        <RouterView />
+      </main>
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
 import DashboardHeader from './dashboard-header.vue'
-import DashboardNavbar from './dashboard-navbar.vue'
+import DashboardSidebar from './dashboard-sidebar.vue'
 </script>
 
-<template>
-  <DashboardHeader />
-  <DashboardNavbar />
-  <main id="main" class="main">
-    <RouterView />
-  </main>
-</template>
+<style></style>
