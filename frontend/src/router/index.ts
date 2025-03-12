@@ -43,6 +43,11 @@ const router = createRouter({
       name: 'event-provider-login',
       component: () => import('../views/dashboard/event-provider/login-page.vue'),
     },
+    {
+      path: '/user/login',
+      name: 'user-login',
+      component: () => import('../views/user-side/auth/login-page.vue'),
+    },
   ],
 })
 
