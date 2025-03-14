@@ -23,18 +23,18 @@
           <DollarSign class="h-4 w-4 text-muted-foreground" />
         </div>
         <div class="mt-2">
-          <p class="text-2xl font-bold">$45,231.89</p>
+          <p class="text-2xl font-bold">${{ dashboardData?.meta?.total_revenue }}</p>
           <p class="text-xs text-emerald-500">+20.1% from last month</p>
         </div>
       </div>
 
       <div class="rounded-lg border bg-card p-6 shadow-sm">
         <div class="flex items-center justify-between">
-          <h3 class="text-sm font-medium text-muted-foreground">Subscriptions</h3>
+          <h3 class="text-sm font-medium text-muted-foreground">Total Users</h3>
           <Users class="h-4 w-4 text-muted-foreground" />
         </div>
         <div class="mt-2">
-          <p class="text-2xl font-bold">+2350</p>
+          <p class="text-2xl font-bold">+{{ dashboardData?.meta?.total_users }}</p>
           <p class="text-xs text-emerald-500">+180.1% from last month</p>
         </div>
       </div>
@@ -45,18 +45,18 @@
           <CreditCard class="h-4 w-4 text-muted-foreground" />
         </div>
         <div class="mt-2">
-          <p class="text-2xl font-bold">+12,234</p>
+          <p class="text-2xl font-bold">+{{ dashboardData?.meta?.sales_count }}</p>
           <p class="text-xs text-emerald-500">+19% from last month</p>
         </div>
       </div>
 
       <div class="rounded-lg border bg-card p-6 shadow-sm">
         <div class="flex items-center justify-between">
-          <h3 class="text-sm font-medium text-muted-foreground">Active Now</h3>
+          <h3 class="text-sm font-medium text-muted-foreground">Support Message</h3>
           <Activity class="h-4 w-4 text-muted-foreground" />
         </div>
         <div class="mt-2">
-          <p class="text-2xl font-bold">+573</p>
+          <p class="text-2xl font-bold">+{{ dashboardData?.meta?.total_support_msg }}</p>
           <p class="text-xs text-emerald-500">+201 since last hour</p>
         </div>
       </div>
@@ -116,13 +116,29 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { Activity, CreditCard, DollarSign, Users } from 'lucide-vue-next'
 import useAuth from '@/stores/user.context'
+import { fetchDashboard } from '@/services/transactionService'
+
+const dashboardData = ref(null)
 
 const { user } = useAuth()
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 const chartValues = [4500, 3200, 5600, 2400, 3800, 3000, 4800, 4200, 3600, 4800, 3800, 4200]
+
+const loadData = async () => {
+  try {
+    const response = await fetchDashboard()
+    dashboardData.value = response
+    console.log(dashboardData)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+onMounted(loadData)
 
 const recentSales = [
   {
