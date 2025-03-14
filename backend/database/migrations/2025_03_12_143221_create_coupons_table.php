@@ -24,7 +24,7 @@ return new class extends Migration
 
             //Foreign key
             $table->integer('createdby'); //Primary Kry form Users.user_id
-            $table->integer('evt_id'); //Primary Kry form Events.evt_id
+            $table->integer('evt_id')->nullable(); //Primary Kry form Events.evt_id
         });
     }
 
