@@ -22,10 +22,10 @@ class OrderSeeder extends Seeder
         $get_coupons = Coupons::where('coupons_id', 1)->first();
         $original_amount = $ticket_qty * $get_ticket_price;
 
-        if($get_coupons == 'percentage'){
+        if($get_coupons->coupons_type == 'percentage'){
             $discount = $original_amount - ($original_amount * $get_coupons->coupons_value/100);
             $total = $original_amount - $discount;
-        }else if($get_coupons == 'amount'){
+        }else if($get_coupons->coupons_type == 'amount'){
             $total = $original_amount - $get_coupons->coupons_value;
         }
 
