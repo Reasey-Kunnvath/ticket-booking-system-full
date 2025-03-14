@@ -5,7 +5,7 @@ start cmd /k "cd frontend && echo Frontend is running at http://localhost:5173 &
 
 timeout /t 2 /nobreak
 
-start cmd /k "cd backend && echo Backend is running at http://127.0.0.1:8000 && php artisan serve --port=8080"
+start cmd /k "cd backend && echo Backend is running at http://127.0.0.1:8000 && php artisan serve --port=8000"
 
 echo.
 echo Both frontend and backend should now be running.
