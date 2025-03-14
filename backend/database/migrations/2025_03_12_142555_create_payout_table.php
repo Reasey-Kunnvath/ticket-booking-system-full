@@ -17,8 +17,8 @@ return new class extends Migration
             $table->decimal('platform_commission');
             $table->decimal('net_payout');
             $table->string('currency');
-            $table->timestamps('payout_date');
-            $table->integer('ref_number');
+            $table->date('payout_date');
+            $table->string('ref_number');
             $table->string('notes');
             $table->timestamps();
 
