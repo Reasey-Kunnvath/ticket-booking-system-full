@@ -20,6 +20,7 @@
         <ul class="space-y-1">
           <li class="nav-item" v-for="route in displayRoutes" :key="route.path">
             <RouterLink
+              v-if="!route.children"
               :to="route.path"
               :class="[
                 'flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium',
@@ -31,6 +32,40 @@
               <component :is="route.icon" class="h-4 w-4" />
               <span>{{ route.label }}</span>
             </RouterLink>
+
+            <!-- Collapsible item (e.g., User & Role) -->
+            <Collapsible v-else v-model:open="openStates[route.path]">
+              <CollapsibleTrigger as-child>
+                <div
+                  class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium hover:bg-accent/50 cursor-pointer"
+                >
+                  <component :is="route.icon" class="h-4 w-4" />
+                  <span>{{ route.label }}</span>
+                  <ChevronRight v-if="!openStates[route.path]" class="ml-auto h-4 w-4" />
+                  <ChevronDown v-else class="ml-auto h-4 w-4" />
+                </div>
+              </CollapsibleTrigger>
+              <CollapsibleContent
+                class="data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up"
+              >
+                <ul class="ml-6 mt-2 space-y-1">
+                  <li v-for="child in route.children" :key="child.path">
+                    <RouterLink
+                      :to="child.path ? `${route.path}/${child.path}` : route.path"
+                      :class="[
+                        'flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium',
+                        router.path === (child.path ? `${route.path}/${child.path}` : route.path)
+                          ? 'bg-accent text-accent-foreground'
+                          : 'hover:bg-accent/50',
+                      ]"
+                    >
+                      <component v-if="child.icon" :is="child.icon" class="h-4 w-4" />
+                      <span>{{ child.label }}</span>
+                    </RouterLink>
+                  </li>
+                </ul>
+              </CollapsibleContent>
+            </Collapsible>
           </li>
         </ul>
       </div>
@@ -83,6 +118,7 @@ import AvatarPf from '@/components/custom-ui/avatar-pf.vue'
 import adminRoutes from '@/router/admin.route'
 import eventProviderRoutes from '@/router/event-provider.route'
 import useAuth, { userContext } from '@/stores/user.context'
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui/collapsible'
 import { ChevronDown, ChevronRight, HelpCircle, Settings } from 'lucide-vue-next'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
@@ -95,11 +131,20 @@ const displayRoutes = ref<TBaseRouteProps[]>([])
 
 const { user } = useAuth()
 
+const openStates = ref<{ [key: string]: boolean }>({})
+
 onMounted(() => {
   if (userRole === ROLE.ADMIN) {
     displayRoutes.value = adminRoutes
   } else if (userRole === ROLE.EVENT_PROVIDER) {
     displayRoutes.value = eventProviderRoutes
   }
+
+  // Initialize openStates for routes with children
+  displayRoutes.value.forEach((route) => {
+    if (route.children) {
+      openStates.value[route.path] = false // Initially closed
+    }
+  })
 })
 </script>
