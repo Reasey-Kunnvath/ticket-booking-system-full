@@ -61,20 +61,28 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-if="usersList.length === 0">
+            <!-- Check if the data array is empty -->
+            <tr v-if="!usersList?.data?.length">
               <td colspan="6" class="text-center py-3">No users found</td>
             </tr>
-            <tr v-for="(user, index) in usersList" :key="user.id" class="border-b">
+
+            <tr v-for="(user, index) in usersList.data" :key="user.id" class="border-b">
               <td class="px-4 py-3 text-sm font-medium">{{ index + 1 }}</td>
               <td class="px-4 py-3">{{ user.name }}</td>
               <td class="px-4 py-3 max-w-[200px]">{{ user.email }}</td>
-              <td class="px-4 py-3 max-w-[200px]">{{ user.phone_number }}</td>
+              <!-- Handle missing phone_number -->
+              <td class="px-4 py-3 max-w-[200px]">{{ user.phone_number ?? 'N/A' }}</td>
+              <!-- Handle missing role data -->
               <td class="px-4 py-3">
-                <Badge :class="RoleBadgeColor[user.role_id]" class="px-3 py-1">
-                  {{ user.role.role_name }}
+                <Badge
+                  :class="user.role_id ? RoleBadgeColor[user.role_id] : 'bg-gray-200'"
+                  class="px-3 py-1"
+                >
+                  {{ user.role?.role_name ?? 'Unknown Role' }}
                 </Badge>
               </td>
-              <td class="px-4 py-3 min-w-[200px]">{{ formatDate(user.created_at) }}</td>
+              <!-- Handle missing created_at -->
+              <td class="px-4 py-3 min-w-[200px]">{{ user.created_at ?? 'N/A' }}</td>
               <td class="px-4 py-3">
                 <div class="flex items-center gap-1">
                   <button @click="openEditModal(user)" class="rounded-md p-1 hover:bg-accent">
@@ -190,6 +198,7 @@ const fetchUsers = async () => {
   try {
     const res = await api.get<TBaseApiResponse<TUserList>>('v1/admin/users')
     usersList.value = res.data.data
+    console.log(usersList.value)
   } catch (error) {
     console.error('Error fetching users:', error)
   }
