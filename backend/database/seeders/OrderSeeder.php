@@ -32,6 +32,26 @@ class OrderSeeder extends Seeder
         Order::create([
             'QTY' => 5,
             'total_amount' => $total,
+            'created_at' => Carbon::now()->subMonth(2),
+            'user_id' => 3,
+            'ticket_id' => 1,
+            'status_id' => 2,
+            'coupon_id' => 1,
+        ]);
+
+        Order::create([
+            'QTY' => 10,
+            'total_amount' => 100,
+            'created_at' => Carbon::now()->subMonth(1),
+            'user_id' => 3,
+            'ticket_id' => 1,
+            'status_id' => 2,
+            'coupon_id' => 1,
+        ]);
+
+        Order::create([
+            'QTY' => 15,
+            'total_amount' => 150,
             'created_at' => Carbon::now(),
             'user_id' => 3,
             'ticket_id' => 1,

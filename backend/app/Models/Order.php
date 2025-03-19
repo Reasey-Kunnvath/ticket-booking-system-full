@@ -18,6 +18,7 @@ class Order extends Model
         'coupon_id'
     ];
 
+
     public function user()
     {
         return $this->belongsTo(User::class);
