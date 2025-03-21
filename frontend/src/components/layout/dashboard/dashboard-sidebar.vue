@@ -8,8 +8,8 @@
           <div class="text-lg font-bold">S</div>
         </div>
         <div>
-          <div class="text-sm font-semibold">🍆🍆💦💦</div>
-          <div class="text-xs text-muted-foreground">Ticket Management</div>
+          <div class="text-sm font-semibold">Ticket Management</div>
+          <div class="text-xs text-muted-foreground">Admin Dashboard</div>
         </div>
       </div>
     </div>
@@ -24,7 +24,7 @@
               :to="route.path"
               :class="[
                 'flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium',
-                router.path === route.path
+                router?.path === route.path
                   ? 'bg-accent text-accent-foreground'
                   : 'hover:bg-accent/50',
               ]"
@@ -49,17 +49,17 @@
                 class="data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up"
               >
                 <ul class="ml-6 mt-2 space-y-1">
-                  <li v-for="child in route.children" :key="child.path">
+                  <li v-for="child in route?.children" :key="child.path">
                     <RouterLink
                       :to="child.path ? `${route.path}/${child.path}` : route.path"
                       :class="[
                         'flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium',
-                        router.path === (child.path ? `${route.path}/${child.path}` : route.path)
+                        router?.path === (child.path ? `${route.path}/${child.path}` : route.path)
                           ? 'bg-accent text-accent-foreground'
                           : 'hover:bg-accent/50',
                       ]"
                     >
-                      <component v-if="child.icon" :is="child.icon" class="h-4 w-4" />
+                      <component v-if="child?.icon" :is="child.icon" class="h-4 w-4" />
                       <span>{{ child.label }}</span>
                     </RouterLink>
                   </li>
@@ -124,13 +124,10 @@ import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 const router = useRoute()
-
+const { user } = useAuth()
 const userRole = userContext.user?.role_id
 
 const displayRoutes = ref<TBaseRouteProps[]>([])
-
-const { user } = useAuth()
-
 const openStates = ref<{ [key: string]: boolean }>({})
 
 onMounted(() => {

@@ -29,8 +29,8 @@ const props = defineProps({
   },
 })
 
-const email = ref(props.defaultEmail)
-const password = ref(props.defaultPassword)
+const email = ref(props.defaultEmailLogin)
+const password = ref(props.defaultPasswordLogin)
 
 const emailError = ref(false)
 const passwordError = ref(false)
@@ -59,9 +59,9 @@ const submitForm = () => {
       <div class="signup">
         <form>
           <label for="chk" aria-hidden="true">{{ titleSignup }}</label>
-          <input type="text" name="txt" placeholder="User name" required="" />
-          <input type="email" name="email" placeholder="Email" required="" />
-          <input type="password" name="pswd" placeholder="Password" required="" />
+          <input type="text" name="txt" placeholder="User name" />
+          <input type="email" name="email" placeholder="Email" />
+          <input type="password" name="pswd" placeholder="Password" />
           <button type="submit">Sign up</button>
         </form>
       </div>
@@ -69,8 +69,8 @@ const submitForm = () => {
       <div class="login">
         <form>
           <label for="chk" aria-hidden="true">{{ titleLogin }}</label>
-          <input type="email" name="email" placeholder="Email" required="" />
-          <input type="password" name="pswd" placeholder="Password" required="" />
+          <input type="email" name="email" placeholder="Email" />
+          <input type="password" name="pswd" placeholder="Password" />
           <button>Login</button>
         </form>
       </div>

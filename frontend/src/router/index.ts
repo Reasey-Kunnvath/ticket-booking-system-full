@@ -13,12 +13,12 @@ const router = createRouter({
         {
           path: 'dashboard/admin',
           name: 'admin-route',
-          children: adminRoutes,
+          children: adminRoutes as any,
         },
         {
           path: 'dashboard/event-provider',
           name: 'event-provider-route',
-          children: eventProviderRoutes,
+          children: eventProviderRoutes as any,
         },
       ],
       beforeEnter: (to, from, next) => {

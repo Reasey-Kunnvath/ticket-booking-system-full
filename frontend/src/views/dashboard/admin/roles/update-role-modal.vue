@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div v-if="show" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
     <div class="w-full max-w-md rounded-lg bg-background p-6 shadow-lg" @click.stop>
       <div class="flex items-center justify-between">
@@ -147,4 +147,4 @@ const handleSubmit = async () => {
     isSubmitting.value = false
   }
 }
-</script>
+</script> -->
