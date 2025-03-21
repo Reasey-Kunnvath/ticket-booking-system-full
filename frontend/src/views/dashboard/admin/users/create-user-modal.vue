@@ -130,7 +130,7 @@ const errors = reactive({
 const roles = ref<TRole[]>([])
 
 onMounted(async () => {
-  const res = await api.get<TBaseApiResponse<TRole>>('v1/admin/roles')
+  const res = await api.get<TBaseApiResponse<TRole[]>>('v1/admin/roles')
   roles.value = res.data.data
 })
 const isSubmitting = ref(false)

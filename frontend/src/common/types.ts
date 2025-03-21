@@ -19,8 +19,12 @@ export type TUser = {
   updated_at: Date
 }
 
-export type TUserList = TUser & {
+type TUserWithRole = TUser & {
   role: TRole
+}
+
+export type TUserList = {
+  data: TUserWithRole[]
 }
 
 export type TLoginResponse = {
@@ -28,11 +32,14 @@ export type TLoginResponse = {
   message: string
   data: {
     access_token: string
-    user: TUserList
+    user: TUser
   }
 }
 
-export type TBaseRouteProps = RouteRecordRaw & { label: string; icon: LucideIcon }
+export type TRoute = Omit<RouteRecordRaw, 'children'> & { label: string; icon: LucideIcon }
+export type TBaseRouteProps = TRoute & {
+  children?: TRoute[]
+}
 
 export type TDashboardLoginFormValue = {
   email: string
@@ -42,5 +49,5 @@ export type TDashboardLoginFormValue = {
 export type TBaseApiResponse<T> = {
   success: boolean
   message: string
-  data: T[]
+  data: T
 }

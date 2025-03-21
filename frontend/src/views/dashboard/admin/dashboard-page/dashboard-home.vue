@@ -144,7 +144,7 @@ import { Activity, CreditCard, DollarSign, Users } from 'lucide-vue-next'
 import useAuth from '@/stores/user.context'
 import { fetchDashboard } from '@/services/transactionService'
 
-const dashboardData = ref(null)
+const dashboardData = ref<any>(null)
 
 const { user } = useAuth()
 // Use chartValues directly from chartComponents

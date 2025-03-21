@@ -66,7 +66,7 @@
               <td colspan="6" class="text-center py-3">No users found</td>
             </tr>
 
-            <tr v-for="(user, index) in usersList.data" :key="user.id" class="border-b">
+            <tr v-for="(user, index) in usersList?.data" :key="user.id" class="border-b">
               <td class="px-4 py-3 text-sm font-medium">{{ index + 1 }}</td>
               <td class="px-4 py-3">{{ user.name }}</td>
               <td class="px-4 py-3 max-w-[200px]">{{ user.email }}</td>
@@ -181,7 +181,7 @@ import CreateUserModal from './create-user-modal.vue'
 import DeleteUserModal from './delete-user-modal.vue'
 import EditUserModal from './update-user-modal.vue'
 
-const usersList = ref<TUserList[]>([])
+const usersList = ref<TUserList | null>(null)
 const filterText = ref('')
 const rowsPerPage = ref(10)
 const currentPage = ref(1)
