@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    /*
+    */
     public function index(Request $request)
     {
         $users = User::with('role')->orderBy('created_at', 'desc')->paginate($request->limit??10);
