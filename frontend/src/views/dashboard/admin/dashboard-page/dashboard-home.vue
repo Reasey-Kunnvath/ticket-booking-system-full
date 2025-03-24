@@ -64,51 +64,26 @@
 
     <div class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-3">
       <div class="col-span-2 rounded-lg border bg-card p-5 shadow-sm">
-        <h3 class="text-lg font-semibold">Overview</h3>
-        <div class="mt-4 h-[300px] w-full flex">
-          <!-- Y-axis (Vertical Measurements) -->
-          <div
-            class="w-16 flex flex-col justify-between items-end pr-8 text-xs text-muted-foreground"
-          >
-            <span v-for="label in yAxisLabels" :key="label">{{ label }}</span>
-          </div>
-          <!-- Chart container -->
-          <div class="flex-1 h-full relative">
-            <!-- Grid lines -->
-            <div
-              v-for="(label, index) in yAxisLabels"
-              :key="label"
-              class="absolute w-full border-t border-gray-200"
-              :style="{ top: `${(index / (yAxisLabels.length - 1)) * 100 - 20}%` }"
-            ></div>
-            <!-- Bars -->
-            <div class="flex-1 h-full flex items-end justify-between gap-2">
-              <div
-                v-for="(month, index) in dashboardData?.meta?.chartComponents?.months"
-                :key="month"
-                class="group relative flex w-full flex-col items-center"
-              >
-                <!-- Tooltip -->
-                <div
-                  class="absolute -top-6 hidden rounded bg-black px-2 py-1 text-xs text-white group-hover:block"
-                >
-                  {{ dashboardData?.meta?.chartComponents?.chartValues[index] }}
-                </div>
-                <!-- Bar -->
-                <div
-                  class="w-full bg-primary/90 transition-all"
-                  :style="{
-                    height: `${(dashboardData?.meta?.chartComponents?.chartValues[index] / maxValue) * 300 - 40}px`,
-                  }"
-                ></div>
-                <!-- Month label -->
-                <span class="mt-2 text-xs text-muted-foreground">{{ month }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <h3 class="text-lg font-semibold">Revenue by month</h3>
+        <BarChart
+          index="name"
+          :data="dashboardData?.meta?.chartComponents?.data"
+          :categories="['total', 'predicted']"
+          :y-formatter="
+            (tick, i) => {
+              return typeof tick === 'number'
+                ? `$ ${new Intl.NumberFormat('us').format(tick).toString()}`
+                : ''
+            }
+          "
+          :type="'grouped'"
+          :colors="['#42b883', '#f4e6fa']"
+          :rounded-corners="4"
+          :show-legend="true"
+        />
       </div>
 
+      <!-- recent sales -->
       <div class="rounded-lg border bg-card p-6 shadow-sm">
         <h3 class="text-lg font-semibold">Recent Sales</h3>
         <p class="text-sm text-muted-foreground">
@@ -141,29 +116,13 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
 import { Activity, CreditCard, DollarSign, Users } from 'lucide-vue-next'
+import { BarChart } from '@/components/ui/chart-bar'
 import useAuth from '@/stores/user.context'
 import { fetchDashboard } from '@/services/transactionService'
 
 const dashboardData = ref<any>(null)
 
 const { user } = useAuth()
-// Use chartValues directly from chartComponents
-const chartValues = computed(() => {
-  return dashboardData.value?.meta?.chartComponents?.chartValues || Array(12).fill(0)
-})
-
-// Computed property for max value
-const maxValue = computed(() => {
-  const max = Math.max(...chartValues.value)
-  return max > 0 ? max : 1 // Prevent division by zero
-})
-// Y-axis labels (0 at bottom, max at top)
-const yAxisLabels = computed(() => {
-  const max = maxValue.value
-  const steps = 5 // Number of labels
-  const stepValue = max / (steps - 1)
-  return Array.from({ length: steps }, (_, i) => Math.round((steps - 1 - i) * stepValue))
-})
 
 const loadData = async () => {
   try {

@@ -34,12 +34,19 @@ class DashboardController extends Controller
             7 => 'Jul', 8 => 'Aug', 9 => 'Sep', 10 => 'Oct', 11 => 'Nov', 12 => 'Dec'
         ];
 
-        $chartValues = array_fill(1, 12, 0);
+        $chartData = [];
+        for($month = 1; $month <= 12; $month++) {
+            $chartData[] = [
+                'name' => $months[$month],
+                'total' => 0,
+                'predicted' => rand(0, max($transValues->pluck('total_amount')->toArray())),
+            ];
+        }
 
 
         foreach ($transValues as $transValue) {
             $monthNumber = $transValue->month;
-            $chartValues[$monthNumber] = (float) $transValue->total_amount;
+            $chartData[$monthNumber - 1]['total'] = $transValue->total_amount;
         }
 
         if ($salesCount === 0) {
@@ -60,8 +67,7 @@ class DashboardController extends Controller
                 'totalSupportMessageCount' => $totalSupportMessageCount,
                 'userOrder' => $orderUser,
                 'chartComponents' => [
-                    'months' => array_values($months),
-                    'chartValues' => array_values($chartValues),
+                    'data' => $chartData,
                 ]
             ],
         ], 200);
