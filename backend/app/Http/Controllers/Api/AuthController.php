@@ -23,14 +23,6 @@ class AuthController extends Controller
 
     private function login_handler($request, $role_id)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email|max:255',
-            'password' => 'required|string|min:5',
-        ]);
-
-        if ($validator->fails()) {
-            return $this->badRequestResponse($validator->errors()->messages());
-        }
 
         $user = User::where('email', $request->email)->first();
 
@@ -50,21 +42,60 @@ class AuthController extends Controller
         ]);
     }
 
+
+    /**
+     * User Login
+     **/
     public function user_login(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:5',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->badRequestResponse($validator->errors()->messages());
+        }
         return $this->login_handler($request, config('roles.user'));
     }
 
+    /**
+     * Admin Login
+     **/
     public function admin_login(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:5',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->badRequestResponse($validator->errors()->messages());
+        }
+
         return $this->login_handler($request, config('roles.admin'));
     }
 
+    /**
+     * Event Provider Login
+     **/
     public function event_provider_login(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:5',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->badRequestResponse($validator->errors()->messages());
+        }
         return $this->login_handler($request, config('roles.event-provider'));
     }
 
+
+    /**
+     * User Register
+     **/
     public function user_register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -82,7 +113,7 @@ class AuthController extends Controller
         $hash_password = Hash::make($request->password);
 
         // Just discovered this method of hashing password
-        $hash_pwd = password_hash($request->password, PASSWORD_ARGON2ID);
+        // $hash_pwd = password_hash($request->password, PASSWORD_ARGON2ID);
 
         $user = User::create([
             'name' => $request->name,
@@ -96,10 +127,14 @@ class AuthController extends Controller
 
 
         return $this->successResponse([
-            // 'access_token' => $access_token
+            'access_token' => $access_token
         ], 'User registered successfully');
     }
 
+
+    /**
+     * Logout
+     **/
     public function logout(Request $request)
     {
         return response()->json([
@@ -111,6 +146,9 @@ class AuthController extends Controller
         return $this->successResponse(null, 'logged out');
     }
 
+    /**
+     *  Profile
+     **/
     public function profile(Request $request)
     {
         return $this->successResponse([

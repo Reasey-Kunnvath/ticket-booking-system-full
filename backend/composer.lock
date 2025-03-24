@@ -3,8 +3,8 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
-    ],
-    "content-hash": "09d6a8efaec75181391bf6153ff93425",
+    ], 
+    "content-hash": "09d6a8efaec75181391bf6153ff93425", 
     "packages": [
         {
             "name": "brick/math",
@@ -137,6 +137,7 @@
         },
         {
             "name": "dedoc/scramble",
+<<<<<<< HEAD
             "version": "v0.12.14",
             "source": {
                 "type": "git",
@@ -147,6 +148,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/dedoc/scramble/zipball/8909a093310295b79032913d0a33cf642678ce17",
                 "reference": "8909a093310295b79032913d0a33cf642678ce17",
+=======
+            "version": "v0.12.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dedoc/scramble.git",
+                "reference": "520484a8e7409364f3c66ae7493403a5d1ceac24"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dedoc/scramble/zipball/520484a8e7409364f3c66ae7493403a5d1ceac24",
+                "reference": "520484a8e7409364f3c66ae7493403a5d1ceac24",
+>>>>>>> 491c5b241dde4f9a5ce255dd8c194d66a7a5b2ee
                 "shasum": ""
             },
             "require": {
@@ -201,7 +214,11 @@
             ],
             "support": {
                 "issues": "https://github.com/dedoc/scramble/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/dedoc/scramble/tree/v0.12.14"
+=======
+                "source": "https://github.com/dedoc/scramble/tree/v0.12.13"
+>>>>>>> 491c5b241dde4f9a5ce255dd8c194d66a7a5b2ee
             },
             "funding": [
                 {
@@ -209,7 +226,11 @@
                     "type": "github"
                 }
             ],
+<<<<<<< HEAD
             "time": "2025-03-20T15:54:24+00:00"
+=======
+            "time": "2025-03-18T06:42:24+00:00"
+>>>>>>> 491c5b241dde4f9a5ce255dd8c194d66a7a5b2ee
         },
         {
             "name": "dflydev/dot-access-data",

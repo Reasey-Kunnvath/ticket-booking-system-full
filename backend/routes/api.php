@@ -49,7 +49,9 @@ Route::post('/event-provider/login', [AuthController::class, 'event_provider_log
 Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     // auth
     Route::post('/logout', [AuthController::class, 'logout']);
-    // Route::get('/profile', [AuthController::class, 'profile']);
+    Route::get('/profile', [AuthController::class, 'profile']);
+
+
 
 
     // For role == admin
