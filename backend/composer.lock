@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee3b508728f2c70517c1bfe879817d16",
+    "content-hash": "8a3f90503037cbd3f16364d960079dd1",
     "packages": [
         {
             "name": "brick/math",
@@ -137,16 +137,16 @@
         },
         {
             "name": "dedoc/scramble",
-            "version": "v0.12.13",
+            "version": "v0.12.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dedoc/scramble.git",
-                "reference": "520484a8e7409364f3c66ae7493403a5d1ceac24"
+                "reference": "2ddc6c4baa2ddc4003b84cd71c8d05028859816d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dedoc/scramble/zipball/520484a8e7409364f3c66ae7493403a5d1ceac24",
-                "reference": "520484a8e7409364f3c66ae7493403a5d1ceac24",
+                "url": "https://api.github.com/repos/dedoc/scramble/zipball/2ddc6c4baa2ddc4003b84cd71c8d05028859816d",
+                "reference": "2ddc6c4baa2ddc4003b84cd71c8d05028859816d",
                 "shasum": ""
             },
             "require": {
@@ -201,7 +201,7 @@
             ],
             "support": {
                 "issues": "https://github.com/dedoc/scramble/issues",
-                "source": "https://github.com/dedoc/scramble/tree/v0.12.13"
+                "source": "https://github.com/dedoc/scramble/tree/v0.12.16"
             },
             "funding": [
                 {
@@ -209,7 +209,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-03-18T06:42:24+00:00"
+            "time": "2025-03-24T09:08:42+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -8325,12 +8325,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.6.0"
 }
