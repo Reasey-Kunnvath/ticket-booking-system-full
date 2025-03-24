@@ -1,5 +1,5 @@
 import type { TBaseRouteProps } from '@/common/types'
-import { LayoutDashboard, Users, ShieldUser } from 'lucide-vue-next'
+import { LayoutDashboard, Users, ShieldUser,TicketCheck } from 'lucide-vue-next'
 
 const adminRoutes: TBaseRouteProps[] = [
   {
@@ -25,14 +25,17 @@ const adminRoutes: TBaseRouteProps[] = [
         label: 'Role Management',
         icon: ShieldUser,
       },
+
     ],
+
   },
-  // {
-  //   path: '/dashboard/admin/users',
-  //   component: () => import('../views/dashboard/admin/users/users-page.vue'),
-  //   label: 'User & Role',
-  //   icon: Users,
-  // },
+  {
+    path: '/dashboard/admin/order',
+    component: () => import('../views/dashboard/admin/order-page/order-page.vue'),
+    label: 'Order',
+    icon: TicketCheck,
+  },
+
 ]
 
 export default adminRoutes

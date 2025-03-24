@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
             return $user->role_id === config('roles.event-provider');
         });
 
-        //
+
         Scramble::configure()
             ->withDocumentTransformers(function (OpenApi $openApi) {
                 $openApi->secure(
