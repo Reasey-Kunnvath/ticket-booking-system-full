@@ -23,4 +23,10 @@ class Order extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function ticket()
+    {
+        return $this->belongsTo(EventTicket::class, 'ticket_id', 'ticket_id');
+    }
+
 }

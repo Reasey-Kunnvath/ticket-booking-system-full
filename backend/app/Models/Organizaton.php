@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Organizaton extends Model
 {
     protected $fillable = ['name', 'type'];
+    
 }

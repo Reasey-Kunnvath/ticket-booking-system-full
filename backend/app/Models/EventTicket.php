@@ -15,4 +15,14 @@ class EventTicket extends Model
         'ticket_expiry_date',
         'evt_id'
     ];
+
+
+    public function event(){
+        return $this->belongsTo(Event::class);
+    }
+
+    public function orders(){
+        return $this->hasMany(Order::class,'ticket_id','ticket_id');
+    }
+
 }
