@@ -35,6 +35,7 @@ use App\Http\Controllers\Api\User\{
 };
 use App\Http\Controllers\Api\PartnershipRequestController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\General\UpcomingEventController;
 use Illuminate\Support\Facades\Route;
 
 // auth
@@ -198,3 +199,8 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     # In summary all api endpoint mean double protection with auth:sanctum and role:admin
     # If jg exclude method na muy, can use ->except(['store','update'])
 });
+
+// general
+    Route::apiResource('eventcoming', UpcomingEventController::class)
+        ->only(['index', 'show'])
+        ->names('eventcoming');

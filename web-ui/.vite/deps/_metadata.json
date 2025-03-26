@@ -1,0 +1,37 @@
+{
+  "hash": "4c0d7233",
+  "configHash": "86dc36f1",
+  "lockfileHash": "200153ba",
+  "browserHash": "ea235799",
+  "optimized": {
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "897e1d09",
+      "needsInterop": false
+    },
+    "flyonui/flyonui.js": {
+      "src": "../../node_modules/flyonui/flyonui.js",
+      "file": "flyonui_flyonui__js.js",
+      "fileHash": "6a8502fe",
+      "needsInterop": true
+    },
+    "flyonui/dist/accordion.js": {
+      "src": "../../node_modules/flyonui/dist/accordion.js",
+      "file": "flyonui_dist_accordion__js.js",
+      "fileHash": "fb241820",
+      "needsInterop": true
+    },
+    "theme-change": {
+      "src": "../../node_modules/theme-change/index.js",
+      "file": "theme-change.js",
+      "fileHash": "980806a0",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-HKJ2B2AA": {
+      "file": "chunk-HKJ2B2AA.js"
+    }
+  }
+}
