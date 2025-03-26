@@ -398,27 +398,30 @@
                                                 <h4 class="mb-4 pb-3">Sign Up</h4>
                                                 <div class="form-group">
                                                     <input type="text" name="logname" class="form-style"
-                                                        placeholder="Your Full Name" id="logname" autocomplete="off">
+                                                        placeholder="Your Full Name" id="logname" autocomplete="off"
+                                                        v-model="registerPayload.name">
                                                     <i class="input-icon uil uil-user"></i>
                                                 </div>
                                                 <div class="form-group mt-2">
                                                     <input type="email" name="logemail" class="form-style"
-                                                        placeholder="Your Email" id="logemail" autocomplete="off">
+                                                        placeholder="Your Email" id="logemail" autocomplete="off"
+                                                        v-model="registerPayload.email">
                                                     <i class="input-icon uil uil-at"></i>
                                                 </div>
                                                 <div class="form-group mt-2">
                                                     <input type="text" name="logephone" class="form-style"
                                                         placeholder="Your phone number" id="logemail"
-                                                        autocomplete="off">
-                                                    <i class="input-icon uil uil-at"></i>
+                                                        autocomplete="off" v-model="registerPayload.phone_number">
+                                                    <i class="input-icon uil uil-phone"></i>
                                                 </div>
                                                 <div class="form-group mt-2">
                                                     <input type="password" name="logpass" class="form-style"
-                                                        placeholder="Your Password" id="logpass"
-                                                        autocomplete="off">
+                                                        placeholder="Your Password" id="logpass" autocomplete="off"
+                                                        v-model="registerPayload.password">
                                                     <i class="input-icon uil uil-lock-alt"></i>
                                                 </div>
-                                                <a href="{{ url('/') }}" class="btn mt-4">Register</a>
+                                                <button @click.prevent="registerHandler" type="submit"
+                                                    class="btn mt-4">register</button>
                                             </div>
                                         </div>
                                     </div>
@@ -449,8 +452,9 @@
         el: '#app',
         data: {
             registerPayload: {
-                name: 'user',
-                email: 'user@user.com',
+                name: 'john',
+                email: 'johndoe@user.com',
+                phone_number: '012345678',
                 password: '12345678'
             },
             loginPayload: {
@@ -458,7 +462,6 @@
                 password: '12345678'
             },
             APIResponse: {}
-
         },
         methods: {
             loginHandler() {
@@ -476,7 +479,18 @@
                 }
             },
             registerHandler() {
-
+                try {
+                    axios.post('/register', this.registerPayload)
+                        .then((response) => {
+                            this.APIResponse = response.data;
+                            if (this.APIResponse.data.access_token) {
+                                localStorage.setItem('token', this.APIResponse.data.access_token);
+                                window.location.href = '/';
+                            }
+                        })
+                } catch (error) {
+                    console.log(error)
+                }
             }
         }
     });
