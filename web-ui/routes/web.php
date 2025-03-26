@@ -89,6 +89,10 @@ Route::controller(LoginController::class)->group(function(){
 });
 
 # For Backend
-Route::controller(DashboardController::class)->group(function(){
+// Route::controller(DashboardController::class)->group(function(){
+//     Route::get('/dashboard','index')->name('dashboard');
+// });
+
+Route::prefix('admin')->controller(DashboardController::class)->group(function(){
     Route::get('/dashboard','index')->name('dashboard');
 });

@@ -5,17 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    @vite('resources/css/app.css')
+    <title>Admin - @yield('title')</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script async src="{{ asset('/backend/flyonui.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('backend/apexcharts/src/assets/apexcharts.css') }}" />
+
 </head>
 
-<body>
+{{-- <script async src="/node_modules/flyonui/dist/accordion.js"></script> --}}
+
+<body class="min-h-screen flex flex-col">
+    <div class="wrapper">
+        @include('backend.layout.header')
+
+        <div class="flex min-h-screen">
+            @include('backend.layout.sidebar')
+            <div class="flex-1 sm:ml-64 pt-25">
+                <main class="p-6">
+                    @yield('content')
+                </main>
+            </div>
+        </div>
+    </div>
 
 
-    @include('backend.layout.sidebar')
-
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <script src="{{ asset('backend/apexcharts/dist/apexcharts.js') }}"></script>
+    <script src="{{ asset('backend/lodash/lodash.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.46.0/dist/apexcharts.min.js"></script>
 
 </body>
+
 
 </html>

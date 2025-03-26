@@ -6,6 +6,8 @@
         "dev": "vite"
     },
     "devDependencies": {
+        "@iconify-json/tabler": "^1.2.17",
+        "@iconify/tailwind4": "^1.0.6",
         "@tailwindcss/vite": "^4.0.16",
         "axios": "^1.8.2",
         "concurrently": "^9.0.1",
@@ -14,6 +16,9 @@
         "vite": "^6.0.11"
     },
     "dependencies": {
-        "flowbite": "^3.1.2"
+        "apexcharts": "^4.5.0",
+        "flowbite": "^3.1.2",
+        "flyonui": "^2.0.0",
+        "lodash": "^4.17.21"
     }
 }
