@@ -3,5 +3,5 @@ module.exports = {
     theme: {
         extend: {},
     },
-    plugins: [],
+    plugins: [require("flyonui"), require("@iconify/tailwind4")],
 };
