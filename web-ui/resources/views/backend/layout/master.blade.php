@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}" class="light">
 
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin - @yield('title')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Inline script to prevent FOUC (Flash of Unstyled Content) -->
+    <script>
+        (function() {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.classList.remove('light');
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.classList.add('light');
+            }
+        })();
+    </script>
     <script async src="{{ asset('/backend/flyonui.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('backend/apexcharts/src/assets/apexcharts.css') }}" />
 

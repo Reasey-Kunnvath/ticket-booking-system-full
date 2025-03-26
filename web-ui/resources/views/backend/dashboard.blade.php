@@ -193,20 +193,20 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
     <script>
-        new Vue({
-            el: '#app',
-            data: {
-                message: 'Hello, Vue!'
-            },
-            mounted() {
-                this.hi()
-            },
-            methods: {
-                hi() {
-                    console.log(this.message)
-                }
-            }
-        });
+        // new Vue({
+        //     el: '#app',
+        //     data: {
+        //         message: 'Hello, Vue!'
+        //     },
+        //     mounted() {
+        //         this.hi()
+        //     },
+        //     methods: {
+        //         hi() {
+        //             console.log(this.message)
+        //         }
+        //     }
+        // });
         document.addEventListener("DOMContentLoaded", () => {
             new ApexCharts(document.querySelector("#salesChart"), {
                 series: [{
