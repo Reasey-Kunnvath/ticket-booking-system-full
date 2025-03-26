@@ -146,7 +146,7 @@
         .card-front,
         .card-back {
             width: 100%;
-            height: 500px;
+            height: 550px;
             background-color: #4e3b79;
             background-image: url('{{ asset('frontend/assets/img/sun-tornado(1).png') }}');
             background-position: bottom center;
@@ -363,7 +363,7 @@
                                     <div class="card-front">
                                         <div class="center-wrap">
                                             <div class="section text-center">
-                                                <h1 class="m-0 text-white" style="font-size: 5rem; font-weight: 700">OG
+                                                <h1 class="m-0 text-white" style="font-size: 4rem; font-weight: 700">OG
                                                 </h1>
                                                 <br>
                                                 <h4 class="mb-4 pb-3">Log In</h4>
@@ -398,20 +398,30 @@
                                                 <h4 class="mb-4 pb-3">Sign Up</h4>
                                                 <div class="form-group">
                                                     <input type="text" name="logname" class="form-style"
-                                                        placeholder="Your Full Name" id="logname" autocomplete="off">
+                                                        placeholder="Your Full Name" id="logname" autocomplete="off"
+                                                        v-model="registerPayload.name">
                                                     <i class="input-icon uil uil-user"></i>
                                                 </div>
                                                 <div class="form-group mt-2">
                                                     <input type="email" name="logemail" class="form-style"
-                                                        placeholder="Your Email" id="logemail" autocomplete="off">
+                                                        placeholder="Your Email" id="logemail" autocomplete="off"
+                                                        v-model="registerPayload.email">
                                                     <i class="input-icon uil uil-at"></i>
                                                 </div>
                                                 <div class="form-group mt-2">
+                                                    <input type="text" name="logephone" class="form-style"
+                                                        placeholder="Your phone number" id="logemail"
+                                                        autocomplete="off" v-model="registerPayload.phone_number">
+                                                    <i class="input-icon uil uil-phone"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
                                                     <input type="password" name="logpass" class="form-style"
-                                                        placeholder="Your Password" id="logpass" autocomplete="off">
+                                                        placeholder="Your Password" id="logpass" autocomplete="off"
+                                                        v-model="registerPayload.password">
                                                     <i class="input-icon uil uil-lock-alt"></i>
                                                 </div>
-                                                <a href="{{ url('/') }}" class="btn mt-4">Register</a>
+                                                <button @click.prevent="registerHandler" type="submit"
+                                                    class="btn mt-4">register</button>
                                             </div>
                                         </div>
                                     </div>
@@ -441,18 +451,42 @@
     new Vue({
         el: '#app',
         data: {
+            registerPayload: {
+                name: 'john',
+                email: 'johndoe@user.com',
+                phone_number: '012345678',
+                password: '12345678'
+            },
             loginPayload: {
                 email: 'user@user.com',
                 password: '12345678'
             },
-
+            APIResponse: {}
         },
         methods: {
             loginHandler() {
                 try {
                     axios.post('/user/login', this.loginPayload)
                         .then((response) => {
-                            console.log(response)
+                            this.APIResponse = response.data;
+                            if (this.APIResponse.data.access_token) {
+                                localStorage.setItem('token', this.APIResponse.data.access_token);
+                                window.location.href = '/';
+                            }
+                        })
+                } catch (error) {
+                    console.log(error)
+                }
+            },
+            registerHandler() {
+                try {
+                    axios.post('/register', this.registerPayload)
+                        .then((response) => {
+                            this.APIResponse = response.data;
+                            if (this.APIResponse.data.access_token) {
+                                localStorage.setItem('token', this.APIResponse.data.access_token);
+                                window.location.href = '/';
+                            }
                         })
                 } catch (error) {
                     console.log(error)

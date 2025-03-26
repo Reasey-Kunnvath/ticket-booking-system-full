@@ -7,16 +7,16 @@
         <!-- Event Card -->
         <div class="ring-2 card bg-base-500 p-5 pb-10 drop-shadow-lg drop-shadow-indigo-500">
             <div class="flex justify-between items-center mb-2">
-                <h5 class="text-2xl font-semibold text-white">
+                <h5 class="text-2xl font-semibold text-base-content">
                     Event <span class="text-base-content/50 font-normal">| Today</span>
                 </h5>
             </div>
             <div class="flex items-center gap-5 pt-5 pl-5">
                 <div class="flex items-center justify-center w-20 h-20 rounded-full border border-primary/20 bg-primary/10">
-                    <span class="icon-[tabler--calendar-event] text-white size-12"></span>
+                    <span class="icon-[tabler--calendar-event] text-base-content size-12"></span>
                 </div>
                 <div>
-                    <h6 class="text-3xl font-bold text-white">145</h6>
+                    <h6 class="text-3xl font-bold text-base-content">145</h6>
                     <div>
                         <span class="text-success font-bold">12%</span>
                         <span class="text-base-content/70 pl-1">increase</span>
@@ -28,16 +28,16 @@
         <!-- User Card -->
         <div class="ring-2 card bg-base-500 p-5 pb-10">
             <div class="flex justify-between items-center mb-2">
-                <h5 class="text-2xl font-semibold text-white">
+                <h5 class="text-2xl font-semibold text-base-content">
                     User <span class="text-base-content/50 font-normal">| Total</span>
                 </h5>
             </div>
             <div class="flex items-center gap-5 pt-5 pl-5">
                 <div class="flex items-center justify-center w-20 h-20 rounded-full border border-primary/20 bg-primary/10">
-                    <span class="icon-[tabler--user] text-white size-12"></span>
+                    <span class="icon-[tabler--user] text-base-content size-12"></span>
                 </div>
                 <div>
-                    <h6 class="text-3xl font-bold text-white">145</h6>
+                    <h6 class="text-3xl font-bold text-base-content">145</h6>
                     <div>
                         <span class="text-success font-bold">12%</span>
                         <span class="text-base-content/70 pl-1">increase</span>
@@ -49,16 +49,16 @@
         <!-- Revenue Card -->
         <div class="ring-2 card bg-base-500 p-5 pb-10">
             <div class="flex justify-between items-center mb-2">
-                <h5 class="text-2xl font-semibold text-white">
+                <h5 class="text-2xl font-semibold text-base-content">
                     Revenue <span class="text-base-content/50 font-normal">| Total</span>
                 </h5>
             </div>
             <div class="flex items-center gap-5 pt-5 pl-5">
                 <div class="flex items-center justify-center w-20 h-20 rounded-full border border-primary/20 bg-primary/10">
-                    <span class="icon-[tabler--currency-dollar] text-white size-12"></span>
+                    <span class="icon-[tabler--currency-dollar] text-base-content size-12"></span>
                 </div>
                 <div>
-                    <h6 class="text-3xl font-bold text-white">145</h6>
+                    <h6 class="text-3xl font-bold text-base-content">145</h6>
                     <div>
                         <span class="text-success font-bold">12%</span>
                         <span class="text-base-content/70 pl-1">increase</span>
@@ -70,16 +70,16 @@
         <!-- Order Card -->
         <div class="ring-2 card bg-base-500 p-5 pb-10">
             <div class="flex justify-between items-center mb-2">
-                <h5 class="text-2xl font-semibold text-white">
+                <h5 class="text-2xl font-semibold text-base-content">
                     Order <span class="text-base-content/50 font-normal">| Today</span>
                 </h5>
             </div>
             <div class="flex items-center gap-5 pt-5 pl-5">
                 <div class="flex items-center justify-center w-20 h-20 rounded-full border border-primary/20 bg-primary/10">
-                    <span class="icon-[tabler--shopping-cart] text-white size-12"></span>
+                    <span class="icon-[tabler--shopping-cart] text-base-content size-12"></span>
                 </div>
                 <div>
-                    <h6 class="text-3xl font-bold text-white">145</h6>
+                    <h6 class="text-3xl font-bold text-base-content">145</h6>
                     <div>
                         <span class="text-success font-bold">12%</span>
                         <span class="text-base-content/70 pl-1">increase</span>
@@ -95,11 +95,11 @@
             <!-- Reports -->
             <div class="card bg-base-100 shadow-sm p-4 h-full flex flex-col">
                 <div class="flex justify-between items-center mb-2">
-                    <h5 class="text-2xl font-semibold text-white">
+                    <h5 class="text-2xl font-semibold text-base-content">
                         Sales and Revenue <span class="text-base-content/50 font-normal">| Total</span>
                     </h5>
                 </div>
-                <div id="salesChart" class="flex-1 w-full"></div>
+                <div id="salesChart" class="flex-1 w-full text-2xl font-semibold text-base-content "></div>
             </div>
             <!-- End Reports -->
         </div>
@@ -193,21 +193,13 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
     <script>
-        // new Vue({
-        //     el: '#app',
-        //     data: {
-        //         message: 'Hello, Vue!'
-        //     },
-        //     mounted() {
-        //         this.hi()
-        //     },
-        //     methods: {
-        //         hi() {
-        //             console.log(this.message)
-        //         }
-        //     }
-        // });
         document.addEventListener("DOMContentLoaded", () => {
+            // if light theme light use white color somrab legends
+            const isLightMode = document.documentElement.classList.contains('light') ||
+                window.matchMedia('(prefers-color-scheme: light)').matches;
+
+            // Set foreColor based on theme
+            const chartTextColor = isLightMode ? '#000000' : '#FFFFFF';
             new ApexCharts(document.querySelector("#salesChart"), {
                 series: [{
                     name: 'Sales',
@@ -222,7 +214,8 @@
                     toolbar: {
                         show: false
                     },
-                    foreColor: '#ffffff', // Set all chart text to white
+                    foreColor: chartTextColor, // Set all chart text to white
+                    // classList: 'dark-version'
                 },
                 markers: {
                     size: 4
@@ -265,7 +258,7 @@
                         w
                     }) {
                         return (
-                            '<div style="background-color: #000000; color: #ffffff; padding: 8px; border-radius: 4px;">' +
+                            '<div class="text-base-content" style="background-color: #000000; color: #ffffff; padding: 8px; border-radius: 4px;">' +
                             '<span>' + w.globals.labels[dataPointIndex] + '</span>' +
                             '<br>' +
                             '<span>' + w.globals.seriesNames[seriesIndex] + ': ' + series[

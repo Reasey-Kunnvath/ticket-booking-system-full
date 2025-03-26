@@ -1,6 +1,6 @@
 <!-- Header -->
 <header>
-    <nav id="header" class="navbar bg-indigo-500 shadow-sm shadow-indigo-500 fixed top-0 z-10 w-full px-6 py-3">
+    <nav id="header" class="navbar bg-indigo-500 shadow-sm shadow-indigo-500 fixed top-0 z-10 w-full px-6 py-3 h-15">
         <div class="flex flex-1 items-center">
             <a class="link text-base-content link-neutral text-xl font-bold no-underline" href="#">
                 FlyonUI
