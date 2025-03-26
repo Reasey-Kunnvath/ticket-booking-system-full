@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 #FrontEnd
 
 use Illuminate\Database\Capsule\Manager;
-
+# For Frontend
 use App\Http\Controllers\frontend\{
     FrontendController,
     AllEventController,
@@ -23,7 +23,13 @@ use App\Http\Controllers\frontend\{
     LoginController
 };
 
-# For Frontend
+#for Backend
+
+use App\Http\Controllers\backend\{
+    DashboardController
+};
+
+
 Route::controller(FrontendController::class)->group(function(){
     Route::get('/','frontendindex')->name('Home');
 });
@@ -80,4 +86,9 @@ Route::controller(UserProfileController::class)->group(function(){
 
 Route::controller(LoginController::class)->group(function(){
     Route::get('/login','LoginIndex')->name('login');
+});
+
+# For Backend
+Route::controller(DashboardController::class)->group(function(){
+    Route::get('/dashboard','index')->name('dashboard');
 });
