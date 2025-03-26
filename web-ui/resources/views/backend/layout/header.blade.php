@@ -174,3 +174,42 @@
         </div>
     </nav>
 </header>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const themeToggle = document.getElementById("theme-toggle");
+        const sunIcon = document.getElementById("sun-icon");
+        const moonIcon = document.getElementById("moon-icon");
+        const htmlElement = document.documentElement;
+
+        const savedTheme = localStorage.getItem("theme") || "light";
+        setTheme(savedTheme);
+
+        function setTheme(theme) {
+            if (theme === "dark") {
+                htmlElement.classList.add("dark");
+                sunIcon.classList.remove("hidden");
+                moonIcon.classList.add("hidden");
+                localStorage.setItem("theme", "dark");
+
+            } else {
+                htmlElement.classList.remove("dark");
+                sunIcon.classList.add("hidden");
+                moonIcon.classList.remove("hidden");
+                localStorage.setItem("theme", "light");
+            }
+
+
+        }
+
+        themeToggle.addEventListener("click", function() {
+            if (htmlElement.classList.contains("dark")) {
+                setTheme("light");
+            } else {
+                setTheme("dark");
+            }
+            window.location.reload();
+        });
+    });
+</script>
