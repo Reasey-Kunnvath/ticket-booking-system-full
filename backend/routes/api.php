@@ -35,6 +35,7 @@ use App\Http\Controllers\Api\User\{
 };
 use App\Http\Controllers\Api\PartnershipRequestController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\General\Event\FEventController;
 use App\Http\Controllers\Api\General\UpcomingEventController;
 use Illuminate\Support\Facades\Route;
 
@@ -202,7 +203,12 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     # If jg exclude method na muy, can use ->except(['store','update'])
 });
 
-// general
-    Route::apiResource('eventcoming', UpcomingEventController::class)
-        ->only(['index', 'show'])
-        ->names('eventcoming');
+// General Route Accsess to Frontend/User Interface
+    Route::controller(FEventController::class)->group(function () {
+        Route::get('/allevent', 'allevent')->name('allevent');
+        Route::get('/eventcoming', 'eventcoming')->name('eventcoming');
+        Route::get('/mostpopular', 'mostpopular')->name('mostpopular');
+        Route::get('/concert', 'concert')->name('concert');
+        Route::get('/conferences', 'conferences')->name('conferences');
+        Route::get('/sport', 'sport')->name('sport');
+});

@@ -195,11 +195,11 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // if light theme light use white color somrab legends
-            const isLightMode = document.documentElement.classList.contains('light') ||
-                window.matchMedia('(prefers-color-scheme: light)').matches;
+            const isLightMode = document.documentElement.classList.contains('dark') ||
+                window.matchMedia('(prefers-color-scheme: dark)').matches;
 
             // Set foreColor based on theme
-            const chartTextColor = isLightMode ? '#000000' : '#FFFFFF';
+            const chartTextColor = isLightMode ? '#FFFFFF' : '#000000';
             new ApexCharts(document.querySelector("#salesChart"), {
                 series: [{
                     name: 'Sales',
