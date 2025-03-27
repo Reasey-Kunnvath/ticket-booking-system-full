@@ -58,27 +58,26 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="heading">
-                            <h2>Upcoming</h2>
+                            <h2>Events Upcoming</h2>
                         </div>
                     </div>
-                    <div v-for="event in events" class="col-lg-4">
+                    <div v-for="ticket in tickets" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
                                 <img src={{ asset('frontend/assets/images/ticket-01.jpg') }} alt="" />
                                 <div class="price">
-                                    <span>1 ticket<br />from <em>$25</em></span>
+                                    <span>1 ticket<br />from <em>$@{{ ticket.ticket_price }}</em></span>
                                 </div>
                             </div>
                             <div class="down-content">
-                                <span>100 ticket left</span>
-                                <h4>@{{ event.evt_name }}</h4>
+                                <span>@{{ ticket.ticket_in_stock }} ticket left</span>
+                                <h4>@{{ ticket.evt_name }}</h4>
                                 <ul>
                                     <li>
-                                        <i class="fa fa-clock-o"></i> Thursday: 05:00 PM to 10:00 PM
+                                        <i class="fa fa-clock-o"></i> @{{ ticket.evt_start_date }}
                                     </li>
                                     <li>
-                                        <i class="fa fa-map-marker"></i>908 Copacabana Beach, Rio de
-                                        Janeiro
+                                        <i class="fa fa-map-marker"></i>@{{ ticket.evt_address }}
                                     </li>
                                 </ul>
                                 <div class="main-dark-button">
@@ -86,6 +85,17 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="pagination">
+                        <ul>
+                            <li><a href="#">Prev</a></li>
+                            <li><a href="#">1</a></li>
+                            <li class="active"><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">Next</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -100,15 +110,15 @@
             el: '#app',
 
             data: {
-                events: []
+                tickets: []
             },
             methods: {
                 fetch() {
                     try {
                         axios.get('http://127.0.0.1:8000/api/eventcoming')
                             .then((response) => {
-                                this.events = response.data.data;
-                                console.log(this.events);
+                                this.tickets = response.data.data;
+                                console.log(this.tickets);
                             })
                             .catch((error) => {
                                 console.log("Error", error);
