@@ -20,13 +20,13 @@
                         class="nav-link dropdown-toggle {{ request()->routeIs('All-Events') || request()->routeIs('Concert') ? 'active' : '' }}"
                         data-bs-toggle="dropdown">Events</a>
                     <div class="dropdown-menu rounded-0 m-0">
+                        <a href="{{ url('/all-event') }}"
+                            class="dropdown-item {{ request()->routeIs('All-Events') ? 'active' : '' }}">All Events</a>
                         <a href="{{ url('/upcoming-event') }}"
                             class="dropdown-item {{ request()->routeIs('Upcoming-Events') ? 'active' : '' }}">Upcoming</a>
                         <a href="{{ url('/most-popular-event') }}"
                             class="dropdown-item {{ request()->routeIs('Most-Popular-Events') ? 'active' : '' }}">Most
                             Popular</a>
-                        <a href="{{ url('/all-event') }}"
-                            class="dropdown-item {{ request()->routeIs('All-Events') ? 'active' : '' }}">All Events</a>
                         <a href="{{ url('/concert') }}"
                             class="dropdown-item {{ request()->routeIs('Concert') ? 'active' : '' }}">Concerts</a>
                         <a href="{{ url('/conference') }}"
