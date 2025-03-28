@@ -1,13 +1,18 @@
 import axios from "axios";
 
-// Set the base URL to your Laravel app
 axios.defaults.baseURL = "http://127.0.0.1:8000/api";
 
-// Include CSRF token (if using Laravel's default CSRF protection)
+if (localStorage.getItem("token")) {
+    axios.defaults.headers.common["Authorization"] =
+        "Bearer " + localStorage.getItem("token");
+}
+
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 axios.defaults.headers.common["X-CSRF-TOKEN"] = document
     .querySelector('meta[name="csrf-token"]')
     .getAttribute("content");
+
+axios.defaults.headers.post["Content-Type"] = "application/json";
 
 window.axios = axios;
 
