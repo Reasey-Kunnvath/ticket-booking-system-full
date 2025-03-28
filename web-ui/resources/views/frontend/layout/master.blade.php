@@ -7,10 +7,10 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-    @vite(['resources/js/axios.js'])
+    @vite(['resources/js/axios.js', 'resources/js/auth.js', 'resources/js/app.js'])
     <!-- SweetAlert -->
 
-
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
     <!-- Favicon -->
     <link href={{ asset('frontend/assets/img/favicon.ico') }} rel="icon">
     <!-- Font Awesome -->

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Document</title>
+    <title>OG - Login</title>
     @vite(['resources/js/axios.js'])
     <!-- Bootstrap 5 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -17,329 +17,266 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="{{ asset('frontend/assets/css/font-awesome.css') }}" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
-
         body {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 300;
-            font-size: 15px;
-            line-height: 1.7;
-            color: #ffffff;
-            background: url({{ asset('frontend/assets/img/parabolic-rectangle.png') }}) no-repeat center center/cover;
-            overflow-x: hidden;
-        }
-
-        a {
-            cursor: pointer;
-            transition: all 200ms linear;
-        }
-
-        a:hover {
-            text-decoration: none;
-        }
-
-        .link {
-            color: #ffffff;
-        }
-
-        .link:hover {
-            color: #ffeba7;
-        }
-
-        p {
-            font-weight: 500;
-            font-size: 14px;
-            line-height: 1.7;
-        }
-
-        h4 {
-            font-weight: 600;
-        }
-
-        h6 span {
-            padding: 0 20px;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-
-        .section {
-            position: relative;
-            width: 100%;
-            display: block;
-        }
-
-        .full-height {
-            min-height: 100vh;
-        }
-
-        [type="checkbox"]:checked,
-        [type="checkbox"]:not(:checked) {
-            position: absolute;
-            left: -9999px;
-        }
-
-        .checkbox:checked+label,
-        .checkbox:not(:checked)+label {
-            position: relative;
-            display: block;
-            text-align: center;
-            width: 60px;
-            height: 16px;
-            border-radius: 8px;
-            padding: 0;
-            margin: 10px auto;
-            cursor: pointer;
-            background-color: #8c54fd;
-        }
-
-        .checkbox:checked+label:before,
-        .checkbox:not(:checked)+label:before {
-            position: absolute;
-            display: block;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            color: #8c54fd;
-            background-color: #00085d;
-            font-family: 'Font Awesome 6 Free';
-            /* Ensure you use the correct Font Awesome font family */
-            font-weight: 900;
-            content: '\f177';
-            /* This is the content for a check icon */
-            z-index: 20;
-            top: -10px;
-            left: -10px;
-            line-height: 36px;
-            text-align: center;
-            font-size: 24px;
-            transform: rotate(45deg);
-            transition: all 0.5s ease;
-        }
-
-        .checkbox:checked+label:before {
-            transform: translateX(44px) rotate(-580deg);
-        }
-
-
-        .card-3d-wrap {
-            position: relative;
-            width: 440px;
-            max-width: 100%;
-            height: 400px;
-            -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-            perspective: 800px;
-            margin-top: 60px;
-        }
-
-        .card-3d-wrapper {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-            transition: all 600ms ease-out;
-        }
-
-        .card-front,
-        .card-back {
-            width: 100%;
-            height: 550px;
-            background-color: #4e3b79;
-            background-image: url('{{ asset('frontend/assets/img/sun-tornado(1).png') }}');
-            background-position: bottom center;
-            background-repeat: no-repeat;
-            background-size: 300%;
-            position: absolute;
-            border-radius: 6px;
-            left: 0;
-            top: 0;
-            -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-            -webkit-backface-visibility: hidden;
-            -moz-backface-visibility: hidden;
-            -o-backface-visibility: hidden;
-            backface-visibility: hidden;
-        }
-
-        .card-back {
-            transform: rotateY(180deg);
-        }
-
-        .checkbox:checked~.card-3d-wrap .card-3d-wrapper {
-            transform: rotateY(180deg);
-        }
-
-        .center-wrap {
-            position: absolute;
-            width: 100%;
-            padding: 0 35px;
-            top: 50%;
-            left: 0;
-            transform: translate3d(0, -50%, 35px) perspective(100px);
-            z-index: 20;
-            display: block;
-        }
-
-
-        .form-group {
-            position: relative;
-            display: block;
             margin: 0;
             padding: 0;
+            min-height: 100vh;
+            font-family: 'Jost', sans-serif;
+            background: url('{{ asset('frontend/assets/rainbow-vortex.svg') }}') no-repeat center / cover;
         }
 
-        .form-style {
-            padding: 13px 20px;
-            padding-left: 55px;
-            height: 48px;
-            width: 100%;
-            font-weight: 500;
-            border-radius: 4px;
-            font-size: 14px;
-            line-height: 22px;
-            letter-spacing: 0.5px;
-            outline: none;
-            color: #c4c3ca;
-            background-color: #1f2029;
-            border: none;
-            -webkit-transition: all 200ms linear;
-            transition: all 200ms linear;
-            box-shadow: 0 4px 8px 0 rgba(21, 21, 21, .2);
-        }
-
-        .form-style:focus,
-        .form-style:active {
-            border: none;
-            outline: none;
-            box-shadow: 0 4px 8px 0 rgba(21, 21, 21, .2);
-        }
-
-        .input-icon {
-            position: absolute;
-            top: 0;
-            left: 18px;
-            height: 48px;
-            font-size: 24px;
-            line-height: 48px;
-            text-align: left;
-            color: #8c54fd;
-            -webkit-transition: all 200ms linear;
-            transition: all 200ms linear;
-        }
-
-        .form-group input:-ms-input-placeholder {
-            color: #c4c3ca;
-            opacity: 0.7;
-            -webkit-transition: all 200ms linear;
-            transition: all 200ms linear;
-        }
-
-        .form-group input::-moz-placeholder {
-            color: #c4c3ca;
-            opacity: 0.7;
-            -webkit-transition: all 200ms linear;
-            transition: all 200ms linear;
-        }
-
-        .form-group input:-moz-placeholder {
-            color: #c4c3ca;
-            opacity: 0.7;
-            -webkit-transition: all 200ms linear;
-            transition: all 200ms linear;
-        }
-
-        .form-group input::-webkit-input-placeholder {
-            color: #c4c3ca;
-            opacity: 0.7;
-            -webkit-transition: all 200ms linear;
-            transition: all 200ms linear;
-        }
-
-        .form-group input:focus:-ms-input-placeholder {
-            opacity: 0;
-            -webkit-transition: all 200ms linear;
-            transition: all 200ms linear;
-        }
-
-        .form-group input:focus::-moz-placeholder {
-            opacity: 0;
-            -webkit-transition: all 200ms linear;
-            transition: all 200ms linear;
-        }
-
-        .form-group input:focus:-moz-placeholder {
-            opacity: 0;
-            -webkit-transition: all 200ms linear;
-            transition: all 200ms linear;
-        }
-
-        .form-group input:focus::-webkit-input-placeholder {
-            opacity: 0;
-            -webkit-transition: all 200ms linear;
-            transition: all 200ms linear;
-        }
-
-        .btn {
-            border-radius: 4px;
-            height: 44px;
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
-            -webkit-transition: all 200ms linear;
-            transition: all 200ms linear;
-            padding: 0 30px;
-            letter-spacing: 1px;
-            display: -webkit-inline-flex;
-            display: -ms-inline-flexbox;
-            display: inline-flex;
-            -webkit-align-items: center;
-            -moz-align-items: center;
-            -ms-align-items: center;
+        .wrapper {
+            display: flex;
             align-items: center;
-            -webkit-justify-content: center;
-            -moz-justify-content: center;
-            -ms-justify-content: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+            padding: 20px;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+        }
+
+        .main-title {
+            color: #fff;
+            font-size: 5em;
+            font-weight: bold;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0);
+            margin-left: 50px;
+            flex: 1;
+            min-width: 300px;
+            margin-right: 5rem;
+        }
+
+        .main {
+            width: 450px;
+            height: 600px;
+            background: rgb(85, 0, 0);
+            overflow: hidden;
+            background: url('{{ asset('frontend/assets/endless-constellation.svg') }}') no-repeat center / cover;
+            box-shadow: 5px 20px 50px #000;
+            margin-right: 50px;
+            flex: 0 0 auto;
+        }
+
+        #chk {
+            display: none;
+        }
+
+        .signup {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        label {
+            color: #fff;
+            font-size: 2.3em;
             justify-content: center;
-            -ms-flex-pack: center;
+            display: flex;
+            margin: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.5s ease-in-out;
+        }
+
+        .error-message {
+            color: #ff4d4d;
+            font-size: 0.9em;
             text-align: center;
+            /* margin-bottom: 10px; */
+            /* min-height: 20px; */
+            /* Reserves space even when no error */
+            display: block;
+        }
+
+        .input-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 10px;
+            /* margin: 30px auto;
+            margin-top: 30px auto; */
+        }
+
+        input {
+            width: 80%;
+            height: 40px;
+            color: 495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            justify-content: center;
+            display: block;
+            margin: 3px auto;
+            padding: .375rem .75rem;
+            border: 1px solid #ced4da;
+            outline: none;
+            border-radius: .25rem;
+            box-sizing: border-box;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }
+
+        button {
+            width: 60%;
+            height: 40px;
+            margin: 10px auto;
+            justify-content: center;
+            display: block;
+            color: #fff;
+            background: #6732b1;
+            font-size: 1em;
+            font-weight: bold;
+            margin-top: 20px;
+            outline: none;
             border: none;
-            background-color: #ffa7a7;
-            color: #102770;
-            box-shadow: 0 8px 24px 0 rgba(255, 235, 167, .2);
+            border-radius: 5px;
+            transition: 0.2s ease-in;
+            cursor: pointer;
         }
 
-        .btn:active,
-        .btn:focus {
-            background-color: #102770;
-            color: #ffeba7;
-            box-shadow: 0 8px 24px 0 rgba(16, 39, 112, .2);
+        button:hover {
+            background: #6732b1;
         }
 
-        .btn:hover {
-            background-color: #102770;
-            color: #ffeba7;
-            box-shadow: 0 8px 24px 0 rgba(16, 39, 112, .2);
+        .login {
+            height: 600px;
+            background: #eee;
+            border-radius: 60% / 10%;
+            transform: translateY(-145px);
+            transition: 0.8s ease-in-out;
+        }
+
+        .login label {
+            color: #6732b1;
+            margin-bottom: 120px;
+            transform: scale(0.6);
         }
 
 
 
-
-        .logo {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            display: block;
-            z-index: 100;
-            transition: all 250ms linear;
+        #chk:checked~.login {
+            transform: translateY(-580px);
         }
 
-        .logo img {
-            height: 26px;
-            width: auto;
-            display: block;
+        #chk:checked~.login label {
+            transform: scale(1);
+        }
+
+        #chk:checked~.signup label {
+            transform: scale(0.6);
+        }
+
+        @media (max-width: 1024px) {
+            .wrapper {
+                justify-content: center;
+                gap: 20px;
+            }
+
+            .main-title {
+                margin-left: 20px;
+                font-size: 2.5em;
+                margin-right: 10px;
+            }
+
+            .main {
+                margin-right: 20px;
+                width: 400px;
+                height: 450px;
+            }
+
+            .login {
+                height: 410px;
+                transform: translateY(-160px);
+            }
+
+            #chk:checked~.login {
+                transform: translateY(-450px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .wrapper {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+            }
+
+            .main-title {
+                margin-left: 0;
+                margin-bottom: 20px;
+                font-size: 2em;
+                text-align: center;
+                flex: none;
+            }
+
+            .main {
+                width: 90%;
+                max-width: 400px;
+                height: 450px;
+                margin-right: 0;
+            }
+
+            label {
+                font-size: 2em;
+                margin: 40px;
+            }
+
+            input {
+                width: 90%;
+                height: 35px;
+            }
+
+            button {
+                width: 70%;
+                height: 35px;
+            }
+
+            .login {
+                height: 410px;
+                transform: translateY(-160px);
+            }
+
+            #chk:checked~.login {
+                transform: translateY(-450px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 1.5em;
+            }
+
+            .main {
+                width: 95%;
+                max-width: 350px;
+                height: 400px;
+            }
+
+            label {
+                font-size: 1.8em;
+                margin: 30px;
+            }
+
+            input {
+                width: 95%;
+                height: 30px;
+            }
+
+            button {
+                width: 80%;
+                height: 30px;
+                font-size: 0.9em;
+            }
+
+            .login {
+                height: 360px;
+                transform: translateY(-140px);
+            }
+
+            #chk:checked~.login {
+                transform: translateY(-400px);
+            }
         }
     </style>
 </head>
@@ -348,87 +285,53 @@
 
 
     <div id="app">
-        <div class="section">
-            <div class="container">
-                <div class="row full-height justify-content-center">
-                    <div class="col-12 text-center align-self-center py-5">
-                        <div class="section pb-5 pt-5 pt-sm-2 text-center">
-
-                            <h6 class="mb-0 pb-3"><span>Log In </span><span>Sign Up</span></h6>
-                            <input class="checkbox overflow-hidden" type="checkbox" id="reg-log" name="reg-log" />
-                            <label for="reg-log"></label>
-
-                            <div class="card-3d-wrap mx-auto">
-                                <div class="card-3d-wrapper">
-                                    <div class="card-front">
-                                        <div class="center-wrap">
-                                            <div class="section text-center">
-                                                <h1 class="m-0 text-white" style="font-size: 4rem; font-weight: 700">OG
-                                                </h1>
-                                                <br>
-                                                <h4 class="mb-4 pb-3">Log In</h4>
-                                                <form id="formLogin" name="login_form">
-                                                    <div class="form-group">
-                                                        <input type="text" name="logemail" class="form-style"
-                                                            placeholder="Your Email" id="logemail" autocomplete="off"
-                                                            v-model="loginPayload.email">
-                                                        <i class="input-icon uil uil-at"></i>
-                                                    </div>
-                                                    <div class="form-group mt-2">
-                                                        <input type="password" name="logpass" class="form-style"
-                                                            placeholder="Your Password" id="logpass"
-                                                            autocomplete="off" v-model="loginPayload.password">
-                                                        <i class="input-icon uil uil-lock-alt"></i>
-                                                    </div>
-                                                    <button @click.prevent="loginHandler" type="submit"
-                                                        class="btn mt-4">Login</button>
-                                                    <p class="mb-0 mt-4 text-center"><a href="#"
-                                                            class="link">Forgot
-                                                            your password?</a></p>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-back">
-                                        <div class="center-wrap">
-                                            <div class="section text-center">
-                                                <h1 class="m-0 text-white" style="font-size: 5rem; font-weight: 700">OG
-                                                </h1>
-                                                <br>
-                                                <h4 class="mb-4 pb-3">Sign Up</h4>
-                                                <div class="form-group">
-                                                    <input type="text" name="logname" class="form-style"
-                                                        placeholder="Your Full Name" id="logname" autocomplete="off"
-                                                        v-model="registerPayload.name">
-                                                    <i class="input-icon uil uil-user"></i>
-                                                </div>
-                                                <div class="form-group mt-2">
-                                                    <input type="email" name="logemail" class="form-style"
-                                                        placeholder="Your Email" id="logemail" autocomplete="off"
-                                                        v-model="registerPayload.email">
-                                                    <i class="input-icon uil uil-at"></i>
-                                                </div>
-                                                <div class="form-group mt-2">
-                                                    <input type="text" name="logephone" class="form-style"
-                                                        placeholder="Your phone number" id="logemail"
-                                                        autocomplete="off" v-model="registerPayload.phone_number">
-                                                    <i class="input-icon uil uil-phone"></i>
-                                                </div>
-                                                <div class="form-group mt-2">
-                                                    <input type="password" name="logpass" class="form-style"
-                                                        placeholder="Your Password" id="logpass" autocomplete="off"
-                                                        v-model="registerPayload.password">
-                                                    <i class="input-icon uil uil-lock-alt"></i>
-                                                </div>
-                                                <button @click.prevent="registerHandler" type="submit"
-                                                    class="btn mt-4">register</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+        <div class="wrapper">
+            <h1 class="main-title">Your One-Stop Shop for all Events</h1>
+            <div class="main">
+                <input type="checkbox" id="chk" aria-hidden="true" />
+                <div class="signup">
+                    <form>
+                        @csrf
+                        <label for="chk" aria-hidden="true">Sign Up</label>
+                        <div class="input-wrapper">
+                            <input type="text" name="txt" placeholder="User name"
+                                v-model="registerPayload.name" />
+                            <span class="error-message">@{{ registerErr.nameErr }}</span>
                         </div>
-                    </div>
+                        <div class="input-wrapper">
+                            <input type="email" name="email" placeholder="Email" v-model="registerPayload.email" />
+                            <span class="error-message">@{{ registerErr.emailErr }}</span>
+                        </div>
+                        <div class="input-wrapper">
+                            <input type="text" name="phone" placeholder="Phone Number"
+                                v-model="registerPayload.phone_number" />
+                            <span class="error-message">@{{ registerErr.phoneErr }}</span>
+                        </div>
+                        <div class="input-wrapper">
+                            <input type="password" name="pswd" placeholder="Password"
+                                v-model="registerPayload.password" />
+                            <span class="error-message">@{{ registerErr.passwordErr }}</span>
+                        </div>
+
+                        <button type="submit" @click.prevent="registerHandler">Sign up</button>
+                    </form>
+                </div>
+
+                <div class="login">
+                    <form>
+                        <label for="chk" aria-hidden="true">Login</label>
+                        <div class="input-wrapper">
+                            <input type="email" name="email" placeholder="Email" v-model="loginPayload.email" />
+                            <span class="error-message">@{{ loginErr.emailErr }}</span>
+                        </div>
+                        <div class="input-wrapper">
+                            <input type="password" name="pswd" placeholder="Password"
+                                v-model="loginPayload.password" />
+                            <span class="error-message">@{{ loginErr.passwordErr }}</span>
+                        </div>
+
+                        <button type="submit" @click.prevent="loginHandler">Login</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -458,21 +361,50 @@
                 password: '12345678'
             },
             loginPayload: {
-                email: 'user@user.com',
+                email: 'admin@admin.com',
                 password: '12345678'
             },
-            APIResponse: {}
+            APIResponse: {},
+            registerErr: {
+                nameErr: '',
+                emailErr: '',
+                phoneErr: '',
+                passwordErr: ''
+            },
+            loginErr: {
+                emailErr: '',
+                passwordErr: ''
+            }
+        },
+        mounted() {
+            this.LoggedInStatus();
         },
         methods: {
             loginHandler() {
                 try {
                     axios.post('/user/login', this.loginPayload)
                         .then((response) => {
-                            this.APIResponse = response.data;
-                            if (this.APIResponse.data.access_token) {
-                                localStorage.setItem('token', this.APIResponse.data.access_token);
-                                window.location.href = '/';
+                            if (response.data.success) {
+                                this.APIResponse = response.data;
+                                if (!this.APIResponse.data.verified) {
+                                    window.location.href =
+                                        `/login/verify/${this.APIResponse.data.user.id}`;
+                                } else {
+                                    // if (this.APIResponse.data.verified)
+                                    localStorage.setItem('token', this.APIResponse.data.access_token);
+                                    localStorage.setItem('isLoggedIn', true)
+                                    window.location.href = '/';
+                                }
+
+                            } else {
+                                this.loginErr.emailErr = response.data.message.email ? response.data
+                                    .message.email[0] : '';
+                                this.loginErr.passwordErr = response.data.message.password ? response
+                                    .data
+                                    .message.password[0] : '' || response.data.message;
                             }
+                        }).catch((error) => {
+                            this.loginErr.emailErr = error.response.data.message
                         })
                 } catch (error) {
                     console.log(error)
@@ -482,14 +414,36 @@
                 try {
                     axios.post('/register', this.registerPayload)
                         .then((response) => {
-                            this.APIResponse = response.data;
-                            if (this.APIResponse.data.access_token) {
-                                localStorage.setItem('token', this.APIResponse.data.access_token);
-                                window.location.href = '/';
+                            if (response.data.success) {
+                                this.APIResponse = response.data;
+                                console.log(this.APIResponse);
+                                if (!this.APIResponse.data.verified) {
+                                    window.location.href =
+                                        `/login/verify/${this.APIResponse.data.user.id}`;
+                                }
+                            } else {
+                                this.registerErr.nameErr = response.data.message.name ? response.data
+                                    .message.name[0] : '';
+                                this.registerErr.emailErr = response.data.message.email ? response.data
+                                    .message.email[0] : '';
+                                this.registerErr.phoneErr = response.data.message.phone_number ? response
+                                    .data
+                                    .message.phone_number[0] : '';
+                                this.registerErr.passwordErr = response.data.message.password ? response
+                                    .data
+                                    .message.password[0] : '';
                             }
+                        }).catch((error) => {
+                            console.log(error);
+
                         })
                 } catch (error) {
                     console.log(error)
+                }
+            },
+            LoggedInStatus() {
+                if (localStorage.getItem('isLoggedIn') && localStorage.getItem('token')) {
+                    window.location.href = '/';
                 }
             }
         }

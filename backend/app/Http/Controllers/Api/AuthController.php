@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Mail\VerifyEmail;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -21,27 +23,116 @@ class AuthController extends Controller
         return $user->role_id == $role_id;
     }
 
+    public function generate_six_digits_token(){
+        return rand(100000, 999999);
+    }
+
+    public function sendEmail($email,$data)
+    {
+        Mail::to($email)->send(new VerifyEmail($data));
+    }
+
+    public function verify_email(Request $request, $id){
+        $user = User::where('id', $id)->first();
+
+        if(!$user->verifyToken == $request[0]){
+            return response()->json([
+                'message' => 'invalid token'
+            ]);
+        }
+
+        User::where('id', $user->id)->update([
+            'email_verified_at' => now(),
+            'verifyToken' => null
+        ]);
+
+        return response()->json([
+            'message' => 'email verified',
+            'access_token' => $this->generate_token($user)
+        ]);
+    }
     private function login_handler($request, $role_id)
     {
-
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return $this->unauthorizedResponse("Invalid credentials");
+            // return $this->unauthorizedResponse("Invalid credentials");
+            return response()->json([
+                'message' => 'Invalid credentials'
+            ]);
         }
 
         $valid_role = $this->role_check($user, $role_id);
 
         if (!$valid_role) {
-            return $this->forbiddenResponse("invalid role");
+            return $this->forbiddenResponse("Login Khos Portal hz BB");
         }
 
-        return $this->successResponse([
-            'access_token' => $this->generate_token($user),
-            'user' => $user
-        ]);
+        $isVerified = $user->email_verified_at;
+
+        if (!$isVerified) {
+            $verifyToken = $this->generate_six_digits_token();
+
+            User::where('id', $user->id)->update([
+                'verifyToken' => $verifyToken
+            ]);
+
+            $this->sendEmail($user->email,$verifyToken);
+
+            return $this->successResponse([
+                'verified' => false,
+                'message' => 'Email not verified',
+                'user' => $user
+            ]);
+        }else{
+            return $this->successResponse([
+                'verified' => true,
+                'access_token' => $this->generate_token($user),
+                'user' => $user
+            ]);
+        }
     }
 
+        /**
+     * User Register
+     **/
+    public function user_register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email',
+            'phone_number' => 'required|string|max:255',
+            'password' => 'required|string|min:8',
+        ]);
+
+        if ($validator->fails()) {
+            // return $this->badRequestResponse($validator->errors()->messages());
+            return response()->json([
+                'message' => $validator->errors()->messages()
+            ]);
+        }
+
+        $hash_password = Hash::make($request->password);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'password' => $hash_password,
+            'role_id' => config('roles.user'),
+        ]);
+
+        return $this->login_handler($request, config('roles.user'));
+
+        // $access_token = $this->generate_token($user);
+
+
+        // return $this->successResponse([
+        //     'success' => true,
+        //     'access_token' => $access_token,
+        //     'isVerified' => false
+        // ], 'User registered successfully');
+    }
 
     /**
      * User Login
@@ -54,8 +145,11 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return $this->badRequestResponse($validator->errors()->messages());
+            return response()->json([
+                'message' => $validator->errors()->messages()
+            ]);
         }
+
         return $this->login_handler($request, config('roles.user'));
     }
 
@@ -93,43 +187,7 @@ class AuthController extends Controller
     }
 
 
-    /**
-     * User Register
-     **/
-    public function user_register(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email',
-            'phone_number' => 'required|string|max:255',
-            'password' => 'required|string|min:8',
 
-        ]);
-
-        if ($validator->fails()) {
-            return $this->badRequestResponse($validator->errors()->messages());
-        }
-
-        $hash_password = Hash::make($request->password);
-
-        // Just discovered this method of hashing password
-        // $hash_pwd = password_hash($request->password, PASSWORD_ARGON2ID);
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone_number' => $request->phone_number,
-            'password' => $hash_password,
-            'role_id' => config('roles.user'),
-        ]);
-
-        $access_token = $this->generate_token($user);
-
-
-        return $this->successResponse([
-            'access_token' => $access_token
-        ], 'User registered successfully');
-    }
 
 
     /**
