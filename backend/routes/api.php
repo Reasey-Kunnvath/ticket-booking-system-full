@@ -41,6 +41,7 @@ use Illuminate\Support\Facades\Route;
 
 // auth
 Route::post('/register', [AuthController::class, 'user_register']);
+Route::post('/register/verify/{id}', [AuthController::class, 'verify_email']);
 Route::post('/user/login', [AuthController::class, 'user_login']);
 Route::post('/admin/login', [AuthController::class, 'admin_login']);
 Route::post('/event-provider/login', [AuthController::class, 'event_provider_login']);

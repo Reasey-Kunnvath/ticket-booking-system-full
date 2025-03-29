@@ -88,6 +88,10 @@ Route::controller(LoginController::class)->group(function(){
     Route::get('/login','LoginIndex')->name('login');
 });
 
+Route::controller(LoginController::class)->group(function(){
+    Route::get('/login/verify/{id}','verifyIndex')->name('verify');
+});
+
 # For Backend
 // Route::controller(DashboardController::class)->group(function(){
 //     Route::get('/dashboard','index')->name('dashboard');
