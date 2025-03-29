@@ -179,538 +179,41 @@
         <!-- Category End --> --}}
 
     <!-- Property List Start (Upcoming Events) -->
-    <div class="tickets-page">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-14">
-                    <div class="heading">
-                        <h2>Upcoming Events</h2>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ticket-item">
-                        <div class="thumb">
-                            <img src={{ asset('frontend/assets/images/ticket-01.jpg') }} alt="" />
-                            <div class="price">
-                                <span>1 ticket<br />from <em>$25</em></span>
-                            </div>
-                        </div>
-                        <div class="down-content">
-                            <span>There Are 150 Tickets Left For This Show</span>
-                            <h4>Wonderful Festival</h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-clock-o"></i> Thursday: 05:00 PM to 10:00 PM
-                                </li>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>908 Copacabana Beach, Rio de
-                                    Janeiro
-                                </li>
-                            </ul>
-                            <div class="main-dark-button">
-                                <a href="ticket-details.html">Purchase Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ticket-item">
-                        <div class="thumb">
-                            <img src={{ asset('frontend/assets/images/ticket-02.jpg') }} alt="" />
-                            <div class="price">
-                                <span>1 ticket<br />from <em>$45</em></span>
-                            </div>
-                        </div>
-                        <div class="down-content">
-                            <span>There Are 200 Tickets Left For This Show</span>
-                            <h4>Golden Festival</h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-clock-o"></i> Sunday: 06:00 PM to 09:00 PM
-                                </li>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>789 Copacabana Beach, Rio de
-                                    Janeiro
-                                </li>
-                            </ul>
-                            <div class="main-dark-button">
-                                <a href="ticket-details.html">Purchase Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ticket-item">
-                        <div class="thumb">
-                            <img src={{ asset('frontend/assets/images/ticket-03.jpg') }} alt="" />
-                            <div class="price">
-                                <span>1 ticket<br />from <em>$65</em></span>
-                            </div>
-                        </div>
-                        <div class="down-content">
-                            <span>There Are 260 Tickets Left For This Show</span>
-                            <h4>Water Splash Festival</h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-clock-o"></i> Tuesday: 07:00 PM to 11:00 PM
-                                </li>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>456 Copacabana Beach, Rio de
-                                    Janeiro
-                                </li>
-                            </ul>
-                            <div class="main-dark-button">
-                                <a href="ticket-details.html">Purchase Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ticket-item">
-                        <div class="thumb">
-                            <img src={{ asset('frontend/assets/images/ticket-04.jpg') }} alt="" />
-                            <div class="price">
-                                <span>1 ticket<br />from <em>$20</em></span>
-                            </div>
-                        </div>
-                        <div class="down-content">
-                            <span>There Are 340 Tickets Left For This Show</span>
-                            <h4>Tiger Festival</h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-clock-o"></i> Thursday: 06:40 PM to 11:40 PM
-                                </li>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>123 Copacabana Beach, Rio de
-                                    Janeiro
-                                </li>
-                            </ul>
-                            <div class="main-dark-button">
-                                <a href="ticket-details.html">Purchase Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ticket-item">
-                        <div class="thumb">
-                            <img src={{ asset('frontend/assets/images/ticket-05.jpg') }} alt="" />
-                            <div class="price">
-                                <span>1 ticket<br />from <em>$30</em></span>
-                            </div>
-                        </div>
-                        <div class="down-content">
-                            <span>There Are 420 Tickets Left For This Show</span>
-                            <h4>Woodland Festival</h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-clock-o"></i> Wednesday: 06:00 PM to 09:00
-                                    PM
-                                </li>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>1122 Copacabana Beach, Rio
-                                    de Janeiro
-                                </li>
-                            </ul>
-                            <div class="main-dark-button">
-                                <a href="ticket-details.html">Purchase Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ticket-item">
-                        <div class="thumb">
-                            <img src={{ asset('frontend/assets/images/ticket-06.jpg') }} alt="" />
-                            <div class="price">
-                                <span>1 ticket<br />from <em>$40</em></span>
-                            </div>
-                        </div>
-                        <div class="down-content">
-                            <span>There Are 520 Tickets Left For This Show</span>
-                            <h4>Winter Festival</h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-clock-o"></i> Saturday: 06:00 PM to 09:00 PM
-                                </li>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>220 Copacabana Beach, Rio de
-                                    Janeiro
-                                </li>
-                            </ul>
-                            <div class="main-dark-button">
-                                <a href="ticket-details.html">Purchase Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="pagination">
-                        <ul>
-                            <li><a href="#">Browse More Upcoming Events</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Property List End -->
 
-    <!-- Property List Start (Most Popular Events) -->
-    <div class="tickets-page">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-14">
-                    <div class="heading">
-                        <h2>Most Popular Events</h2>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ticket-item">
-                        <div class="thumb">
-                            <img src={{ asset('frontend/assets/images/ticket-01.jpg') }} alt="" />
-                            <div class="price">
-                                <span>1 ticket<br />from <em>$25</em></span>
-                            </div>
-                        </div>
-                        <div class="down-content">
-                            <span>There Are 150 Tickets Left For This Show</span>
-                            <h4>Wonderful Festival</h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-clock-o"></i> Thursday: 05:00 PM to 10:00 PM
-                                </li>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>908 Copacabana Beach, Rio de
-                                    Janeiro
-                                </li>
-                            </ul>
-                            <div class="main-dark-button">
-                                <a href="ticket-details.html">Purchase Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ticket-item">
-                        <div class="thumb">
-                            <img src={{ asset('frontend/assets/images/ticket-02.jpg') }} alt="" />
-                            <div class="price">
-                                <span>1 ticket<br />from <em>$45</em></span>
-                            </div>
-                        </div>
-                        <div class="down-content">
-                            <span>There Are 200 Tickets Left For This Show</span>
-                            <h4>Golden Festival</h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-clock-o"></i> Sunday: 06:00 PM to 09:00 PM
-                                </li>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>789 Copacabana Beach, Rio de
-                                    Janeiro
-                                </li>
-                            </ul>
-                            <div class="main-dark-button">
-                                <a href="ticket-details.html">Purchase Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ticket-item">
-                        <div class="thumb">
-                            <img src={{ asset('frontend/assets/images/ticket-03.jpg') }} alt="" />
-                            <div class="price">
-                                <span>1 ticket<br />from <em>$65</em></span>
-                            </div>
-                        </div>
-                        <div class="down-content">
-                            <span>There Are 260 Tickets Left For This Show</span>
-                            <h4>Water Splash Festival</h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-clock-o"></i> Tuesday: 07:00 PM to 11:00 PM
-                                </li>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>456 Copacabana Beach, Rio de
-                                    Janeiro
-                                </li>
-                            </ul>
-                            <div class="main-dark-button">
-                                <a href="ticket-details.html">Purchase Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ticket-item">
-                        <div class="thumb">
-                            <img src={{ asset('frontend/assets/images/ticket-04.jpg') }} alt="" />
-                            <div class="price">
-                                <span>1 ticket<br />from <em>$20</em></span>
-                            </div>
-                        </div>
-                        <div class="down-content">
-                            <span>There Are 340 Tickets Left For This Show</span>
-                            <h4>Tiger Festival</h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-clock-o"></i> Thursday: 06:40 PM to 11:40 PM
-                                </li>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>123 Copacabana Beach, Rio de
-                                    Janeiro
-                                </li>
-                            </ul>
-                            <div class="main-dark-button">
-                                <a href="ticket-details.html">Purchase Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ticket-item">
-                        <div class="thumb">
-                            <img src={{ asset('frontend/assets/images/ticket-05.jpg') }} alt="" />
-                            <div class="price">
-                                <span>1 ticket<br />from <em>$30</em></span>
-                            </div>
-                        </div>
-                        <div class="down-content">
-                            <span>There Are 420 Tickets Left For This Show</span>
-                            <h4>Woodland Festival</h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-clock-o"></i> Wednesday: 06:00 PM to 09:00
-                                    PM
-                                </li>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>1122 Copacabana Beach, Rio
-                                    de Janeiro
-                                </li>
-                            </ul>
-                            <div class="main-dark-button">
-                                <a href="ticket-details.html">Purchase Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ticket-item">
-                        <div class="thumb">
-                            <img src={{ asset('frontend/assets/images/ticket-06.jpg') }} alt="" />
-                            <div class="price">
-                                <span>1 ticket<br />from <em>$40</em></span>
-                            </div>
-                        </div>
-                        <div class="down-content">
-                            <span>There Are 520 Tickets Left For This Show</span>
-                            <h4>Winter Festival</h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-clock-o"></i> Saturday: 06:00 PM to 09:00 PM
-                                </li>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>220 Copacabana Beach, Rio de
-                                    Janeiro
-                                </li>
-                            </ul>
-                            <div class="main-dark-button">
-                                <a href="ticket-details.html">Purchase Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="pagination">
-                        <ul>
-                            <li><a href="#">Browse Most Popular Events</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Property List End -->
 
-    <!-- Property List Start (All Events) -->
+    <!-- Property List End -->
     <div class="tickets-page">
         <div class="container">
             <div class="row">
-                <div class="col-lg-14">
-                    <div class="heading">
-                        <h2>Most Popular Events</h2>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ticket-item">
-                        <div class="thumb">
-                            <img src={{ asset('frontend/assets/images/ticket-01.jpg') }} alt="" />
-                            <div class="price">
-                                <span>1 ticket<br />from <em>$25</em></span>
-                            </div>
-                        </div>
-                        <div class="down-content">
-                            <span>There Are 150 Tickets Left For This Show</span>
-                            <h4>Wonderful Festival</h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-clock-o"></i> Thursday: 05:00 PM to 10:00 PM
-                                </li>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>908 Copacabana Beach, Rio de
-                                    Janeiro
-                                </li>
-                            </ul>
-                            <div class="main-dark-button">
-                                <a href="ticket-details.html">Purchase Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ticket-item">
-                        <div class="thumb">
-                            <img src={{ asset('frontend/assets/images/ticket-02.jpg') }} alt="" />
-                            <div class="price">
-                                <span>1 ticket<br />from <em>$45</em></span>
-                            </div>
-                        </div>
-                        <div class="down-content">
-                            <span>There Are 200 Tickets Left For This Show</span>
-                            <h4>Golden Festival</h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-clock-o"></i> Sunday: 06:00 PM to 09:00 PM
-                                </li>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>789 Copacabana Beach, Rio de
-                                    Janeiro
-                                </li>
-                            </ul>
-                            <div class="main-dark-button">
-                                <a href="ticket-details.html">Purchase Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ticket-item">
-                        <div class="thumb">
-                            <img src={{ asset('frontend/assets/images/ticket-03.jpg') }} alt="" />
-                            <div class="price">
-                                <span>1 ticket<br />from <em>$65</em></span>
-                            </div>
-                        </div>
-                        <div class="down-content">
-                            <span>There Are 260 Tickets Left For This Show</span>
-                            <h4>Water Splash Festival</h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-clock-o"></i> Tuesday: 07:00 PM to 11:00 PM
-                                </li>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>456 Copacabana Beach, Rio de
-                                    Janeiro
-                                </li>
-                            </ul>
-                            <div class="main-dark-button">
-                                <a href="ticket-details.html">Purchase Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ticket-item">
-                        <div class="thumb">
-                            <img src={{ asset('frontend/assets/images/ticket-04.jpg') }} alt="" />
-                            <div class="price">
-                                <span>1 ticket<br />from <em>$20</em></span>
-                            </div>
-                        </div>
-                        <div class="down-content">
-                            <span>There Are 340 Tickets Left For This Show</span>
-                            <h4>Tiger Festival</h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-clock-o"></i> Thursday: 06:40 PM to 11:40 PM
-                                </li>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>123 Copacabana Beach, Rio de
-                                    Janeiro
-                                </li>
-                            </ul>
-                            <div class="main-dark-button">
-                                <a href="ticket-details.html">Purchase Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ticket-item">
-                        <div class="thumb">
-                            <img src={{ asset('frontend/assets/images/ticket-05.jpg') }} alt="" />
-                            <div class="price">
-                                <span>1 ticket<br />from <em>$30</em></span>
-                            </div>
-                        </div>
-                        <div class="down-content">
-                            <span>There Are 420 Tickets Left For This Show</span>
-                            <h4>Woodland Festival</h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-clock-o"></i> Wednesday: 06:00 PM to 09:00
-                                    PM
-                                </li>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>1122 Copacabana Beach, Rio
-                                    de Janeiro
-                                </li>
-                            </ul>
-                            <div class="main-dark-button">
-                                <a href="ticket-details.html">Purchase Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ticket-item">
-                        <div class="thumb">
-                            <img src={{ asset('frontend/assets/images/ticket-06.jpg') }} alt="" />
-                            <div class="price">
-                                <span>1 ticket<br />from <em>$40</em></span>
-                            </div>
-                        </div>
-                        <div class="down-content">
-                            <span>There Are 520 Tickets Left For This Show</span>
-                            <h4>Winter Festival</h4>
-                            <ul>
-                                <li>
-                                    <i class="fa fa-clock-o"></i> Saturday: 06:00 PM to 09:00 PM
-                                </li>
-                                <li>
-                                    <i class="fa fa-map-marker"></i>220 Copacabana Beach, Rio de
-                                    Janeiro
-                                </li>
-                            </ul>
-                            <div class="main-dark-button">
-                                <a href="ticket-details.html">Purchase Tickets</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <x-event-listing :events="$events" title="Most Popular Events" />
+
                 <div class="col-lg-12">
                     <div class="pagination">
                         <ul>
-                            <li><a href="{{ url('/all-event') }}">Browse All Events</a></li>
+                            <li><a href="{{ route('Most-Popular-Events') }}">Browse Most Popular Events</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Property List End -->
+
+    <div class="tickets-page">
+        <div class="container">
+            <x-event-listing :events="$events" title="Upcoming Events" />
+            <div class="col-lg-12">
+                <div class="pagination">
+                    <ul>
+                        <li><a href="{{ route('Upcoming-Events') }}">Browse Upcoming Events</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
 
     <!-- Testimonial Start -->
     <div class="container-xxl py-5">
@@ -727,8 +230,7 @@
                             stet. Est stet ea lorem amet est kasd kasd erat eos</p>
                         <div class="d-flex align-items-center">
                             <img class="img-fluid flex-shrink-0 rounded"
-                                src={{ asset('frontend/assets/img/testimonial-1.jpg') }}
-                                style="width: 45px; height: 45px;">
+                                src={{ asset('frontend/assets/img/testimonial-1.jpg') }} style="width: 45px; height: 45px;">
                             <div class="ps-3">
                                 <h6 class="fw-bold mb-1">Client Name</h6>
                                 <small>Profession</small>
@@ -742,8 +244,7 @@
                             stet. Est stet ea lorem amet est kasd kasd erat eos</p>
                         <div class="d-flex align-items-center">
                             <img class="img-fluid flex-shrink-0 rounded"
-                                src={{ asset('frontend/assets/img/testimonial-2.jpg') }}
-                                style="width: 45px; height: 45px;">
+                                src={{ asset('frontend/assets/img/testimonial-2.jpg') }} style="width: 45px; height: 45px;">
                             <div class="ps-3">
                                 <h6 class="fw-bold mb-1">Client Name</h6>
                                 <small>Profession</small>
@@ -757,8 +258,7 @@
                             stet. Est stet ea lorem amet est kasd kasd erat eos</p>
                         <div class="d-flex align-items-center">
                             <img class="img-fluid flex-shrink-0 rounded"
-                                src={{ asset('frontend/assets/img/testimonial-3.jpg') }}
-                                style="width: 45px; height: 45px;">
+                                src={{ asset('frontend/assets/img/testimonial-3.jpg') }} style="width: 45px; height: 45px;">
                             <div class="ps-3">
                                 <h6 class="fw-bold mb-1">Client Name</h6>
                                 <small>Profession</small>
