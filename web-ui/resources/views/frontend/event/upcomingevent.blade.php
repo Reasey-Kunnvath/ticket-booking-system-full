@@ -105,38 +105,40 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> --}}
     <script>
-        new Vue({
-            el: '#UpcomingApp',
-            data: {
-                tickets: []
-            },
-            mounted() {
-                this.fetch();
-            },
-            methods: {
-                fetch() {
-                    try {
-                        axios.get('http://127.0.0.1:8000/api/eventcoming')
-                            .then((response) => {
-                                // console.log(response.data.data);
-                                this.tickets = response.data.data;
-                                // console.log(this.tickets);
-                                this.loading = false;
-                            })
-                            .catch((error) => {
-                                console.log("Error", error);
-                                this.loading = false;
-                            })
+        document.addEventListener('DOMContentLoaded', () => {
+            // console.log(window.axios);
+            new Vue({
+                el: '#UpcomingApp',
+                data: {
+                    tickets: []
+                },
+                mounted() {
+                    this.fetch();
+                },
+                methods: {
+                    fetch() {
+                        try {
+                            axios.get('http://127.0.0.1:8000/api/eventcoming')
+                                .then((response) => {
+                                    this.tickets = response.data.data;
+                                    this.loading = false;
+                                })
+                                .catch((error) => {
+                                    console.log("Error", error);
+                                    this.loading = false;
+                                })
 
-                    } catch (error) {
-                        console.log(error);
-                        this.loading = false;
+                        } catch (error) {
+                            console.log(error);
+                            this.loading = false;
+                        }
                     }
-                }
-            },
+                },
 
-        })
+            })
+        });
     </script>
+
 @endsection

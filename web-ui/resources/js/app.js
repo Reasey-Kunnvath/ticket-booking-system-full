@@ -1,4 +1,6 @@
 import "./bootstrap";
+import "./axios.js";
+import "./auth.js";
 import "flyonui/flyonui.js";
 import "flyonui/dist/accordion.js";
 import { themeChange } from "theme-change";

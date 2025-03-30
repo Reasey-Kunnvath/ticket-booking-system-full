@@ -14,7 +14,6 @@ axios.defaults.headers.common["X-CSRF-TOKEN"] = document
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
-window.axios = axios;
 axios.interceptors.response.use(
     (config) => config,
     (error) => {
@@ -24,4 +23,6 @@ axios.interceptors.response.use(
         }
     }
 );
+
+window.axios = axios;
 export default axios;
