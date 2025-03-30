@@ -15,5 +15,13 @@ axios.defaults.headers.common["X-CSRF-TOKEN"] = document
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
 window.axios = axios;
-
+axios.interceptors.response.use(
+    (config) => config,
+    (error) => {
+        if (error.response.status === 401) {
+            localStorage.removeItem("token");
+            window.location.href = "/login";
+        }
+    }
+);
 export default axios;

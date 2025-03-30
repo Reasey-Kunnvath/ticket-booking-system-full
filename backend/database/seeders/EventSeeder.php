@@ -30,6 +30,20 @@ class EventSeeder extends Seeder
             'partnership_id' => 1
         ]);
 
+        Event::create([
+            'evt_name' => 'Niggers Party',
+            'evt_description' => 'ABC',
+            'evt_policy' => '18+',
+            'evt_start_date' => Carbon::now()->addMonth(1),
+            'evt_end_date' => Carbon::now()->addMonth(2),
+            'evt_address' => 'abc',
+            'evt_address_link' => 'https://maps.app.goo.gl/RmLLd97uGT7TPG9T6',
+            'status' => 1,
+            'evt_status' => 1,
+            'cate_id' => 1,
+            'partnership_id' => 1
+        ]);
+
 
     }
 }
