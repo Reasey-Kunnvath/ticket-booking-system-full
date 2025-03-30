@@ -42,7 +42,7 @@
 
     <!-- Template Stylesheet -->
     <link href={{ asset('frontend/assets/css/style.css') }} rel="stylesheet">
-
+    @vite(['resources/js/app.js'])
 
 </head>
 

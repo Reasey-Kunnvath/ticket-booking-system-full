@@ -50,7 +50,7 @@
 
     <!-- Search End -->
 
-    <div id="app">
+    <div id="coming">
         <!-- Property List Start -->
         <div class="tickets-page">
             <div class="container">
@@ -106,7 +106,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         new Vue({
-            el: '#app',
+            el: '#coming',
 
             data: {
                 tickets: []
@@ -117,7 +117,7 @@
                         axios.get('http://127.0.0.1:8000/api/eventcoming')
                             .then((response) => {
                                 this.tickets = response.data.data;
-                                // console.log(this.tickets);
+                                console.log(this.tickets);
                             })
                             .catch((error) => {
                                 console.log("Error", error);
