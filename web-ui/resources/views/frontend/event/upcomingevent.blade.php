@@ -50,11 +50,7 @@
 
     <!-- Search End -->
 
-<<<<<<< HEAD
-    <div id="coming">
-=======
     <div id="UpcomingApp">
->>>>>>> 43ee553efa7c40afbcb6daf9141f513ae319e415
         <!-- Property List Start -->
         <div class="tickets-page">
             <div class="container">
@@ -65,7 +61,7 @@
                         </div>
                     </div>
                     <div v-if="loading" class="col-lg-4">Loading...</div>
-                    <div v-else v-for="(ticket, index) in tickets" :key="ticket.ticket_id" class="col-lg-4">
+                    <div v-for="(ticket, index) in tickets" v-else :key="ticket.ticket_id" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
                                 <img src={{ asset('frontend/assets/images/ticket-01.jpg') }} alt="" />
@@ -108,31 +104,9 @@
 
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script> --}}
     {{-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> --}}
     <script>
-<<<<<<< HEAD
-        new Vue({
-            el: '#coming',
-
-            data: {
-                tickets: []
-            },
-            methods: {
-                fetch() {
-                    try {
-                        axios.get('http://127.0.0.1:8000/api/eventcoming')
-                            .then((response) => {
-                                this.tickets = response.data.data;
-                                console.log(this.tickets);
-                            })
-                            .catch((error) => {
-                                console.log("Error", error);
-                            })
-
-                    } catch (error) {
-                        console.log(error);
-=======
         document.addEventListener('DOMContentLoaded', () => {
             // console.log(window.axios);
             new Vue({
@@ -160,7 +134,6 @@
                             console.log(error);
                             this.loading = false;
                         }
->>>>>>> 43ee553efa7c40afbcb6daf9141f513ae319e415
                     }
                 },
 

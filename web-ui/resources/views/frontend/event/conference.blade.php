@@ -101,35 +101,36 @@
         </div>
     </div>
     <!-- Property List End -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        new Vue({
-            el: '#conference',
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log(window.axios);
+            new Vue({
+                el: '#conference',
 
-            data: {
-                conferences: []
-            },
-            methods: {
-                fetch() {
-                    try {
-                        axios.get('http://127.0.0.1:8000/api/conferences')
-                            .then((response) => {
-                                this.conferences = response.data.data;
-                                console.log(this.conferences);
-                            })
-                            .catch((error) => {
-                                console.log("Error", error);
-                            })
+                data: {
+                    conferences: []
+                },
+                methods: {
+                    fetch() {
+                        try {
+                            axios.get('http://127.0.0.1:8000/api/conferences')
+                                .then((response) => {
+                                    this.conferences = response.data.data;
+                                    console.log(this.conferences);
+                                })
+                                .catch((error) => {
+                                    console.log("Error", error);
+                                })
 
-                    } catch (error) {
-                        console.log(error);
+                        } catch (error) {
+                            console.log(error);
+                        }
                     }
-                }
-            },
-            mounted() {
-                this.fetch();
-            },
-        })
+                },
+                mounted() {
+                    this.fetch();
+                },
+            })
+        });
     </script>
 @endsection
