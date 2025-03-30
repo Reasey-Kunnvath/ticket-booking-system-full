@@ -149,7 +149,7 @@
         <h4 class="fw-bold py-3 mb-4">Account settings</h4>
         <div class="card overflow-hidden">
             <div class="row row-bordered row-border-primary">
-                <div class="col-md-3 pt-0" id="mainApp">
+                <div id="mainApp" class="col-md-3 pt-0">
                     <div class="list-group list-group-flush account-settings-links">
                         <a class="list-group-item list-group-item-action active" data-bs-toggle="list"
                             href="#account-general-info">
@@ -171,14 +171,14 @@
                         </a>
                     </div>
                     <div class="list-group list-group-flush account-settings-links ">
-                        <a @click="logout" href="javascript:void(0);" class="list-group-item text-danger">
+                        <a href="javascript:void(0);" class="list-group-item text-danger" @click="logout">
                             <i class="fa fa-sign-out-alt me-2"></i> Log Out
                         </a>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="tab-content">
-                        <div class="tab-pane fade show active" id="account-general-info">
+                        <div id="account-general-info" class="tab-pane fade show active">
                             <!-- Account General Section -->
                             <div class="row mt-3 ms-1 me-3">
                                 <div class="col-8">
@@ -263,7 +263,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="your-order">
+                        <div id="your-order" class="tab-pane fade">
                             <div class="m-3">
                                 <h2>Orders</h2>
                                 <small class="mb-3">All your order history are listed here</small>
@@ -278,7 +278,7 @@
                                 <h5><small><a href="#"><u>Shop for ticket</u></a></small></h5>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="your-coupon">
+                        <div id="your-coupon" class="tab-pane fade">
                             <div class="m-3">
                                 <h2>Coupons</h2>
                                 <small class="mb-3">All your eligible coupons are listed here</small>
@@ -293,7 +293,7 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="account-change-password">
+                        <div id="account-change-password" class="tab-pane fade">
                             <div class="row mt-3 ms-1 me-3">
                                 <div class="col-8">
                                     <h2>Your Account Crediential</h2>
@@ -321,7 +321,7 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="billing-information">
+                        <div id="billing-information" class="tab-pane fade">
                             <div class="card-body pb-2">
                                 <div class="mb-3">
                                     <h2>Billing Information</h2>
@@ -380,12 +380,12 @@
                     </div>
                     <div id="app">
                         <!-- Add Modal Structure -->
-                        <div class="modal fade" id="creditCardModal" tabindex="-1"
+                        <div id="creditCardModal" class="modal fade" tabindex="-1"
                             aria-labelledby="creditCardModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="creditCardModalLabel">Credit Card Information</h5>
+                                        <h5 id="creditCardModalLabel" class="modal-title">Credit Card Information</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
@@ -395,18 +395,18 @@
                                             <!-- Cardholder Name -->
                                             <div class="mb-3">
                                                 <label for="cardHolderName" class="form-label">Cardholder Name</label>
-                                                <input v-model="CardHolderName" type="text" class="form-control"
-                                                    id="cardHolderName" placeholder="Enter name as on card" required>
+                                                <input id="cardHolderName" v-model="CardHolderName" type="text"
+                                                    class="form-control" placeholder="Enter name as on card" required>
                                             </div>
 
                                             <!-- Card Number -->
                                             <div class="mb-3">
                                                 <label for="cardNumber" class="form-label">Card Number</label>
                                                 <div class="input-group">
-                                                    <input v-model="CardNumber" @input="formatCardNumber()"
-                                                        type="text" class="form-control" id="cardNumber"
+                                                    <input id="cardNumber" v-model="CardNumber"
+                                                        @input="formatCardNumber()" type="text" class="form-control"
                                                         placeholder="XXXX XXXX XXXX XXXX" maxlength="19" required>
-                                                    <span class="input-group-text text-primary" id="cardType">
+                                                    <span id="cardType" class="input-group-text text-primary">
                                                         <img :src="cardTypeIcon" alt="" width="30"
                                                             height="30">
                                                     </span>
@@ -417,16 +417,16 @@
                                                 <!-- Expiry Date -->
                                                 <div class="col-md-6">
                                                     <label for="expiryDate" class="form-label">Expiry Date</label>
-                                                    <input v-model="ExpiryDate" @input="formatExpiryDate()"
-                                                        type="text" class="form-control" id="expiryDate"
+                                                    <input id="expiryDate" v-model="ExpiryDate"
+                                                        @input="formatExpiryDate()" type="text" class="form-control"
                                                         placeholder="MM/YY" maxlength="5" required>
                                                 </div>
 
                                                 <!-- CVV -->
                                                 <div class="col-md-6">
                                                     <label for="cvv" class="form-label">CVV</label>
-                                                    <input v-model="CVC" type="password" class="form-control"
-                                                        id="cvv" placeholder="XXX" maxlength="3" required>
+                                                    <input id="cvv" v-model="CVC" type="password"
+                                                        class="form-control" placeholder="XXX" maxlength="3" required>
                                                 </div>
                                             </div>
 
@@ -434,8 +434,8 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn custom-cancel-btn"
                                                 data-bs-dismiss="modal">Cancel</button>
-                                            <button @click.prevent="submitCard"
-                                                class="btn custom-submit-btn">Save</button>
+                                            <button class="btn custom-submit-btn"
+                                                @click.prevent="submitCard">Save</button>
                                         </div>
                                     </form>
 

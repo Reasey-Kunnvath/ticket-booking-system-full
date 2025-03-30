@@ -1,5 +1,5 @@
 <!-- Navbar Start -->
-<div id="app">
+<div id="appuser">
     <div class="container-fluid nav-bar bg-transparent">
         <nav class="navbar navbar-expand-lg shadow-lg bg-white navbar-light py-0 px-4">
             <a href="{{ url('/') }}" class="navbar-brand d-flex align-items-center text-center">
@@ -116,7 +116,7 @@
 
 <script>
     new Vue({
-        el: '#app',
+        el: '#appuser',
         data: {
             isLoggedIn: null,
         },

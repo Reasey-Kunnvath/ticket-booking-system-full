@@ -77,7 +77,7 @@ Route::controller(MostPopularController::class)->group(function(){
 });
 
 Route::controller(EventDetailController::class)->group(function(){
-    Route::get('/event-detail','EventDetailIndex')->name('Event-Detail');
+    Route::get('/event-detail/{id}','EventDetailIndex')->name('Event-Detail');
 });
 
 Route::controller(UserProfileController::class)->group(function(){

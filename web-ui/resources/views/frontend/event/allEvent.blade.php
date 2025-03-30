@@ -80,11 +80,7 @@
                                     </li>
                                 </ul>
                                 <div class="main-dark-button">
-                                    <a type="button" class="btn btn-dark" @click="getevent(event.evt_id)">test</a>
-                                </div>
-                                <div class="main-dark-button">
-                                    <a href="{{ url('/event-detail') }}" type="button"
-                                        class="btn btn-dark">PurchaseTickets</a>
+                                    <a :href="'/event-detail/' + event.evt_id">PurchaseTickets</a>
                                 </div>
                             </div>
                         </div>
@@ -113,7 +109,10 @@
                     this.fetch();
                 },
                 data: {
-                    allevents: []
+                    allevents: [],
+                    event: {
+                        evt_id: '',
+                    }
                 },
                 methods: {
                     fetch() {
@@ -130,9 +129,13 @@
                             console.log(error);
                         }
                     },
-                    getevent(event) {
-                        console.log(event);
-                    }
+                    // getevent(event) {
+                    //     // console.log(this.event.evt_id);
+
+                    //     localStorage.setItem('evt_id', event.evt_id);
+                    //     window.location.href = "{{ url('http://127.0.0.1:8000/api/eventdetail') }}/" + event
+                    //         .evt_id;
+                    // }
                 },
 
             })
