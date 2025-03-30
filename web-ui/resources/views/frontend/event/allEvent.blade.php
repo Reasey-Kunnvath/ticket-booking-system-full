@@ -131,7 +131,6 @@
                         }
                     },
                     getevent(event) {
-
                         console.log(event);
                     }
                 },
