@@ -288,28 +288,28 @@
         <div class="wrapper">
             <h1 class="main-title">Your One-Stop Shop for all Events</h1>
             <div class="main">
-                <input type="checkbox" id="chk" aria-hidden="true" />
+                <input id="chk" type="checkbox" aria-hidden="true" />
                 <div class="signup">
                     <form>
                         @csrf
                         <label for="chk" aria-hidden="true">Sign Up</label>
                         <div class="input-wrapper">
-                            <input type="text" name="txt" placeholder="User name"
-                                v-model="registerPayload.name" />
+                            <input v-model="registerPayload.name" type="text" name="txt"
+                                placeholder="User name" />
                             <span class="error-message">@{{ registerErr.nameErr }}</span>
                         </div>
                         <div class="input-wrapper">
-                            <input type="email" name="email" placeholder="Email" v-model="registerPayload.email" />
+                            <input v-model="registerPayload.email" type="email" name="email" placeholder="Email" />
                             <span class="error-message">@{{ registerErr.emailErr }}</span>
                         </div>
                         <div class="input-wrapper">
-                            <input type="text" name="phone" placeholder="Phone Number"
-                                v-model="registerPayload.phone_number" />
+                            <input v-model="registerPayload.phone_number" type="text" name="phone"
+                                placeholder="Phone Number" />
                             <span class="error-message">@{{ registerErr.phoneErr }}</span>
                         </div>
                         <div class="input-wrapper">
-                            <input type="password" name="pswd" placeholder="Password"
-                                v-model="registerPayload.password" />
+                            <input v-model="registerPayload.password" type="password" name="pswd"
+                                placeholder="Password" />
                             <span class="error-message">@{{ registerErr.passwordErr }}</span>
                         </div>
 
@@ -321,12 +321,12 @@
                     <form>
                         <label for="chk" aria-hidden="true">Login</label>
                         <div class="input-wrapper">
-                            <input type="email" name="email" placeholder="Email" v-model="loginPayload.email" />
+                            <input v-model="loginPayload.email" type="email" name="email" placeholder="Email" />
                             <span class="error-message">@{{ loginErr.emailErr }}</span>
                         </div>
                         <div class="input-wrapper">
-                            <input type="password" name="pswd" placeholder="Password"
-                                v-model="loginPayload.password" />
+                            <input v-model="loginPayload.password" type="password" name="pswd"
+                                placeholder="Password" />
                             <span class="error-message">@{{ loginErr.passwordErr }}</span>
                         </div>
 

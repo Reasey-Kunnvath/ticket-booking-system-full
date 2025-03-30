@@ -36,7 +36,8 @@ use App\Http\Controllers\Api\User\{
 use App\Http\Controllers\Api\PartnershipRequestController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\General\Event\FEventController;
-use App\Http\Controllers\Api\General\UpcomingEventController;
+use App\Http\Controllers\Api\General\Event\FEventDetailControll;
+use App\Http\Controllers\Api\General\Event\FEventDetailController;
 use Illuminate\Support\Facades\Route;
 
 // auth
@@ -213,3 +214,6 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::get('/conferences', 'conferences')->name('conferences');
         Route::get('/sport', 'sport')->name('sport');
 });
+    Route::controller(FEventDetailController::class)->group(function () {
+        Route::get('/eventdetail/{id}', 'EventDetailIndex')->name('eventdetail');
+    });

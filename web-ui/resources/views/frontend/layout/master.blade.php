@@ -9,10 +9,10 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
     {{-- 'resources/js/axios.js', 'resources/js/auth.js',  --}}
-
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
     <!-- SweetAlert -->
 
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+
     <!-- Favicon -->
     <link href={{ asset('frontend/assets/img/favicon.ico') }} rel="icon">
     <!-- Font Awesome -->
@@ -76,6 +76,7 @@
     <script src={{ asset('frontend/assets/lib/easing/easing.min.js') }}></script>
     <script src={{ asset('frontend/assets/lib/waypoints/waypoints.min.js') }}></script>
     <script src={{ asset('frontend/assets/lib/owlcarousel/owl.carousel.min.js') }}></script>
+
 
     <!-- Template Javascript -->
     <script src={{ asset('frontend/assets/js/main.js') }}></script>

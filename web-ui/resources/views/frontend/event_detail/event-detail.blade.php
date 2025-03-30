@@ -123,66 +123,61 @@
             background: #0056b3;
         }
     </style>
-    <div class="ticket-details-page">
-        <div class="container">
-            <div class="row gx-3">
-                <div class="col">
-                    <div class="section-heading">
-                        <h2>Available Tickets</h2>
-                    </div>
-                    <div class="right-content2">
-                        <div class="info-box">
-                            <div class="row">
-                                <div class="col-sm-2 align-self-center" style="text-align: center">
-                                    <h5>JAN 20</h5>
-                                    <small style="color: #9a9a9a">SUN 2024</small>
-                                </div>
-                                <div class="col-sm-8" style="text-align: left">
-                                    <h5>ABC ANCHOR WHITE</h5>
-                                    <small>ABC ANCHOR WHITE ABC ANCHOR WHITEABC ANCHOR WHITEABC ANCHOR WHITE</small>
-                                </div>
-                                <div class="col-sm-2 align-self-center">
-                                    <div class="main-dark-button">
-                                        <a id="showAlert" href="#">25.00$</a>
+    <div id="eventdetail1">
+
+        <div class="ticket-details-page">
+            <div class="container">
+                <div v-for="event in eventdetail" class="row gx-3">
+                    <div class="col">
+                        <div class="section-heading">
+                            <h2>Available Tickets</h2>
+                        </div>
+                        <div class="right-content2">
+                            <div class="info-box">
+                                <div class="row">
+                                    <div class="col-sm-2 align-self-center" style="text-align: center">
+                                        <h5>@{{ event.mmmdd }}</h5>
+                                        <small style="color: #9a9a9a">@{{ event.dddyyyy }}</small>
                                     </div>
-                                    <input id="form1" min="1" name="quantity" value="1" type="number"
-                                        class="form-control form-control-sm" style="text-align: center" />
+                                    <div class="col-sm-8" style="text-align: left">
+                                        <h5>@{{ event.evt_name }}</h5>
+                                        <small>@{{ event.evt_description }}</small>
+                                    </div>
+                                    <div class="col-sm-2 align-self-center">
+                                        <div class="main-dark-button">
+                                            <a id="showAlert" href="#">@{{ event.ticket_price }}$</a>
+                                        </div>
+                                        <input id="form1" min="1" name="quantity" value="1" type="number"
+                                            class="form-control form-control-sm text-center" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col">
+                        <div class="right-content">
+                            <div class="left-image">
+                                <img src="{{ asset('frontend/assets/images/ticket-details.jpg') }}" alt="" />
+                            </div><br>
+                            <h4>@{{ event.evt_name }}</h4>
+                            <span>@{{ event.ticket_in_stock }} Tickets still available</span>
+                            <ul>
+                                <li><i class="fa fa-clock-o"></i> @{{ event.full_date }}</li>
+                                <li>
+                                    <i class="fa fa-map-marker"></i>@{{ event.evt_address }}
+                                </li>
+                            </ul>
 
-
-                </div>
-
-                <div class="col">
-                    <div class="right-content">
-                        <div class="left-image">
-                            <img src="{{ asset('frontend/assets/images/ticket-details.jpg') }}" alt="" />
-                        </div><br>
-                        <h4>Sunny Hill Festival</h4>
-                        <span>240 Tickets still available</span>
-                        <ul>
-                            <li><i class="fa fa-clock-o"></i> Thursday 18:00 to 22:00</li>
-                            <li>
-                                <i class="fa fa-map-marker"></i>Copacabana Beach, Rio de
-                                Janeiro
-                            </li>
-                        </ul>
-
-                        <div class="warn">
-                            <h3>Event Detail</h3>
-                            <p>ABC Extra Stout</p>
+                            <div class="warn">
+                                <h3>Event Detail</h3>
+                                <p>ABC Extra Stout</p>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-
-    </div>
-
     <script>
         document.getElementById('showAlert').addEventListener('click', function(event) {
             event.preventDefault();
@@ -194,10 +189,67 @@
             });
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>\
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new Vue({
+                el: '#eventdetail1',
+                mounted() {
+                    this.fetch();
+                },
+                data: {
+                    eventdetail: [],
+                    getdata: [{
+                        evt_id: '',
+                        evt_name: '',
+                        ticket_price: '',
+                        ticket_in_stock: '',
+                        evt_start_date: '',
+                        evt_address: '',
+                        evt_detail: '',
+                    }]
 
+                },
+                methods: {
+                    // requestevet() {
+                    //     try {
+                    //         localStorage.setItem('evt_id', event.evt_id);
+                    //         axios.post('http://127.0.0.1:8000/api/eventdetail/' + $event_id)
+                    //             .then((response) => {
+                    //                 this.eventdetail = response.data.data;
+                    //                 console.log(this.eventdetail);
+                    //             })
+                    //             .catch((error) => {
+                    //                 console.log("Error", error);
+                    //             })
+                    //     } catch (error) {
+                    //         console.log(error);
+                    //     }
+                    // }
+                    fetch() {
+                        try {
+                            localStorage.setItem('evt_id', @json($event_id));
+                            axios.get('http://127.0.0.1:8000/api/eventdetail/' + localStorage.getItem(
+                                    'evt_id'))
+                                .then((response) => {
+                                    this.eventdetail = response.data.data;
+                                    console.log(this.eventdetail);
+                                })
+                                .catch((error) => {
+                                    console.log("Error", error);
+                                })
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    },
+                    getevent(eventdetail) {
 
+                    }
 
+                },
 
+            })
+        });
+    </script>
 
 @endsection
