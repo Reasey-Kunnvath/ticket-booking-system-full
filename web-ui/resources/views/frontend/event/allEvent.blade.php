@@ -64,7 +64,7 @@
                                 <img src={{ asset('frontend/assets/images/ticket-02.jpg') }} alt="" />
                                 <div class="price">
                                     <span>Event ID @{{ event.evt_id }}</em></span><br>
-                                    <span>1 ticket<br />from <em>$ @{{ event.ticket_price }} @{{ event.evt_id }}</em></span>
+                                    <span>1 ticket<br />from <em>$ @{{ event.ticket_price }}</em></span>
                                 </div>
 
                             </div>
@@ -80,7 +80,11 @@
                                     </li>
                                 </ul>
                                 <div class="main-dark-button">
-                                    <a href="#" type="button" class="btn btn-dark">PurchaseTickets</a>
+                                    <a type="button" class="btn btn-dark" @click="getevent(event.evt_id)">test</a>
+                                </div>
+                                <div class="main-dark-button">
+                                    <a href="{{ url('/event-detail') }}" type="button"
+                                        class="btn btn-dark">PurchaseTickets</a>
                                 </div>
                             </div>
                         </div>
@@ -101,33 +105,38 @@
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        new Vue({
-            el: '#allevent',
-            data: {
-                allevents: []
-            },
-            methods: {
-                fetch() {
-                    try {
-                        axios.get('http://127.0.0.1:8000/api/allevent')
-                            .then((response) => {
-                                this.allevents = response.data.data;
-                                console.log(this.allevents);
-                            })
-                            .catch((error) => {
-                                console.log("Error", error);
-                            })
-                    } catch (error) {
-                        console.log(error);
+        document.addEventListener('DOMContentLoaded', () => {
+            new Vue({
+                el: '#allevent',
+                mounted() {
+                    this.fetch();
+                },
+                data: {
+                    allevents: []
+                },
+                methods: {
+                    fetch() {
+                        try {
+                            axios.get('http://127.0.0.1:8000/api/allevent')
+                                .then((response) => {
+                                    this.allevents = response.data.data;
+                                    console.log(this.allevents);
+                                })
+                                .catch((error) => {
+                                    console.log("Error", error);
+                                })
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    },
+                    getevent(event) {
+
+                        console.log(event);
                     }
-                }
-            },
-            mounted() {
-                this.fetch();
-            },
-        })
+                },
+
+            })
+        });
     </script>
 @endsection

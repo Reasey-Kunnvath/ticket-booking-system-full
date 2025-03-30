@@ -69,18 +69,18 @@
                             </div>
                             <div class="down-content">
                                 <span>There Are @{{ sport.ticket_in_stock }} Tickets Left For This Show</span>
-                                <h4>@{{ sport.evt_name }}/h4>
-                                    <ul>
-                                        <li>
-                                            <i class="fa fa-clock-o"></i> @{{ sport.evt_start_date }}
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-map-marker"></i>@{{ sport.evt_address }}
-                                        </li>
-                                    </ul>
-                                    <div class="main-dark-button">
-                                        <a href="ticket-details.html">Purchase Tickets</a>
-                                    </div>
+                                <h4>@{{ sport.evt_name }}</h4>
+                                <ul>
+                                    <li>
+                                        <i class="fa fa-clock-o"></i> @{{ sport.evt_start_date }}
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-map-marker"></i>@{{ sport.evt_address }}
+                                    </li>
+                                </ul>
+                                <div class="main-dark-button">
+                                    <a href="ticket-details.html">Purchase Tickets</a>
+                                </div>
                             </div>
                         </div>
                     </div>
