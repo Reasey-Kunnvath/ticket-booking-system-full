@@ -35,9 +35,10 @@ class AuthController extends Controller
     public function verify_email(Request $request, $id){
         $user = User::where('id', $id)->first();
 
-        if(!$user->verifyToken == $request[0]){
+        if(!$user->verifyToken == $request[0] || !$user->verifyToken == $request){
             return response()->json([
-                'message' => 'invalid token'
+                'message' => 'invalid token' . $user,
+                'request' => $request
             ]);
         }
 
@@ -77,7 +78,11 @@ class AuthController extends Controller
                 'verifyToken' => $verifyToken
             ]);
 
-            $this->sendEmail($user->email,$verifyToken);
+            $this->sendEmail($user->email,[
+                'verifyToken' => $verifyToken,
+                'user' => $user,
+                'timestamp' => now(),
+            ]);
 
             return $this->successResponse([
                 'verified' => false,

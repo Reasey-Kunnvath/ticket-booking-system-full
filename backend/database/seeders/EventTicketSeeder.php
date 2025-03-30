@@ -22,5 +22,14 @@ class EventTicketSeeder extends Seeder
             'ticket_expiry_date' => Carbon::now(),
             'evt_id' => 1
         ]);
+
+        EventTicket::create([
+            'ticket_title' => 'Not Normal Ticket',
+            'ticket_price' => '100',
+            'ticket_in_stock' => '1000',
+            'ticket_description' => 'ABC',
+            'ticket_expiry_date' => Carbon::now(),
+            'evt_id' => 2
+        ]);
     }
 }

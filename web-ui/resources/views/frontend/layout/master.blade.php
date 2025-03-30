@@ -4,10 +4,12 @@
 <head>
     <meta charset="utf-8">
     <title>Events - @yield('title')</title>
+    @vite(['resources/js/app.js'])
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-   
+    {{-- 'resources/js/axios.js', 'resources/js/auth.js',  --}}
+
     <!-- SweetAlert -->
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
