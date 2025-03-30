@@ -50,7 +50,7 @@
 
     <!-- Search End -->
 
-    <div id="app">
+    <div id="UpcomingApp">
         <!-- Property List Start -->
         <div class="tickets-page">
             <div class="container">
@@ -60,12 +60,13 @@
                             <h2>Events Upcoming</h2>
                         </div>
                     </div>
-                    <div v-for="ticket in tickets" class="col-lg-4">
+                    <div v-if="loading" class="col-lg-4">Loading...</div>
+                    <div v-else v-for="(ticket, index) in tickets" :key="ticket.ticket_id" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
                                 <img src={{ asset('frontend/assets/images/ticket-01.jpg') }} alt="" />
                                 <div class="price">
-                                    <span>1 ticket<br />from <em>$@{{ ticket.ticket_price }}</em></span>
+                                    <span>1 ticket<br />from <em>$ @{{ ticket.ticket_price }} </em></span>
                                 </div>
                             </div>
                             <div class="down-content">
@@ -102,35 +103,42 @@
         <!-- Property List End -->
 
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> --}}
     <script>
-        new Vue({
-            el: '#app',
+        document.addEventListener('DOMContentLoaded', () => {
+            // console.log(window.axios);
+            new Vue({
+                el: '#UpcomingApp',
+                data: {
+                    tickets: []
+                },
+                mounted() {
+                    this.fetch();
+                },
+                methods: {
+                    fetch() {
+                        try {
+                            axios.get('http://127.0.0.1:8000/api/eventcoming')
+                                .then((response) => {
+                                    this.tickets = response.data.data;
+                                    this.loading = false;
+                                })
+                                .catch((error) => {
+                                    console.log("Error", error);
+                                    this.loading = false;
+                                })
 
-            data: {
-                tickets: []
-            },
-            methods: {
-                fetch() {
-                    try {
-                        axios.get('http://127.0.0.1:8000/api/eventcoming')
-                            .then((response) => {
-                                this.tickets = response.data.data;
-                                // console.log(this.tickets);
-                            })
-                            .catch((error) => {
-                                console.log("Error", error);
-                            })
-
-                    } catch (error) {
-                        console.log(error);
+                        } catch (error) {
+                            console.log(error);
+                            this.loading = false;
+                        }
                     }
-                }
-            },
-            mounted() {
-                this.fetch();
-            },
-        })
+                },
+
+            })
+        });
     </script>
+
 @endsection

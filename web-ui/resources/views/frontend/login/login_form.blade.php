@@ -361,7 +361,7 @@
                 password: '12345678'
             },
             loginPayload: {
-                email: 'admin@admin.com',
+                email: 'puskascsgo@gmail.com',
                 password: '12345678'
             },
             APIResponse: {},

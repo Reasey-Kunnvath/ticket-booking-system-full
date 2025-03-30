@@ -39,11 +39,12 @@ class FEventController extends Controller
                 'events.evt_start_date',
                 'events.evt_address')
         ->leftJoin('events', 'event_tickets.evt_id', '=', 'events.evt_id')
-        ->where('events.evt_start_date', '>', date('Y-m-d'))
+        ->where('events.evt_start_date', '>', now())
         ->get();
+
         return response()->json([
                 'data' => $event
-            ],200);
+        ],200);
 
     }
     public function mostpopular(){
