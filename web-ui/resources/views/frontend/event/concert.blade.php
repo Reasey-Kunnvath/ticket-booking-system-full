@@ -51,7 +51,7 @@
 
 
     <!-- Property List Start -->
-    <div id="app">
+    <div id="concert">
         <div class="tickets-page">
             <div class="container">
                 <div class="row">
@@ -106,7 +106,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         new Vue({
-            el: '#app',
+            el: '#concert',
 
             data: {
                 concerts: []

@@ -49,7 +49,7 @@
 
     <!-- Search End -->
 
-    <div id="app">
+    <div id="allevent">
         <div class="tickets-page">
             <div class="container">
                 <div class="row">
@@ -80,7 +80,7 @@
                                     </li>
                                 </ul>
                                 <div class="main-dark-button">
-                                    <a href="" type="button" class="btn btn-dark">PurchaseTickets</a>
+                                    <a href="#" type="button" class="btn btn-dark">PurchaseTickets</a>
                                 </div>
                             </div>
                         </div>
@@ -105,15 +105,9 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         new Vue({
-            el: '#app',
-
+            el: '#allevent',
             data: {
-                allevents: [],
-                id: 0
-
-            },
-            mounted() {
-                this.fetch();
+                allevents: []
             },
             methods: {
                 fetch() {
@@ -126,18 +120,14 @@
                             .catch((error) => {
                                 console.log("Error", error);
                             })
-
                     } catch (error) {
                         console.log(error);
                     }
-                },
-                purchases(evt_id) {
-
-
                 }
             },
-
-
+            mounted() {
+                this.fetch();
+            },
         })
     </script>
 @endsection
