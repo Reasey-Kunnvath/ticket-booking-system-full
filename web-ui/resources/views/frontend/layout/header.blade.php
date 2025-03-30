@@ -12,7 +12,7 @@
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div id="navbarCollapse" class="collapse navbar-collapse">
                 <div class="navbar-nav ms-auto">
                     <a href="{{ url('/') }}"
                         class="nav-item nav-link {{ request()->routeIs('Home') ? 'active' : '' }}">Home</a>

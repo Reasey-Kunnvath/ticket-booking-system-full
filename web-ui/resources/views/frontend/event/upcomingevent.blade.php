@@ -1,4 +1,3 @@
-@vite(['resources/js/axios.js'])
 @extends('frontend.layout.master')
 @section('title', 'Upcoming Event')
 @section('content')
@@ -118,7 +117,7 @@
                         axios.get('http://127.0.0.1:8000/api/eventcoming')
                             .then((response) => {
                                 this.tickets = response.data.data;
-                                console.log(this.tickets);
+                                // console.log(this.tickets);
                             })
                             .catch((error) => {
                                 console.log("Error", error);
