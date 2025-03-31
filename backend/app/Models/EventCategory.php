@@ -9,5 +9,12 @@ class EventCategory extends Model
     //
     protected $table = 'event_categories';
 
-    protected $fillable = ['name', 'description'];
+    protected $primaryKey = 'cate_id';
+
+    protected $fillable = [
+        'cate_name',
+        'cate_description',
+        'status',
+        'created_by'
+    ];
 }
