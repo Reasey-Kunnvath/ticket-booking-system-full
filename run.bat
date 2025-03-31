@@ -1,15 +1,24 @@
 @echo off
 echo Starting Frontend (Vue 3) and Backend (Laravel)...
 
-start cmd /k "cd web-ui && npm run dev"
-start cmd /k "cd web-ui && php artisan serve --port=8080"
+cd web-ui
+start /b "" npm run dev
+echo Vue 3 Frontend started on http://localhost:5173
 timeout /t 2 /nobreak
 
-start cmd /k "cd backend && php artisan serve --port=8000"
+start /b "" php artisan serve --port=8080
+echo Laravel web-ui started on http://127.0.0.1:8080
+timeout /t 2 /nobreak
+
+cd ..\backend
+start /b "" php artisan serve --port=8000
+echo Laravel Backend started on http://127.0.0.1:8000
 
 echo.
-echo Both frontend and backend should now be running.
+echo All services should now be running in this window.
 echo - Frontend: http://localhost:5173
+echo - web-ui Backend: http://127.0.0.1:8080
 echo - Backend: http://127.0.0.1:8000
-echo Press any key to close this window...
+echo.
+echo Press Ctrl+C to stop all services and close this window...
 pause

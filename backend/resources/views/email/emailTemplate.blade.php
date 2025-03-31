@@ -40,23 +40,21 @@
 
         <!-- Body -->
         <div class="mb-4">
-            {{-- <p type="hidden" v-model="user_id">{{ $data['user']->id }}</p> --}}
-            <p>Hello <strong>{{ $data['user']->name ?? 'User' }}</strong>,</p>
-            <p>{{ $data['custom_message'] ?? 'Please verify your email to get started.' }}</p>
-            <p>Your verification code is:</p>
-            <h2 class="text-center" style="color: #0d6efd;">{{ $data['verifyToken'] }}</h2>
-            <p class="text-muted">This code was generated on {{ $data['timestamp'] ?? now() }}.</p>
-            <p v-model="otp"></p>
-            <p v-model="user_id"></p>
-        </div>
 
+            <p>Hello <strong>{{ $data['user']->name ?? 'User' }}</strong>,</p>
+            <p>Please verify your email to get started.</p>
+            <p>Your verification code is:</p>
+            <h2 class="text-center" style="color: #0d6efd;">{{ $data['verifyToken'] ?? 'XXXXXX' }}</h2>
+            <p class="text-muted">This code was generated on {{ $data['timestamp'] ?? now() }}.</p>
+
+        </div>
         <!-- Call to Action -->
-        <div class="text-center mb-4">
+        {{-- <div class="text-center mb-4">
             <a href="{{ url('/verify-email?user_id=' . $data['user']->id . '&token=' . $data['verifyToken']) }}"
                 class="btn-primary">
                 Verify Now
             </a>
-        </div>
+        </div> --}}
 
         <!-- Footer -->
         <div class="text-center text-muted">
