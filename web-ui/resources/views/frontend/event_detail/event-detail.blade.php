@@ -123,16 +123,16 @@
             background: #0056b3;
         }
     </style>
-    <div id="eventdetail1">
 
+    <div id="eventdetail1">
         <div class="ticket-details-page">
             <div class="container">
-                <div v-for="event in eventdetail" class="row gx-3">
+                <div class="row gx-3">
                     <div class="col">
                         <div class="section-heading">
                             <h2>Available Tickets</h2>
                         </div>
-                        <div class="right-content2">
+                        <div v-for="event in eventdetail" class="right-content2">
                             <div class="info-box">
                                 <div class="row">
                                     <div class="col-sm-2 align-self-center" style="text-align: center">
@@ -141,7 +141,7 @@
                                     </div>
                                     <div class="col-sm-8" style="text-align: left">
                                         <h5>@{{ event.evt_name }}</h5>
-                                        <small>@{{ event.evt_description }}</small>
+                                        <small>@{{ event.ticket_title }}</small>
                                     </div>
                                     <div class="col-sm-2 align-self-center">
                                         <div class="main-dark-button">
@@ -159,12 +159,14 @@
                             <div class="left-image">
                                 <img src="{{ asset('frontend/assets/images/ticket-details.jpg') }}" alt="" />
                             </div><br>
-                            <h4>@{{ event.evt_name }}</h4>
-                            <span>@{{ event.ticket_in_stock }} Tickets still available</span>
+                            <h4>@{{ eventData.evt_name }}</h4>
+                            <span>@{{ eventData.ticket_in_stock }} Tickets still available</span>
                             <ul>
-                                <li><i class="fa fa-clock-o"></i> @{{ event.full_date }}</li>
+                                <li><i class="fa fa-clock-o"></i> @{{ eventData.full_date }}</li>
                                 <li>
-                                    <i class="fa fa-map-marker"></i>@{{ event.evt_address }}
+                                    <a :href="eventData.evt_address_link" target="_blank">
+                                        <i class="fa fa-map-marker"></i>@{{ eventData.evt_address }}
+                                    </a>
                                 </li>
                             </ul>
 
@@ -199,15 +201,7 @@
                 },
                 data: {
                     eventdetail: [],
-                    getdata: [{
-                        evt_id: '',
-                        evt_name: '',
-                        ticket_price: '',
-                        ticket_in_stock: '',
-                        evt_start_date: '',
-                        evt_address: '',
-                        evt_detail: '',
-                    }]
+                    eventData: []
 
                 },
                 methods: {
@@ -229,11 +223,12 @@
                     fetch() {
                         try {
                             localStorage.setItem('evt_id', @json($event_id));
-                            axios.get('http://127.0.0.1:8000/api/eventdetail/' + localStorage.getItem(
+                            axios.get('/eventdetail/' + localStorage.getItem(
                                     'evt_id'))
                                 .then((response) => {
-                                    this.eventdetail = response.data.data;
-                                    console.log(this.eventdetail);
+                                    this.eventdetail = response.data.ticket_data;
+                                    this.eventData = response.data.event_data;
+                                    console.log(this.eventData);
                                 })
                                 .catch((error) => {
                                     console.log("Error", error);

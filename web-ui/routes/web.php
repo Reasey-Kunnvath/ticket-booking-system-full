@@ -26,7 +26,8 @@ use App\Http\Controllers\frontend\{
 #for Backend
 
 use App\Http\Controllers\backend\{
-    DashboardController
+    DashboardController,
+    adminLoginController
 };
 
 
@@ -96,6 +97,10 @@ Route::controller(LoginController::class)->group(function(){
 // Route::controller(DashboardController::class)->group(function(){
 //     Route::get('/dashboard','index')->name('dashboard');
 // });
+
+Route::controller(adminLoginController::class)->group(function(){
+    Route::get('/admin/login','AdminLoginIndex')->name('Admin.login');
+});
 
 Route::prefix('admin')->controller(DashboardController::class)->group(function(){
     Route::get('/dashboard','index')->name('dashboard');
