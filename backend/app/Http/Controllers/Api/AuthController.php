@@ -191,10 +191,6 @@ class AuthController extends Controller
         return $this->login_handler($request, config('roles.event-provider'));
     }
 
-
-
-
-
     /**
      * Logout
      **/

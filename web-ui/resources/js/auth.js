@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     "/most-popular-event",
                     "/event-detail",
                     "/help-center",
+                    "/admin/login",
                 ];
 
                 if (guestRoute.includes(window.location.pathname)) {
