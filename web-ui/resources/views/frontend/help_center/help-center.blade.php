@@ -1,5 +1,4 @@
 
-
 @extends('frontend.layout.master')
 @section('title','Help Center')
 @section('content')
