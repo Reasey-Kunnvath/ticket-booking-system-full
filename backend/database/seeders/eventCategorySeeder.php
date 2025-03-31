@@ -15,14 +15,20 @@ class eventCategorySeeder extends Seeder
     {
         EventCategory::create([
             'cate_name' => 'Concert',
-            'cate_description' => 'Oracle',
+            'cate_description' => 'ABC',
             'status' => 1,
             'created_by' => 1,
         ]);
 
         EventCategory::create([
-            'cate_name' => 'Diddy',
-            'cate_description' => 'Party',
+            'cate_name' => 'Conference',
+            'cate_description' => 'Meeting',
+            'status' => 1,
+            'created_by' => 1,
+        ]);
+        EventCategory::create([
+            'cate_name' => 'Sport',
+            'cate_description' => 'Sport',
             'status' => 1,
             'created_by' => 1,
         ]);

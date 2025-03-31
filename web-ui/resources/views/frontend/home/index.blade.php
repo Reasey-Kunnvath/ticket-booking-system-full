@@ -65,7 +65,7 @@
                             </select>
                         </div>
                         <div class="col-lg-3">
-                            <button type="submit" id="form-submit" class="btn btn-dark w-100">
+                            <button id="form-submit" type="submit" class="btn btn-dark w-100">
                                 Submit
                             </button>
                         </div>
@@ -77,8 +77,8 @@
     <!-- Search End -->
 
 
-    {{-- <!-- Category Start -->
-        <div class="container-xxl py-5">
+    <!-- Category Start -->
+    {{-- <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                     <h1 class="mb-3">Property Types</h1>
@@ -175,8 +175,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Category End --> --}}
+        </div> --}}
+    <!-- Category End -->
 
     <!-- Property List Start (Upcoming Events) -->
 
@@ -186,7 +186,6 @@
         <div class="container">
             <div class="row">
                 <x-event-listing :events="$events" title="Most Popular Events" />
-
                 <div class="col-lg-12">
                     <div class="pagination">
                         <ul>
@@ -211,10 +210,6 @@
         </div>
     </div>
     </div>
-
-
-
-
     <!-- Testimonial Start -->
     <div class="container-xxl py-5">
         <div class="container">

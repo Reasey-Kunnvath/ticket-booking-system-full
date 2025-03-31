@@ -82,7 +82,7 @@
                                     </li>
                                 </ul>
                                 <div class="main-dark-button">
-                                    <a href="ticket-details.html">Purchase Tickets</a>
+                                    <a :href="'/event-detail/' + eventpop.evt_id">PurchaseTickets</a>
                                 </div>
                             </div>
                         </div>
