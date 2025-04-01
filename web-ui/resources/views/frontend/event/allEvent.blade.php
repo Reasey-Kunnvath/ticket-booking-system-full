@@ -46,9 +46,7 @@
             </div>
         </div>
     </div>
-
     <!-- Search End -->
-
     <div id="allevent">
         <div class="tickets-page">
             <div class="container">
@@ -63,7 +61,6 @@
                             <div class="thumb">
                                 <img src={{ asset('frontend/assets/images/ticket-02.jpg') }} alt="" />
                                 <div class="price">
-                                    <span>Event ID @{{ event.evt_id }}</em></span><br>
                                     <span>1 ticket<br />from <em>$ @{{ event.ticket_price }}</em></span>
                                 </div>
 
@@ -89,11 +86,22 @@
                     <div class="col-lg-12">
                         <div class="pagination">
                             <ul>
-                                <li><a href="#">Prev</a></li>
-                                <li><a href="#">1</a></li>
-                                <li class="active"><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">Next</a></li>
+                                <li>
+                                    <a href="#"
+                                        @click.prevent="changePage(pagination.current_page - 1);scrollToTop()">Previous</a>
+                                </li>
+                                <li v-for="page in pagination.last_page"
+                                    :class="page == pagination.current_page ? 'active' : ''" :key="page">
+                                    <a v-if="page != pagination.current_page" href="#"
+                                        @click.prevent="changePage(page);scrollToTop()">@{{ page }}</a>
+                                    <a v-else href="#"
+                                        @click.prevent="changePage(page);scrollToTop()">@{{ page }}</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        @click.prevent="changePage(pagination.current_page + 1);scrollToTop()">Next</a>
+                                </li>
+
                             </ul>
                         </div>
                     </div>
@@ -101,6 +109,7 @@
             </div>
         </div>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             new Vue({
@@ -110,17 +119,16 @@
                 },
                 data: {
                     allevents: [],
-                    event: {
-                        evt_id: '',
-                    }
+                    pagination: '',
+
                 },
                 methods: {
-                    fetch() {
+                    fetch(page) {
                         try {
-                            axios.get('http://127.0.0.1:8000/api/allevent')
+                            axios.get(`http://127.0.0.1:8000/api/allevent?page=${page}`)
                                 .then((response) => {
                                     this.allevents = response.data.data;
-                                    console.log(this.allevents);
+                                    this.pagination = response.data;
                                 })
                                 .catch((error) => {
                                     console.log("Error", error);
@@ -129,13 +137,18 @@
                             console.log(error);
                         }
                     },
-                    // getevent(event) {
-                    //     // console.log(this.event.evt_id);
-
-                    //     localStorage.setItem('evt_id', event.evt_id);
-                    //     window.location.href = "{{ url('http://127.0.0.1:8000/api/eventdetail') }}/" + event
-                    //         .evt_id;
-                    // }
+                    changePage(page) {
+                        if (page >= 1 && page <= this.pagination.last_page) {
+                            this.fetch(page);
+                            console.log('Current page is: ', this.pagination.current_page)
+                        }
+                    },
+                    scrollToTop() {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        }); // Smooth scroll to top
+                    }
                 },
 
             })

@@ -81,7 +81,7 @@
                                     </li>
                                 </ul>
                                 <div class="main-dark-button">
-                                    <a href="{{ url('event-detail') }}">Purchase Tickets</a>
+                                    <a :href="'/event-detail/' + concert.evt_id">Purchase Tickets</a>
                                 </div>
                             </div>
                         </div>

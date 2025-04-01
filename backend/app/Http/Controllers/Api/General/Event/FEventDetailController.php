@@ -32,9 +32,6 @@ class FEventDetailController extends Controller
             ->rightJoin('event_tickets', 'events.evt_id', '=', 'event_tickets.evt_id')
             ->where('events.evt_id', '=', $id)
             ->get();
-
-
-
         return response()->json([
             'ticket_data' => $eventDetail,
             'event_data' => [
