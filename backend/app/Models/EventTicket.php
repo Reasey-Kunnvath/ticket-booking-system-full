@@ -17,9 +17,12 @@ class EventTicket extends Model
     ];
 
 
-    public function event(){
-        return $this->belongsTo(Event::class);
-    }
+    // protected $primaryKey = 'ticket_id';
+
+    // public function event()
+    // {
+    //     return $this->belongsTo(Event::class, 'evt_id', 'evt_id');
+    // }
 
     public function orders(){
         return $this->hasMany(Order::class,'ticket_id','ticket_id');
