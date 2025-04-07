@@ -77,7 +77,7 @@
                                     </li>
                                 </ul>
                                 <div class="main-dark-button">
-                                    <a :href="'/event-detail/' + event.evt_id">PurchaseTickets</a>
+                                    <a :href="'/event-detail/' + event.evt_id">Purchase Tickets</a>
                                 </div>
                             </div>
                         </div>

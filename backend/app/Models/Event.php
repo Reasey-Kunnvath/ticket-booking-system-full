@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     protected $table = 'events';
+    // protected $primaryKey = 'evt_id';
 
     protected $fillable = [
         'evt_name',
@@ -19,4 +20,9 @@ class Event extends Model
         'status',
         'evt_status'
     ];
+
+    // public function tickets()
+    // {
+    //     return $this->hasMany(EventTicket::class, 'evt_id', 'evt_id');
+    // }
 }

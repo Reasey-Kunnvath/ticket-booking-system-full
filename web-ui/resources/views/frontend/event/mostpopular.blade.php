@@ -52,7 +52,7 @@
 
 
     <!-- Property List Start -->
-    <div id="popular">]
+    <div id="popular">
         <div class="tickets-page">
             <div class="container">
                 <div class="row">
@@ -66,19 +66,18 @@
                             <div class="thumb">
                                 <img src={{ asset('frontend/assets/images/ticket-01.jpg') }} alt="" />
                                 <div class="price">
-                                    <span>1 ticket<br />from <em>$25</em></span>
+                                    <span>1 ticket<br />from <em>$@{{ eventpop.ticket_price }}</em></span>
                                 </div>
                             </div>
                             <div class="down-content">
-                                <span>There Are 150 Tickets Left For This Show</span>
+                                <span>There Are @{{ eventpop.ticket_in_stock }} Tickets Left For This Show</span>
                                 <h4>@{{ eventpop.evt_name }}</h4>
                                 <ul>
                                     <li>
-                                        <i class="fa fa-clock-o"></i>
+                                        <i class="fa fa-clock-o"></i>@{{ eventpop.evt_start_date }}
                                     </li>
                                     <li>
-                                        <i class="fa fa-map-marker"></i>@{{ eventpop.evt_name }}
-                                        Janeiro
+                                        <i class="fa fa-map-marker"></i>@{{ eventpop.evt_address }}
                                     </li>
                                 </ul>
                                 <div class="main-dark-button">
