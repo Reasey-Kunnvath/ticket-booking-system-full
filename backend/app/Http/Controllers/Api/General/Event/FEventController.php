@@ -26,8 +26,8 @@ class FEventController extends Controller
         // ->rightJoin('event_tickets', 'events.evt_id', '=', 'event_tickets.evt_id')
         // ->where('events.evt_status', '=', '1')
         // ->get();
-
         // $event = Event::where('evt_status', '1')->get();
+
         $event = Event::select([
                     'events.evt_id',
                     'events.evt_name',
@@ -42,24 +42,11 @@ class FEventController extends Controller
                 ->groupBy([
                     'events.evt_id',
                 ])
-                ->get();
+                ->paginate(9);
 
         return response()->json([
                 'data' => $event
             ],200);
-
-    //     $offset = ($page - 1) * $perPage;
-    //     $itemsForCurrentPage = $events->slice($offset, $perPage)->values();
-
-    //     $paginator = new LengthAwarePaginator(
-    //     $itemsForCurrentPage,
-    //     $events->count(),
-    //     $perPage,
-    //     $page,
-    //     ['path' => $request->url(), 'query' => $request->query()]
-    // );
-
-    return response()->json($events, 200);
     }
      public function eventcoming(){
         // $event = DB::table('event_tickets')
@@ -88,7 +75,7 @@ class FEventController extends Controller
         ->groupBy([
             'events.evt_id',
         ])
-        ->get();
+        ->paginate(9);
 
         if($event->isEmpty()){
             return response()->json([
@@ -102,9 +89,10 @@ class FEventController extends Controller
 
     }
     public function mostpopular(){
-        // $eventPopular=DB::table('events')
-        // ->select('*')
-        // ->get();
+        // Phorakden Testing Pagination
+            // $popularEvent=DB::table('events')
+            // ->select('*')
+            // ->paginate(9);
 
         $popularEvent = Event::select([
             'events.evt_id',
@@ -141,7 +129,7 @@ class FEventController extends Controller
             'ticket_data.ticket_in_stock',
         ])
         ->orderByDesc('total_quantity_sold')
-        ->get();
+        ->paginate(9);
 
         if($popularEvent->isEmpty()){
             return response()->json([
@@ -187,7 +175,7 @@ class FEventController extends Controller
         ->groupBy([
             'events.evt_id',
         ])
-        ->get();
+        ->paginate(9);
 
         if($eventConcert->isEmpty()){
             return response()->json([
@@ -198,7 +186,6 @@ class FEventController extends Controller
         return response()->json([
             'data'=> $eventConcert
         ],200);
-
     }
     public function conferences(){
         $eventConferences = Event::select([
@@ -216,7 +203,7 @@ class FEventController extends Controller
         ->groupBy([
             'events.evt_id',
         ])
-        ->get();
+        ->paginate(9);
 
         if($eventConferences->isEmpty()){
             return response()->json([
@@ -230,6 +217,12 @@ class FEventController extends Controller
 
     }
     public function sport(){
+        // Phorakden Testing Pagination
+            // $eventSport=DB::table('events')
+            // ->select('*')
+            // ->paginate(9);
+
+
         $eventSport = Event::select([
             'events.evt_id',
             'events.evt_name',
