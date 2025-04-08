@@ -26,7 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     return;
                 }
 
-                if (!localStorage.getItem("isLoggedIn")) {
+                if (
+                    !localStorage.getItem("isLoggedIn") &&
+                    !localStorage.getItem("token")
+                ) {
                     window.location.href = "/login";
                 }
             },

@@ -130,7 +130,7 @@
                                 .then((response) => {
                                     this.allevents = response.data.data.data;
                                     this.pagination = response.data.data;
-                                    //console.log(this.pagination);
+                                    console.log(this.allevents);
                                 })
                                 .catch((error) => {
                                     console.log("Error", error);
