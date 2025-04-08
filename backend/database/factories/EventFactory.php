@@ -26,8 +26,13 @@ class EventFactory extends Factory
             ]), // Replaced offensive term
             'evt_description' => 'ABC',
             'evt_policy' => '18+',
-            'evt_start_date' => Carbon::now(),
-            'evt_end_date' => Carbon::now()->addMonth(1), // Default to a 1-month duration
+            'evt_start_date' => $this->faker->randomElement([
+                Carbon::now(),
+                Carbon::now()->addWeek(1),
+            ]),
+            'evt_end_date' => $this->faker->randomElement([
+                Carbon::now()->addMonth(1)
+            ]), // Default to a 1-month duration
             'evt_address' => 'abc',
             'evt_address_link' => 'https://maps.app.goo.gl/RmLLd97uGT7TPG9T6',
             'status' => '1',
