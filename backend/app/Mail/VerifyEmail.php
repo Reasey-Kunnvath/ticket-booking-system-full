@@ -22,6 +22,7 @@ class VerifyEmail extends Mailable
 
     public function build()
     {
+
         return $this->subject('Welcome to Our App')
                     ->view('email.emailTemplate')
                     ->with(['data' => $this->data]);

@@ -138,8 +138,9 @@
                                     <div class="col-sm-2 align-self-center" style="text-align: center">
                                         <h5>@{{ event.mmmdd }}</h5>
                                         <small style="color: #9a9a9a">@{{ event.dddyyyy }}</small>
+                                        <small style="color: #9a9a9a">@{{ event.ticket_in_stock }} Tickets</small>
                                     </div>
-                                    <div class="col-sm-8" style="text-align: left">
+                                    <div class="col-sm-8 align-self-center" style="text-align: left">
                                         <h5>@{{ event.evt_name }}</h5>
                                         <small>@{{ event.ticket_title }}</small>
                                     </div>

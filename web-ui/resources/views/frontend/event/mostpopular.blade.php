@@ -52,7 +52,7 @@
 
 
     <!-- Property List Start -->
-    <div id="popular">]
+    <div id="popular">
         <div class="tickets-page">
             <div class="container">
                 <div class="row">
@@ -66,19 +66,18 @@
                             <div class="thumb">
                                 <img src={{ asset('frontend/assets/images/ticket-01.jpg') }} alt="" />
                                 <div class="price">
-                                    <span>1 ticket<br />from <em>$25</em></span>
+                                    <span>1 ticket<br />from <em>$@{{ eventpop.ticket_price }}</em></span>
                                 </div>
                             </div>
                             <div class="down-content">
-                                <span>There Are 150 Tickets Left For This Show</span>
+                                <span>There Are @{{ eventpop.ticket_in_stock }} Tickets Left For This Show</span>
                                 <h4>@{{ eventpop.evt_name }}</h4>
                                 <ul>
                                     <li>
-                                        <i class="fa fa-clock-o"></i>
+                                        <i class="fa fa-clock-o"></i>@{{ eventpop.evt_start_date }}
                                     </li>
                                     <li>
-                                        <i class="fa fa-map-marker"></i>@{{ eventpop.evt_name }}
-                                        Janeiro
+                                        <i class="fa fa-map-marker"></i>@{{ eventpop.evt_address }}
                                     </li>
                                 </ul>
                                 <div class="main-dark-button">
@@ -90,12 +89,25 @@
 
                     <div class="col-lg-12">
                         <div class="pagination">
-                            <ul>
-                                <li><a href="#">Prev</a></li>
-                                <li><a href="#">1</a></li>
-                                <li class="active"><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">Next</a></li>
+                            <ul v-if="pagination.total > 9">
+                                <li>
+                                    <a v-if="pagination.current_page < pagination.from" href="#"
+                                        @click.prevent="changePage(pagination.current_page - 1);scrollToTop()">Prev</a>
+                                    <a v-else class="disabled">Prev</a>
+                                </li>
+                                <li v-for="page in pagination.last_page" :key="page"
+                                    :class="page == pagination.current_page ? 'active' : ''">
+                                    <a v-if="page != pagination.current_page" href="#"
+                                        @click.prevent="changePage(page);scrollToTop()">@{{ page }}</a>
+                                    <a v-else href="#"
+                                        @click.prevent="changePage(page);scrollToTop()">@{{ page }}</a>
+                                </li>
+                                <li>
+                                    <a v-if="pagination.to < pagination.total" href="#"
+                                        @click.prevent="changePage(pagination.current_page + 1);scrollToTop()">Next</a>
+                                    <a v-else class="disabled">Next</a>
+                                </li>
+
                             </ul>
                         </div>
                     </div>
@@ -110,15 +122,19 @@
                 el: '#popular',
 
                 data: {
-                    eventpopular: []
+                    eventpopular: [],
+                    pagination: '',
+                },
+                mounted() {
+                    this.fetch();
                 },
                 methods: {
-                    fetch() {
+                    fetch(page) {
                         try {
-                            axios.get('http://127.0.0.1:8000/api/mostpopular')
+                            axios.get(`http://127.0.0.1:8000/api/mostpopular?page=${page}`)
                                 .then((response) => {
-                                    this.eventpopular = response.data.data;
-                                    console.log(this.eventpopular);
+                                    this.eventpopular = response.data.data.data;
+                                    this.pagination = response.data.data;
                                 })
                                 .catch((error) => {
                                     console.log("Error", error);
@@ -127,11 +143,21 @@
                         } catch (error) {
                             console.log(error);
                         }
+                    },
+                    changePage(page) {
+                        this.pagination.current_page = page
+                        if (page >= 1 && page <= this.pagination.last_page) {
+                            this.fetch(page);
+                        }
+                    },
+                    scrollToTop() {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
                     }
                 },
-                mounted() {
-                    this.fetch();
-                },
+
             })
         });
     </script>

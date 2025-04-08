@@ -77,29 +77,30 @@
                                     </li>
                                 </ul>
                                 <div class="main-dark-button">
-                                    <a :href="'/event-detail/' + event.evt_id">PurchaseTickets</a>
+                                    <a :href="'/event-detail/' + event.evt_id">Purchase Tickets</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-12">
                         <div class="pagination">
-                            <ul>
+                            <ul v-if="pagination.total > 9">
                                 <li>
-                                    <a href="#"
-                                        @click.prevent="changePage(pagination.current_page - 1);scrollToTop()">Previous</a>
+                                    <a v-if="pagination.current_page < pagination.from" href="#"
+                                        @click.prevent="changePage(pagination.current_page - 1);scrollToTop()">Prev</a>
+                                    <a v-else class="disabled">Prev</a>
                                 </li>
-                                <li v-for="page in pagination.last_page"
-                                    :class="page == pagination.current_page ? 'active' : ''" :key="page">
+                                <li v-for="page in pagination.last_page" :key="page"
+                                    :class="page == pagination.current_page ? 'active' : ''">
                                     <a v-if="page != pagination.current_page" href="#"
                                         @click.prevent="changePage(page);scrollToTop()">@{{ page }}</a>
                                     <a v-else href="#"
                                         @click.prevent="changePage(page);scrollToTop()">@{{ page }}</a>
                                 </li>
                                 <li>
-                                    <a href="#"
+                                    <a v-if="pagination.to < pagination.total" href="#"
                                         @click.prevent="changePage(pagination.current_page + 1);scrollToTop()">Next</a>
+                                    <a v-else class="disabled">Next</a>
                                 </li>
 
                             </ul>
@@ -127,8 +128,9 @@
                         try {
                             axios.get(`http://127.0.0.1:8000/api/allevent?page=${page}`)
                                 .then((response) => {
-                                    this.allevents = response.data.data;
-                                    this.pagination = response.data;
+                                    this.allevents = response.data.data.data;
+                                    this.pagination = response.data.data;
+                                    console.log(this.allevents);
                                 })
                                 .catch((error) => {
                                     console.log("Error", error);
@@ -138,9 +140,9 @@
                         }
                     },
                     changePage(page) {
+                        this.pagination.current_page = page
                         if (page >= 1 && page <= this.pagination.last_page) {
                             this.fetch(page);
-                            console.log('Current page is: ', this.pagination.current_page)
                         }
                     },
                     scrollToTop() {

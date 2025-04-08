@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Event extends Model
 {
+    use HasFactory;
     protected $table = 'events';
+    // protected $primaryKey = 'evt_id';
 
     protected $fillable = [
         'evt_name',
@@ -19,4 +22,9 @@ class Event extends Model
         'status',
         'evt_status'
     ];
+
+    // public function tickets()
+    // {
+    //     return $this->hasMany(EventTicket::class, 'evt_id', 'evt_id');
+    // }
 }

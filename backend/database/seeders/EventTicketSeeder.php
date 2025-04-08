@@ -14,22 +14,24 @@ class EventTicketSeeder extends Seeder
      */
     public function run(): void
     {
-        EventTicket::create([
-            'ticket_title' => 'Normal Ticket',
-            'ticket_price' => '10',
-            'ticket_in_stock' => '1000',
-            'ticket_description' => 'ABC',
-            'ticket_expiry_date' => Carbon::now(),
-            'evt_id' => 1
-        ]);
+        // EventTicket::create([
+        //     'ticket_title' => 'Normal Ticket',
+        //     'ticket_price' => '10',
+        //     'ticket_in_stock' => '1000',
+        //     'ticket_description' => 'ABC',
+        //     'ticket_expiry_date' => Carbon::now(),
+        //     'evt_id' => 1
+        // ]);
 
-        EventTicket::create([
-            'ticket_title' => 'Not Normal Ticket',
-            'ticket_price' => '100',
-            'ticket_in_stock' => '1000',
-            'ticket_description' => 'ABC',
-            'ticket_expiry_date' => Carbon::now(),
-            'evt_id' => 2
-        ]);
+        // EventTicket::create([
+        //     'ticket_title' => 'Not Normal Ticket',
+        //     'ticket_price' => '100',
+        //     'ticket_in_stock' => '1000',
+        //     'ticket_description' => 'ABC',
+        //     'ticket_expiry_date' => Carbon::now(),
+        //     'evt_id' => 2
+        // ]);
+
+        EventTicket::factory()->count(50)->create();
     }
 }

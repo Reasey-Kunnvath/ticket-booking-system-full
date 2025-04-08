@@ -80,19 +80,32 @@
                                     </li>
                                 </ul>
                                 <div class="main-dark-button">
-                                   <a :href="'/event-detail/' + econfer.evt_id">PurchaseTickets</a>
+                                    <a :href="'/event-detail/' + econfer.evt_id">PurchaseTickets</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-12">
                         <div class="pagination">
-                            <ul>
-                                <li><a href="#">Prev</a></li>
-                                <li><a href="#">1</a></li>
-                                <li class="active"><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">Next</a></li>
+                            <ul v-if="pagination.total > 9">
+                                <li>
+                                    <a v-if="pagination.current_page < pagination.from" href="#"
+                                        @click.prevent="changePage(pagination.current_page - 1);scrollToTop()">Prev</a>
+                                    <a v-else class="disabled">Prev</a>
+                                </li>
+                                <li v-for="page in pagination.last_page" :key="page"
+                                    :class="page == pagination.current_page ? 'active' : ''">
+                                    <a v-if="page != pagination.current_page" href="#"
+                                        @click.prevent="changePage(page);scrollToTop()">@{{ page }}</a>
+                                    <a v-else href="#"
+                                        @click.prevent="changePage(page);scrollToTop()">@{{ page }}</a>
+                                </li>
+                                <li>
+                                    <a v-if="pagination.to < pagination.total" href="#"
+                                        @click.prevent="changePage(pagination.current_page + 1);scrollToTop()">Next</a>
+                                    <a v-else class="disabled">Next</a>
+                                </li>
+
                             </ul>
                         </div>
                     </div>
@@ -103,33 +116,47 @@
     <!-- Property List End -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            console.log(window.axios);
+            //console.log(window.axios);
             new Vue({
                 el: '#conference',
-
+                mounted() {
+                    this.fetch();
+                },
                 data: {
-                    conferences: []
+                    conferences: [],
+                    pagination: '',
                 },
                 methods: {
-                    fetch() {
+                    fetch(page) {
                         try {
-                            axios.get('http://127.0.0.1:8000/api/conferences')
+                            axios.get(`http://127.0.0.1:8000/api/conferences?page=${page}`)
                                 .then((response) => {
-                                    this.conferences = response.data.data;
-                                    console.log(this.conferences);
+                                    this.conferences = response.data.data.data;
+                                    this.pagination = response.data.data;
                                 })
                                 .catch((error) => {
                                     console.log("Error", error);
+                                    console.log("Error", error.response.data);
                                 })
 
                         } catch (error) {
                             console.log(error);
                         }
+                    },
+                    changePage(page) {
+                        this.pagination.current_page = page
+                        if (page >= 1 && page <= this.pagination.last_page) {
+                            this.fetch(page);
+                        }
+                    },
+                    scrollToTop() {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
                     }
                 },
-                mounted() {
-                    this.fetch();
-                },
+
             })
         });
     </script>
