@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class EventTicket extends Model
 {
+    use HasFactory;
     protected $table = 'event_tickets';
     protected $fillable = [
         'ticket_title',

@@ -45,8 +45,8 @@ class FEventController extends Controller
                 ->paginate(9);
 
         return response()->json([
-                'data' => $event
-            ],200);
+            'data' => $event
+        ],200);
     }
      public function eventcoming(){
         // $event = DB::table('event_tickets')
