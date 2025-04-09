@@ -1,37 +1,38 @@
-// resources/js/auth-check.js
+// resources/js/app.js
 document.addEventListener("DOMContentLoaded", () => {
     new Vue({
         el: "#app",
-        mounted() {
-            this.loggedInStatus();
+        data: {
+            guestRoute: [
+                "/",
+                "/all-event",
+                "/concert",
+                "/conference",
+                "/sport",
+                "/about",
+                "/sell-your-ticket",
+                "/upcoming-event",
+                "/most-popular-event",
+                "/event-detail",
+                "/help-center",
+                "/admin/login",
+            ],
+        },
+        created() {
+            this.loggedInStatus(); // Runs client-side, but middleware already handled it
         },
         methods: {
             loggedInStatus() {
-                const guestRoute = [
-                    "/",
-                    "/all-event",
-                    "/concert",
-                    "/conference",
-                    "/sport",
-                    "/about",
-                    "/sell-your-ticket",
-                    "/upcoming-event",
-                    "/most-popular-event",
-                    "/event-detail",
-                    "/help-center",
-                    "/admin/login",
-                ];
+                const isLoggedIn =
+                    localStorage.getItem("isLoggedIn") &&
+                    localStorage.getItem("token");
+                const currentPath = window.location.pathname;
 
-                if (guestRoute.includes(window.location.pathname)) {
-                    return;
+                if (isLoggedIn || this.guestRoute.includes(currentPath)) {
+                    return; // Allow if logged in or in guest routes
                 }
 
-                if (
-                    !localStorage.getItem("isLoggedIn") &&
-                    !localStorage.getItem("token")
-                ) {
-                    window.location.href = "/login";
-                }
+                window.location.href = "/unauthorized"; // Fallback (unlikely to trigger)
             },
         },
     });

@@ -462,6 +462,7 @@
                             .then(response => {
                                 localStorage.removeItem('isLoggedIn');
                                 localStorage.removeItem('token');
+                                localStorage.removeItem('uid?');
                                 window.location.href = '/login';
                             });
                     } catch (error) {
