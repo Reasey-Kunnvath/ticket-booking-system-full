@@ -81,11 +81,11 @@ Route::controller(EventDetailController::class)->group(function(){
 
 Route::middleware(['guest.route'])->group(function () {
     Route::controller(UserProfileController::class)->group(function(){
-        Route::get('/user-profile/{id?}/{token?}','UserProfileIndex')->name('User-Profile');
+        Route::get('/user-profile','UserProfileIndex')->name('User-Profile');
     });
 
     Route::controller(CartController::class)->group(function(){
-        Route::get('/cart/{id?}/{token?}','CartIndex')->name('Cart');
+        Route::get('/cart','CartIndex')->name('Cart');
     });
 });
 
