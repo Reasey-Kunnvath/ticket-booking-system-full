@@ -135,7 +135,7 @@
         }
 
         button:hover {
-            background: #6732b1;
+            background: #2a0066;
         }
 
         .login {
@@ -287,6 +287,7 @@
     <div id="app">
         <div class="wrapper">
             <h1 class="main-title">Your One-Stop Shop for all Events</h1>
+
             <div class="main">
                 <input id="chk" type="checkbox" aria-hidden="true" />
                 <div class="signup">
@@ -314,6 +315,7 @@
                         </div>
 
                         <button type="submit" @click.prevent="registerHandler">Sign up</button>
+                        <button type="submit" @click.prevent="guestRedirect">Continue as Guest?</button>
                     </form>
                 </div>
 
@@ -331,6 +333,7 @@
                         </div>
 
                         <button type="submit" @click.prevent="loginHandler">Login</button>
+                        <button type="submit" @click.prevent="guestRedirect">Continue as Guest?</button>
                     </form>
                 </div>
             </div>
@@ -446,6 +449,9 @@
                 if (localStorage.getItem('isLoggedIn') && localStorage.getItem('token')) {
                     window.location.href = '/';
                 }
+            },
+            guestRedirect() {
+                window.location.href = '/';
             }
         }
     });
