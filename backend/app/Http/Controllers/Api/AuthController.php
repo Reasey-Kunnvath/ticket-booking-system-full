@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Mail\VerifyEmail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -78,21 +79,32 @@ class AuthController extends Controller
                 'verifyToken' => $verifyToken
             ]);
 
-            $this->sendEmail($user->email,[
-                'verifyToken' => $verifyToken,
-                'user' => $user,
-                'timestamp' => now(),
-            ]);
+            try{
+                $this->sendEmail($user->email,[
+                    'verifyToken' => $verifyToken,
+                    'user' => $user,
+                    'timestamp' => now(),
+                ]);
+            }catch(\Exception $e){
+                return response()->json([
+                    'message' => 'Email not sent',
+                    'error' => $e->getMessage()
+                ]);
+            }
+
 
             return $this->successResponse([
                 'verified' => false,
                 'message' => 'Email not verified',
                 'user' => $user
             ]);
+
         }else{
             return $this->successResponse([
                 'verified' => true,
                 'access_token' => $this->generate_token($user),
+                'userAuth' => Auth::user(),
+                'isAuthenticated' => Auth::check(),
                 'user' => $user
             ]);
         }

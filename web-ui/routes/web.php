@@ -59,11 +59,7 @@ Route::controller(HelpController::class)->group(function(){
     Route::get('/help-center','HelpCenterIndex')->name('Help-Center');
 });
 
-Route::controller(CartController::class)->group(function(){
-    Route::get('/cart','CartIndex')->name('Cart');
-    Route::post('/paymentForm','checkout')->name('payment.form');
-    Route::get('/success','processPayment')->name('payment.success');
-});
+
 
 Route::controller(SellYourTicketController::class)->group(function(){
     Route::get('/sell-your-ticket','SellYourTicketIndex')->name('Sell-Your-Ticket');
@@ -81,9 +77,18 @@ Route::controller(EventDetailController::class)->group(function(){
     Route::get('/event-detail/{id}','EventDetailIndex')->name('Event-Detail');
 });
 
-Route::controller(UserProfileController::class)->group(function(){
-    Route::get('/user-profile','UserProfileIndex')->name('User-Profile');
+
+
+Route::middleware(['guest.route'])->group(function () {
+    Route::controller(UserProfileController::class)->group(function(){
+        Route::get('/user-profile/{id?}/{token?}','UserProfileIndex')->name('User-Profile');
+    });
+
+    Route::controller(CartController::class)->group(function(){
+        Route::get('/cart/{id?}/{token?}','CartIndex')->name('Cart');
+    });
 });
+
 
 Route::controller(LoginController::class)->group(function(){
     Route::get('/login','LoginIndex')->name('login');

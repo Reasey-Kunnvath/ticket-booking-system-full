@@ -361,7 +361,7 @@
                 password: '12345678'
             },
             loginPayload: {
-                email: 'puskascsgo@gmail.com',
+                email: 'user@user.com',
                 password: '12345678'
             },
             APIResponse: {},
@@ -393,9 +393,9 @@
                                     // if (this.APIResponse.data.verified)
                                     localStorage.setItem('token', this.APIResponse.data.access_token);
                                     localStorage.setItem('isLoggedIn', true)
+                                    localStorage.setItem('uid?', this.APIResponse.data.user.id);
                                     window.location.href = '/';
                                 }
-
                             } else {
                                 this.loginErr.emailErr = response.data.message.email ? response.data
                                     .message.email[0] : '';
@@ -405,6 +405,7 @@
                             }
                         }).catch((error) => {
                             this.loginErr.emailErr = error.response.data.message
+                            // console.log(error)
                         })
                 } catch (error) {
                     console.log(error)
