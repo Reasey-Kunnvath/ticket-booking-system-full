@@ -146,7 +146,10 @@
                                     </div>
                                     <div class="col-sm-2 align-self-center">
                                         <div class="main-dark-button">
-                                            <a id="showAlert" href="#">@{{ event.ticket_price }}$</a>
+                                            {{-- :href="'/cart?uid=' + payload.user_id + '&token=' + payload.token" --}}
+                                            {{-- @click.prevent="addToCart()" --}}
+                                            <a id="showAlert" @click.prevent="addToCart()"
+                                                href="javascript:void(0);">@{{ event.ticket_price }}$</a>
                                         </div>
                                         <input id="form1" min="1" name="quantity" value="1" type="number"
                                             class="form-control form-control-sm text-center" />
@@ -181,46 +184,28 @@
             </div>
         </div>
     </div>
-    <script>
+    {{-- <script>
         document.getElementById('showAlert').addEventListener('click', function(event) {
-            event.preventDefault();
 
-            Swal.fire({
-                title: "Item Added to Cart",
-                html: 'Go to <a href="{{ url('/cart') }}" style="font-weight:bold; color: #3085d6; text-decoration: underline;">Cart</a> to Checkout',
-                icon: "success"
-            });
         });
-    </script>
+    </script> --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>\
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             new Vue({
                 el: '#eventdetail1',
-                mounted() {
+                created() {
                     this.fetch();
                 },
                 data: {
                     eventdetail: [],
-                    eventData: []
-
+                    eventData: [],
+                    payload: {
+                        user_id: localStorage.getItem('uid?'),
+                        token: localStorage.getItem('token')
+                    }
                 },
                 methods: {
-                    // requestevet() {
-                    //     try {
-                    //         localStorage.setItem('evt_id', event.evt_id);
-                    //         axios.post('http://127.0.0.1:8000/api/eventdetail/' + $event_id)
-                    //             .then((response) => {
-                    //                 this.eventdetail = response.data.data;
-                    //                 console.log(this.eventdetail);
-                    //             })
-                    //             .catch((error) => {
-                    //                 console.log("Error", error);
-                    //             })
-                    //     } catch (error) {
-                    //         console.log(error);
-                    //     }
-                    // }
                     fetch() {
                         try {
                             localStorage.setItem('evt_id', @json($event_id));
@@ -229,7 +214,7 @@
                                 .then((response) => {
                                     this.eventdetail = response.data.ticket_data;
                                     this.eventData = response.data.event_data;
-                                    console.log(this.eventData);
+                                    // console.log(this.eventData);
                                 })
                                 .catch((error) => {
                                     console.log("Error", error);
@@ -238,7 +223,26 @@
                             console.log(error);
                         }
                     },
-                    getevent(eventdetail) {
+                    addToCart() {
+                        // console.log(this.payload.token);
+                        if (!this.payload.token) {
+                            Swal.fire({
+                                title: "Login or Signup Required",
+                                html: 'Please <a href="/login" style="font-weight:bold; color: #3085d6; text-decoration: underline;">Login or Signup</a> to purchase the tickets',
+                                icon: "warning",
+                            }).then((result) => {
+                                window.location.href = '/login'
+                            });
+                            return
+                        }
+
+                        event.preventDefault();
+
+                        Swal.fire({
+                            title: "Item Added to Cart",
+                            html: `Go to <a href="/cart?uid=${this.payload.user_id}&token=${this.payload.token}" style="font-weight:bold; color: #3085d6; text-decoration: underline;">Cart</a> to Checkout`,
+                            icon: "success"
+                        });
 
                     }
 

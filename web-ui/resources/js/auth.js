@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 "/sell-your-ticket",
                 "/upcoming-event",
                 "/most-popular-event",
-                "/event-detail",
+                "/event-detail/" + { id },
                 "/help-center",
                 "/admin/login",
             ],
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     return; // Allow if logged in or in guest routes
                 }
 
-                window.location.href = "/unauthorized"; // Fallback (unlikely to trigger)
+                window.location.href = "/login"; // Fallback (unlikely to trigger)
             },
         },
     });

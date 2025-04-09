@@ -9,11 +9,6 @@ if (token) {
 
 console.log("Token: ", token);
 
-axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
-axios.defaults.headers.common["X-CSRF-TOKEN"] = document
-    .querySelector('meta[name="csrf-token"]')
-    .getAttribute("content");
-
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
 axios.interceptors.response.use(

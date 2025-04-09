@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class GuestRouteMiddleware
@@ -29,10 +30,16 @@ class GuestRouteMiddleware
         ];
 
         $currentPath = $request->path();
-        $isAuthenticated = $request->all(); // Check if the user is authenticated
+        $isAuthenticated = $request->query('token') != null; // Check if the user is authenticated
         // Laravel's auth check
-
-        // dd($request->all());
+        // $request->query('token') != "null" ||
+        // dd($isAuthenticated);
+        // dd([
+        //     'url_token' => $request->query('token'),
+        //     'url_token?' =>$request->query('token') != null,
+        //     // 'uid' => $request->query('uid'),
+        //     // 'uid?' => $request->query('uid') != "null" || $request->query('uid') != null,
+        // ]);
 
         // If authenticated, allow all routes
         if ($isAuthenticated) {

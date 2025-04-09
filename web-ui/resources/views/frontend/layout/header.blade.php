@@ -44,7 +44,7 @@
                         Center</a>
                     <div v-if="isLoggedIn">
                         {{-- href="{{ url('/cart') }}" --}}
-                        <a :href="'/cart/'+ 'uid?=' + payload.user_id + ' & token = ' + payload.token"
+                        <a :href="'/cart?uid=' + payload.user_id + '&token=' + payload.token"
                             class="nav-item nav-link {{ request()->routeIs('Cart') ? 'active' : '' }}">
                             Cart
                             <i class="fa-sharp fa-solid fa-cart-shopping"></i>
@@ -77,8 +77,8 @@
                     Tickets</a>
             </div>
             <div v-if="isLoggedIn">
-
-                <a :href="'/user-profile/' + 'uid?=' + payload.user_id + ' & token = ' + payload.token"
+                {{-- /cart?uid=${this.payload.user_id}&token=${this.payload.token}" --}}
+                <a :href="'/user-profile?uid=' + payload.user_id + '&token=' + payload.token"
                     class="nav-item nav-link d-flex align-items-center">
                     <div class="p-2 me-2">
                         <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Icon"
