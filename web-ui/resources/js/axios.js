@@ -7,7 +7,7 @@ if (token) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
 
-console.log("Token: ", token);
+// console.log("Token: ", token);
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 

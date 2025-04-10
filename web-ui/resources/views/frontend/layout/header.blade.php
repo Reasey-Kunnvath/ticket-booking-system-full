@@ -130,7 +130,7 @@
         },
         mounted() {
             this.loggedInStatus();
-            console.log(this.isLoggedIn);
+            // console.log(this.isLoggedIn);
         },
         methods: {
             loggedInStatus() {
