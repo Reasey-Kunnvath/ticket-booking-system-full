@@ -1,8 +1,8 @@
-@vite(['resources/js/app.js', 'resources/js/axios.js'])
 @extends('frontend.layout.master')
 @section('title', 'Your Profile')
 @section('content')
 
+    @vite('resources/js/axios.js')
     <style type="text/css">
         body {
             background: #f5f5f5;
@@ -145,40 +145,39 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-    <div class="container light-style flex-grow-1 container-p-y mt-4">
+    <div class="container-fluid light-style flex-grow-1 container-p-y p-5">
         <h4 class="fw-bold py-3 mb-4">Account settings</h4>
-        <div class="card overflow-hidden">
+        <div class="card-xl overflow-hidden">
             <div class="row row-bordered row-border-primary">
-                <div id="mainApp" class="col-md-3 pt-0">
+                <div id="mainApp" class="col-md-2 pt-0">
                     <div class="list-group list-group-flush account-settings-links">
-                        <a class="list-group-item list-group-item-action active" data-bs-toggle="list"
-                            href="#account-general-info">
+                        <a class="list-group-item list-group-item-action active" data-bs-toggle="list" href="#accountInfo">
                             <i class="fa fa-user me-2"></i> Your Information
                         </a>
-                        <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#your-order">
+                        <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#yourOrder">
                             <i class="fa fa-shopping-cart me-2"></i> Your Orders
                         </a>
                         <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#your-coupon">
                             <i class="fa fa-tags me-2"></i> Your Vouchers/Coupons
                         </a>
-                        <a class="list-group-item list-group-item-action" data-bs-toggle="list"
-                            href="#account-change-password">
+                        {{-- <a class="list-group-item list-group-item-action" data-bs-toggle="list"
+                            href="#accountChangePassowrd">
                             <i class="fa fa-lock me-2"></i> Change Password
-                        </a>
-                        <a class="list-group-item list-group-item-action " data-bs-toggle="list"
+                        </a> --}}
+                        {{-- <a class="list-group-item list-group-item-action " data-bs-toggle="list"
                             href="#billing-information">
                             <i class="fa fa-credit-card me-2"></i> Billing & Payment
-                        </a>
+                        </a> --}}
                     </div>
                     <div class="list-group list-group-flush account-settings-links ">
-                        <a href="javascript:void(0);" class="list-group-item text-danger" @click="logout">
+                        <a href="javascript:void(0);" class="list-group-item text-danger" @click="logout()">
                             <i class="fa fa-sign-out-alt me-2"></i> Log Out
                         </a>
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-10">
                     <div class="tab-content">
-                        <div id="account-general-info" class="tab-pane fade show active">
+                        <div id="accountInfo" class="tab-pane fade show active">
                             <!-- Account General Section -->
                             <div class="row mt-3 ms-1 me-3">
                                 <div class="col-8">
@@ -186,8 +185,9 @@
                                     <small class="mb-3">Manage your profile information</small>
                                 </div>
                                 <div class="text-end col-4">
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                    <button type="button" class="btn btn-default">Cancel</button>
+                                    <button :disabled="!hasChanges" @click="updateProfile()" type="button"
+                                        class="btn btn-primary">Save
+                                        changes</button>
                                 </div>
                             </div>
 
@@ -209,45 +209,17 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label class="form-label">Username</label>
-                                    <input type="text" class="form-control" value="nmaxwell" />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" value="Nelle Maxwell" />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">E-mail</label>
-                                    <input type="text" class="form-control mb-1" value="nmaxwell@mail.com" />
-                                    <div class="alert alert-warning mt-3">Your email is not confirmed. Please check your
-                                        inbox.<br />
-                                        <a href="javascript:void(0)">Resend confirmation</a>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">@</div>
+                                        </div>
+                                        <input type="text" class="form-control" id="inlineFormInputGroup"
+                                            v-model="user.name">
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Company</label>
-                                    <input type="text" class="form-control" value="Company Ltd." />
-                                </div>
-                            </div>
-                            <!-- Account Info Section -->
-                            <hr class="border-light m-0" />
-                            <div class="card-body pb-2">
-                                <div class="mb-3">
-                                    <label class="form-label">Bio</label>
-                                    <textarea class="form-control" rows="5">Lorem ipsum dolor sit amet...</textarea>
-                                </div>
-                                <div class="mb-3">
                                     <label class="form-label">Birthday</label>
-                                    <input type="text" class="form-control" value="May 3, 1995" />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Country</label>
-                                    <select class="form-select">
-                                        <option>USA</option>
-                                        <option selected>Canada</option>
-                                        <option>UK</option>
-                                        <option>Germany</option>
-                                        <option>France</option>
-                                    </select>
+                                    <input type="date" class="form-control" v-model="user.date_of_birth" />
                                 </div>
                             </div>
                             <hr class="border-light m-0" />
@@ -255,29 +227,67 @@
                                 <h6 class="mb-4">Contacts</h6>
                                 <div class="mb-3">
                                     <label class="form-label">Phone</label>
-                                    <input type="text" class="form-control" value="+0 (123) 456 7891" />
+                                    <input type="text" class="form-control" v-model="user.phone_number" />
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Website</label>
-                                    <input type="text" class="form-control" value="" />
+                                    <label class="form-label">Email</label>
+                                    <input type="text" class="form-control" v-model="user.email" />
                                 </div>
                             </div>
                         </div>
-                        <div id="your-order" class="tab-pane fade">
+
+                        <div id="yourOrder" class="tab-pane fade">
                             <div class="m-3">
                                 <h2>Orders</h2>
                                 <small class="mb-3">All your order history are listed here</small>
                             </div>
-                            <div class="card-body d-flex flex-column align-items-center justify-content-center"
-                                style="margin: 2rem;">
-                                <img src="{{ asset('frontend/assets/img/image.png') }}" alt=""
-                                    style="max-width: 50%; height: auto;" />
-                                <p class="mt-3">
-                                <h4><small>You don't have any order yet</small></h4>
-                                </p>
-                                <h5><small><a href="#"><u>Shop for ticket</u></a></small></h5>
+                            <div v-if="order.length < 0">
+                                <div class="card-body d-flex flex-column align-items-center justify-content-center"
+                                    style="margin: 2rem;">
+                                    <img src="{{ asset('frontend/assets/img/image.png') }}" alt=""
+                                        style="max-width: 50%; height: auto;" />
+                                    <p class="mt-3">
+                                    <h4><small>You don't have any order yet</small></h4>
+                                    </p>
+                                    <h5><small><a href="#"><u>Shop for ticket</u></a></small></h5>
+                                </div>
                             </div>
+                            <div v-else>
+                                <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                                    <table class="table">
+                                        <thead class="table-secondary">
+                                            <tr>
+                                                <th scope="col">Order ID</th>
+                                                <th scope="col">Event Title</th>
+                                                <th scope="col">Ticket Title</th>
+                                                <th scope="col">Ticket Price</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Total Amount</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Purchase Date</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="order in order">
+                                                <th scope="row"> @{{ order.order_id }} </th>
+                                                <td> @{{ order.evt_name }} </td>
+                                                <td> @{{ order.ticket_title }} </td>
+                                                <td> @{{ order.ticket_price }} </td>
+                                                <td> @{{ order.QTY }} </td>
+                                                <td> $@{{ order.total_amount }} </td>
+                                                {{-- @{{ order.status_color }} --}}
+                                                <td :style="{ color: order.status_color }"> @{{ order.status_name }} </td>
+                                                <td> @{{ order.created_at }} </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
                         </div>
+
                         <div id="your-coupon" class="tab-pane fade">
                             <div class="m-3">
                                 <h2>Coupons</h2>
@@ -293,35 +303,35 @@
                                 </p>
                             </div>
                         </div>
-                        <div id="account-change-password" class="tab-pane fade">
+
+                        {{-- <div id="accountChangePassowrd" class="tab-pane fade">
                             <div class="row mt-3 ms-1 me-3">
                                 <div class="col-8">
                                     <h2>Your Account Crediential</h2>
                                     <small class="mb-3">You can change your password here</small>
                                 </div>
                                 <div class="text-end col-4">
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                    <button type="button" class="btn btn-default">Cancel</button>
+                                    <button @click="changePassword()" type="button" class="btn btn-primary">Save
+                                        changes</button>
                                 </div>
                             </div>
                             <div class="card-body pb-2">
-
                                 <div class="mb-3">
                                     <label class="form-label">Current password</label>
-                                    <input type="password" class="form-control" />
+                                    <input type="password" class="form-control" v-model="user.current_password" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">New password</label>
-                                    <input type="password" class="form-control" />
+                                    <input type="password" class="form-control" v-model="user.new_password" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Repeat new password</label>
-                                    <input type="password" class="form-control" />
+                                    <input type="password" class="form-control" v-model="user.confirm_password" />
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
-                        <div id="billing-information" class="tab-pane fade">
+                        {{-- <div id="billing-information" class="tab-pane fade">
                             <div class="card-body pb-2">
                                 <div class="mb-3">
                                     <h2>Billing Information</h2>
@@ -330,7 +340,7 @@
 
                                 <div class="mb-3">
                                     <label class="form-label">Payment Method</label>
-                                    {{-- Credit Card --}}
+
                                     <div id="cardList">
                                         <div v-for="(card, index) in sharedState.card_list" :key="'card_list_' + index"
                                             class="card p-2 m-2">
@@ -375,7 +385,7 @@
                                     You have not made any payment.
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <hr class="border-light m-0" />
                     </div>
                     <div id="app">
@@ -452,12 +462,186 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
-    <script type="text/javascript">
+    <script type="module">
+        // Change Passowrd
+        // new Vue({
+        //     el: "#accountChangePassowrd",
+        //     data: {
+        //         user_id: "{{ $userId }}",
+        //         response: {},
+        //         user: {
+        //             current_password: '',
+        //             new_password: '',
+        //             confirm_password: ''
+        //         }
+        //     },
+        //     methods: {
+        //         changePassword() {
+        //             if (this.user.confirm_password != this.user.new_password) {
+        //                 Swal.fire({
+        //                     title: "Womp Womp NIGGA!",
+        //                     html: 'Your New Password Must Match Your Confirm Password',
+        //                     icon: "error",
+        //                 })
+        //             }
+        //             try {
+        //                 axios.put(`/v1/user/profile/change-password/${this.user_id}`, {
+        //                     current_password: this.user.current_password,
+        //                     new_password: this.user.new_password,
+        //                     confirm_password: this.user.confirm_password
+        //                 }).then((response) => {
+        //                     if (response.status) {
+        //                         Swal.fire({
+        //                             title: "You updated your password!",
+        //                             html: 'Your password has been updated successfully.',
+        //                             icon: "success",
+        //                         }).then((result) => {
+        //                             window.location.reload()
+        //                         });
+        //                     }
+        //                 });
+        //                 // this.response = 'Password has been changed.';
+        //             } catch (error) {
+        //                 console.log(error)
+        //             }
+        //         }
+        //     }
+
+        // });
+
+        // Your Order
+        new Vue({
+            el: '#yourOrder',
+            data: {
+                user_id: "{{ $userId }}",
+                order: {}
+            },
+            mounted() {
+                this.fetchOrderInfo();
+            },
+            methods: {
+                async fetchOrderInfo() {
+                    axios.get('/v1/user/profile/order-history', {
+                            params: {
+                                user_id: this.user_id
+                            }
+                        })
+                        .then(response => {
+                            this.order = response.data.data;
+                            // console.log(this.order)
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        })
+                }
+            }
+        });
+
+        // Your Information
+        new Vue({
+            el: "#accountInfo",
+            data: {
+                user_id: "{{ $userId }}",
+                response: {},
+                user: {
+                    name: '',
+                    email: '',
+                    date_of_birth: '',
+                    phone_number: ''
+                },
+                originalUser: null, // Store the original user data
+                hasChanges: false, // Track whether the form has changed
+            },
+            created() {
+                this.fetchAccountInfo();
+            },
+            watch: {
+                // Watch the user object for changes
+                user: {
+                    handler(newUser) {
+                        // Compare the current user data with the original data
+                        this.hasChanges = this.checkForChanges(newUser, this.originalUser);
+                    },
+                    deep: true // Enable deep watching to detect changes in nested properties
+                }
+            },
+            methods: {
+                checkForChanges(newUser, originalUser) {
+                    if (!originalUser) return false;
+                    return (
+                        newUser.name !== originalUser.name ||
+                        newUser.email !== originalUser.email ||
+                        newUser.date_of_birth !== originalUser.date_of_birth ||
+                        newUser.phone_number !== originalUser.phone_number ||
+                        newUser.profile_image !== originalUser.profile_image
+                    );
+                },
+                async fetchAccountInfo() {
+                    try {
+                        await axios.get('/v1/user/profile/information', {
+                                params: {
+                                    user_id: this.user_id
+                                }
+                            })
+                            .then(response => {
+                                this.response = response.data.data;
+                                this.user.user_id = this.response.id;
+                                this.user.name = this.response.name;
+                                this.user.email = this.response.email;
+                                this.user.date_of_birth = this.response.date_of_birth;
+                                this.user.phone_number = this.response.phone_number;
+                                // console.log(this.user)
+                                // Create a deep copy of the user data
+                                this.originalUser = JSON.parse(JSON.stringify(this.user));
+                                this.hasChanges = false;
+                            })
+                            .catch(error => {
+                                console.log(error)
+                            })
+                    } catch (error) {
+                        console.log(error)
+                    }
+                },
+                async updateProfile() {
+                    // console.log(this.user);
+                    try {
+                        await axios.put(`/v1/user/profile/information/${this.user.user_id}`, {
+                                name: this.user.name,
+                                email: this.user.email,
+                                date_of_birth: this.user.date_of_birth,
+                                phone_number: this.user.phone_number
+                            })
+                            .then(response => {
+                                Swal.fire({
+                                    title: "You updated your profile!",
+                                    html: 'Your profile has been updated successfully.',
+                                    icon: "success",
+                                }).then((result) => {
+                                    window.location.reload()
+                                });
+                            })
+                            .catch(error => {
+                                console.log(error)
+                            })
+                    } catch (error) {
+                        console.log(error)
+                    }
+                }
+            }
+        });
+
         var mainApp = new Vue({
             el: '#mainApp',
+            // data: {
+            //     user_id: "{{ $userId }}",
+            // },
+            // mounted() {
+            //     this.print();
+            // },
             methods: {
                 logout() {
                     try {
+                        console.log('logout');
                         axios.post('/v1/logout')
                             .then(response => {
                                 localStorage.removeItem('isLoggedIn');
@@ -469,6 +653,9 @@
                         console.log(error);
                     }
                 },
+                // print() {
+                //     console.log('ID', this.user_id);
+                // }
             }
         });
 

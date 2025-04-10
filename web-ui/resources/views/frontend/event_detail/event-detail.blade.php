@@ -132,7 +132,7 @@
                         <div class="section-heading">
                             <h2>Available Tickets</h2>
                         </div>
-                        <div v-for="event in eventdetail" class="right-content2">
+                        <div v-for="event in eventdetail" class="right-content2" style="background: #fff;">
                             <div class="info-box">
                                 <div class="row">
                                     <div class="col-sm-2 align-self-center" style="text-align: center">
@@ -159,7 +159,7 @@
                         </div>
                     </div>
                     <div class="col">
-                        <div class="right-content">
+                        <div class="right-content" style="background: #fff;">
                             <div class="left-image">
                                 <img src="{{ asset('frontend/assets/images/ticket-details.jpg') }}" alt="" />
                             </div><br>

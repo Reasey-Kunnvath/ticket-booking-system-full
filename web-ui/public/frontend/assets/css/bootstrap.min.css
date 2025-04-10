@@ -18,7 +18,7 @@
     --bs-white: #fff;
     --bs-gray: #6c757d;
     --bs-gray-dark: #343a40;
-    --bs-primary: #00b98e;
+    --bs-primary: #ab82ff;
     --bs-secondary: #ff6922;
     --bs-success: #198754;
     --bs-info: #0dcaf0;
@@ -2065,7 +2065,7 @@ progress {
 }
 
 .table-primary {
-    --bs-table-bg: #ccf1e8;
+    --bs-table-bg: #8c54fd;
     --bs-table-striped-bg: #c2e5dc;
     --bs-table-striped-color: #000;
     --bs-table-active-bg: #b8d9d1;
@@ -2077,7 +2077,7 @@ progress {
 }
 
 .table-secondary {
-    --bs-table-bg: #ffe1d3;
+    --bs-table-bg: #f2d3ff;
     --bs-table-striped-bg: #f2d6c8;
     --bs-table-striped-color: #000;
     --bs-table-active-bg: #e6cbbe;
