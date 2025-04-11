@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\RoleResource\Pages;
-use App\Filament\Resources\RoleResource\RelationManagers;
-use App\Models\Role;
+use App\Filament\Resources\TransactionStatusResource\Pages;
+use App\Filament\Resources\TransactionStatusResource\RelationManagers;
+use App\Models\TransactionStatus;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -15,15 +15,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class RoleResource extends Resource
+class TransactionStatusResource extends Resource
 {
-    protected static ?string $model = Role::class;
+    protected static ?string $model = TransactionStatus::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationGroup = 'User & Role Management';
-    protected static ?int $navigationSort = 2;
-
+    protected static ?string $navigationGroup = 'Finacial Management';
 
 
 
@@ -31,8 +29,8 @@ class RoleResource extends Resource
     {
         return $form
             ->schema([
-                //
-                TextInput::make('role_name')
+                TextInput::make('status_name')
+                    ->required()
             ]);
     }
 
@@ -41,13 +39,14 @@ class RoleResource extends Resource
         return $table
             ->columns([
                 //
-                TextColumn::make('role_name')
+                TextColumn::make('status_name')
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->modal(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -66,9 +65,9 @@ class RoleResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListRoles::route('/'),
-            'create' => Pages\CreateRole::route('/create'),
-            'edit' => Pages\EditRole::route('/{record}/edit'),
+            'index' => Pages\ListTransactionStatuses::route('/'),
+            // 'create' => Pages\CreateTransactionStatus::route('/create'),
+            // 'edit' => Pages\EditTransactionStatus::route('/{record}/edit'),
         ];
     }
 }

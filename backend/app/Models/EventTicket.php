@@ -9,6 +9,9 @@ class EventTicket extends Model
 {
     use HasFactory;
     protected $table = 'event_tickets';
+
+    protected $primaryKey = 'ticket_id';
+
     protected $fillable = [
         'ticket_title',
         'ticket_price',
@@ -19,6 +22,10 @@ class EventTicket extends Model
     ];
 
 
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'evt_id');
+    }
     // protected $primaryKey = 'ticket_id';
 
     // public function event()
@@ -26,8 +33,8 @@ class EventTicket extends Model
     //     return $this->belongsTo(Event::class, 'evt_id', 'evt_id');
     // }
 
-    public function orders(){
-        return $this->hasMany(Order::class,'ticket_id','ticket_id');
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'ticket_id', 'ticket_id');
     }
-
 }

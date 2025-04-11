@@ -8,6 +8,8 @@ class PaymentMethod extends Model
 {
     protected $table = 'paymentmethod';
 
+    protected $primaryKey = 'method_id';
+
     protected $fillable = [
         'method_name'
     ];

@@ -13,7 +13,7 @@ class ListEventCategories extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make()->successRedirectUrl("/admin/event-categories"),
+            Actions\CreateAction::make()->modal(),
         ];
     }
 }

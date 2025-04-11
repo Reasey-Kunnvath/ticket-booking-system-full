@@ -8,6 +8,8 @@ class PartnershipDetail extends Model
 {
     protected $table = 'partnership_details';
 
+    protected $primaryKey = 'partnership_id';
+
     protected $fillable = [
         'org_name',
         'org_type',
@@ -21,4 +23,15 @@ class PartnershipDetail extends Model
         'req_status',
         'user_id'
     ];
+
+
+    public function  user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function  events()
+    {
+        return $this->hasMany(User::class);
+    }
 }

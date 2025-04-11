@@ -21,6 +21,8 @@ class EventCategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationGroup = 'Event Management';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -65,12 +67,6 @@ class EventCategoryResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ])
-            ->headerActions([
-                Tables\Actions\CreateAction::make()
-                    ->modalHeading('Create Event Category')
-                    ->modal()
-                    ->successRedirectUrl("/admin/event-categories"),
             ]);
     }
 

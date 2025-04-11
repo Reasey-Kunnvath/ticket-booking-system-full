@@ -17,4 +17,9 @@ class EventCategory extends Model
         'status',
         'created_by'
     ];
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
 }

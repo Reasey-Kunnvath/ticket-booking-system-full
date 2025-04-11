@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('order_id');
             $table->integer('QTY');
             $table->decimal('total_amount');
-            $table->timestamps();//it's can use for orderDate
+            $table->timestamps(); //it's can use for orderDate
 
             //Foreign Key
             $table->integer('user_id'); //Primary Kry form Users.user_id

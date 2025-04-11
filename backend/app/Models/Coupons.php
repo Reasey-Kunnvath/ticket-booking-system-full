@@ -8,6 +8,8 @@ class Coupons extends Model
 {
     protected $table = 'coupons';
 
+    protected $primaryKey = 'coupons_id';
+
     protected $fillable = [
         'coupons_title',
         'coupons_type',
@@ -19,4 +21,9 @@ class Coupons extends Model
         'createdby',
         'evt_id'
     ];
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'evt_id');
+    }
 }

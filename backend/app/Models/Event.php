@@ -9,6 +9,8 @@ class Event extends Model
 {
     use HasFactory;
     protected $table = 'events';
+
+    protected $primaryKey = 'evt_id';
     // protected $primaryKey = 'evt_id';
 
     protected $fillable = [
@@ -20,11 +22,29 @@ class Event extends Model
         'evt_address',
         'evt_address_link',
         'status',
-        'evt_status'
+        'evt_status',
+        'cate_id',
+        'partnership_id'
     ];
+
+    public function partnership()
+    {
+        return $this->belongsTo(PartnershipDetail::class, 'partnership_id');
+    }
+    public function eventCategory()
+    {
+        return $this->belongsTo(EventCategory::class, 'cate_id',);
+    }
+
+    public function coupons()
+    {
+        return $this->hasMany(Coupons::class, 'coupons_id');
+    }
+}
+
+
 
     // public function tickets()
     // {
     //     return $this->hasMany(EventTicket::class, 'evt_id', 'evt_id');
     // }
-}
