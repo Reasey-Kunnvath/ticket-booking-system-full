@@ -160,10 +160,10 @@
                         <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#your-coupon">
                             <i class="fa fa-tags me-2"></i> Your Vouchers/Coupons
                         </a>
-                        {{-- <a class="list-group-item list-group-item-action" data-bs-toggle="list"
+                        <a class="list-group-item list-group-item-action" data-bs-toggle="list"
                             href="#accountChangePassowrd">
                             <i class="fa fa-lock me-2"></i> Change Password
-                        </a> --}}
+                        </a>
                         {{-- <a class="list-group-item list-group-item-action " data-bs-toggle="list"
                             href="#billing-information">
                             <i class="fa fa-credit-card me-2"></i> Billing & Payment
@@ -241,7 +241,7 @@
                                 <h2>Orders</h2>
                                 <small class="mb-3">All your order history are listed here</small>
                             </div>
-                            <div v-if="order.length < 0">
+                            <div v-if="order.length <= 0">
                                 <div class="card-body d-flex flex-column align-items-center justify-content-center"
                                     style="margin: 2rem;">
                                     <img src="{{ asset('frontend/assets/img/image.png') }}" alt=""
@@ -304,7 +304,7 @@
                             </div>
                         </div>
 
-                        {{-- <div id="accountChangePassowrd" class="tab-pane fade">
+                        <div id="accountChangePassowrd" class="tab-pane fade">
                             <div class="row mt-3 ms-1 me-3">
                                 <div class="col-8">
                                     <h2>Your Account Crediential</h2>
@@ -312,24 +312,37 @@
                                 </div>
                                 <div class="text-end col-4">
                                     <button @click="changePassword()" type="button" class="btn btn-primary">Save
-                                        changes</button>
+                                        changes
+                                    </button>
                                 </div>
                             </div>
                             <div class="card-body pb-2">
                                 <div class="mb-3">
                                     <label class="form-label">Current password</label>
-                                    <input type="password" class="form-control" v-model="user.current_password" />
+                                    <input type="password" class="form-control" placeholder="Enter your current password"
+                                        v-model="user.current_password" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">New password</label>
-                                    <input type="password" class="form-control" v-model="user.new_password" />
+                                    <input type="password" class="form-control" placeholder="Enter your new password"
+                                        v-model="user.new_password" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Repeat new password</label>
-                                    <input type="password" class="form-control" v-model="user.confirm_password" />
+                                    <input type="password" class="form-control" placeholder="Repeat your new password"
+                                        v-model="user.confirm_password" />
+                                </div>
+                                <div class="mb-3 start-0">
+                                    <p class="text-100">
+                                        <small>
+                                            Forgot your current password?
+                                        </small>
+                                        <a href="javascript:void(0);" @click="forgetPassword()">Click Here</a>
+                                    </p>
                                 </div>
                             </div>
-                        </div> --}}
+
+                        </div>
 
                         {{-- <div id="billing-information" class="tab-pane fade">
                             <div class="card-body pb-2">
@@ -464,50 +477,72 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
     <script type="module">
         // Change Passowrd
-        // new Vue({
-        //     el: "#accountChangePassowrd",
-        //     data: {
-        //         user_id: "{{ $userId }}",
-        //         response: {},
-        //         user: {
-        //             current_password: '',
-        //             new_password: '',
-        //             confirm_password: ''
-        //         }
-        //     },
-        //     methods: {
-        //         changePassword() {
-        //             if (this.user.confirm_password != this.user.new_password) {
-        //                 Swal.fire({
-        //                     title: "Womp Womp NIGGA!",
-        //                     html: 'Your New Password Must Match Your Confirm Password',
-        //                     icon: "error",
-        //                 })
-        //             }
-        //             try {
-        //                 axios.put(`/v1/user/profile/change-password/${this.user_id}`, {
-        //                     current_password: this.user.current_password,
-        //                     new_password: this.user.new_password,
-        //                     confirm_password: this.user.confirm_password
-        //                 }).then((response) => {
-        //                     if (response.status) {
-        //                         Swal.fire({
-        //                             title: "You updated your password!",
-        //                             html: 'Your password has been updated successfully.',
-        //                             icon: "success",
-        //                         }).then((result) => {
-        //                             window.location.reload()
-        //                         });
-        //                     }
-        //                 });
-        //                 // this.response = 'Password has been changed.';
-        //             } catch (error) {
-        //                 console.log(error)
-        //             }
-        //         }
-        //     }
+        new Vue({
+            el: "#accountChangePassowrd",
+            data: {
+                user_id: "{{ $userId }}",
+                response: {},
+                user: {
+                    current_password: '',
+                    new_password: '',
+                    confirm_password: ''
+                }
+            },
+            methods: {
+                changePassword() {
+                    console.log("Sending payload:", {
+                        current_password: this.user.current_password,
+                        new_password: this.user.new_password
+                    });
+                    if (this.user.confirm_password != this.user.new_password) {
+                        Swal.fire({
+                            title: "Womp Womp NIGGA!",
+                            html: 'Your New Password Must Match Your Confirm Password',
+                            icon: "error",
+                        })
+                    } else if (!this.user.current_password || !this.user.new_password || !this.user
+                        .confirm_password) {
+                        Swal.fire({
+                            title: "Womp Womp NIGGA!",
+                            html: 'All Fields Are Required',
+                            icon: "error",
+                        })
+                    } else {
+                        axios.put(`/v1/user/profile/change-password/${this.user_id}`, {
+                            current_password: this.user.current_password,
+                            new_password: this.user.new_password
+                        }).then((response) => {
+                            // console.log(response)
+                            if (response.data.status) {
+                                Swal.fire({
+                                    title: "You updated your password!",
+                                    html: 'Your password has been updated successfully.',
+                                    icon: "success",
+                                }).then((result) => {
+                                    window.location.reload()
+                                });
+                            } else {
+                                swal.fire({
+                                    title: "Womp Womp NIGGA!",
+                                    html: `${response.data.message}`,
+                                    icon: "error",
+                                })
+                            }
+                        }).catch((error) => {
+                            console.log(error)
+                        });
+                    }
+                },
+                forgetPassword() {
+                    swal.fire({
+                        title: "Womp Womp!",
+                        html: 'This feature is coming soon!',
+                        icon: "info",
+                    })
+                }
+            }
 
-        // });
+        });
 
         // Your Order
         new Vue({
