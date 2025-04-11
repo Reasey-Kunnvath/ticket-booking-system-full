@@ -31,7 +31,8 @@ use App\Http\Controllers\Api\User\{
     HomeController as UHomeController,
     EventController as UEventController,
     SupportTicketController as USupportTicketController,
-    CartController as UCartController
+    CartController as UCartController,
+    ChangePasswordController
 };
 use App\Http\Controllers\Api\PartnershipRequestController;
 use App\Http\Controllers\Api\AuthController;
@@ -143,7 +144,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
             Route::apiResource('order-history', UOrderController::class)
                 ->names('user.profile.order-history')
                 ->only(['index', 'show']);
-            Route::apiResource('change-password', UProfileController::class)
+            Route::apiResource('change-password', ChangePasswordController::class)
                 ->names('user.profile.change-password')
                 ->only(['update']);
             Route::apiResource('billing-information', UBillingInfoController::class)

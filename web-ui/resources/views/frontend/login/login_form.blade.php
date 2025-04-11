@@ -135,7 +135,7 @@
         }
 
         button:hover {
-            background: #6732b1;
+            background: #2a0066;
         }
 
         .login {
@@ -287,6 +287,7 @@
     <div id="app">
         <div class="wrapper">
             <h1 class="main-title">Your One-Stop Shop for all Events</h1>
+
             <div class="main">
                 <input id="chk" type="checkbox" aria-hidden="true" />
                 <div class="signup">
@@ -314,6 +315,7 @@
                         </div>
 
                         <button type="submit" @click.prevent="registerHandler">Sign up</button>
+                        <button type="submit" @click.prevent="guestRedirect">Continue as Guest?</button>
                     </form>
                 </div>
 
@@ -331,6 +333,7 @@
                         </div>
 
                         <button type="submit" @click.prevent="loginHandler">Login</button>
+                        <button type="submit" @click.prevent="guestRedirect">Continue as Guest?</button>
                     </form>
                 </div>
             </div>
@@ -361,7 +364,7 @@
                 password: '12345678'
             },
             loginPayload: {
-                email: 'puskascsgo@gmail.com',
+                email: 'user@user.com',
                 password: '12345678'
             },
             APIResponse: {},
@@ -393,9 +396,9 @@
                                     // if (this.APIResponse.data.verified)
                                     localStorage.setItem('token', this.APIResponse.data.access_token);
                                     localStorage.setItem('isLoggedIn', true)
+                                    localStorage.setItem('uid?', this.APIResponse.data.user.id);
                                     window.location.href = '/';
                                 }
-
                             } else {
                                 this.loginErr.emailErr = response.data.message.email ? response.data
                                     .message.email[0] : '';
@@ -405,6 +408,7 @@
                             }
                         }).catch((error) => {
                             this.loginErr.emailErr = error.response.data.message
+                            // console.log(error)
                         })
                 } catch (error) {
                     console.log(error)
@@ -445,6 +449,9 @@
                 if (localStorage.getItem('isLoggedIn') && localStorage.getItem('token')) {
                     window.location.href = '/';
                 }
+            },
+            guestRedirect() {
+                window.location.href = '/';
             }
         }
     });

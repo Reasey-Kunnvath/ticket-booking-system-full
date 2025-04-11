@@ -43,7 +43,8 @@
                         class="nav-item nav-link {{ request()->routeIs('Help-Center') ? 'active' : '' }}">Help
                         Center</a>
                     <div v-if="isLoggedIn">
-                        <a href="{{ url('/cart') }}"
+                        {{-- href="{{ url('/cart') }}" --}}
+                        <a :href="'/cart?uid=' + payload.user_id + '&token=' + payload.token"
                             class="nav-item nav-link {{ request()->routeIs('Cart') ? 'active' : '' }}">
                             Cart
                             <i class="fa-sharp fa-solid fa-cart-shopping"></i>
@@ -76,7 +77,9 @@
                     Tickets</a>
             </div>
             <div v-if="isLoggedIn">
-                <a href="{{ url('/user-profile') }}" class="nav-item nav-link d-flex align-items-center">
+                {{-- /cart?uid=${this.payload.user_id}&token=${this.payload.token}" --}}
+                <a :href="'/user-profile?uid=' + payload.user_id + '&token=' + payload.token"
+                    class="nav-item nav-link d-flex align-items-center">
                     <div class="p-2 me-2">
                         <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Icon"
                             style="width: 50px; height: 50px; border-radius: 50%;">
@@ -119,15 +122,20 @@
         el: '#appuser',
         data: {
             isLoggedIn: null,
+            payload: {
+                user_id: localStorage.getItem('uid?'),
+                token: localStorage.getItem('token')
+            }
+
         },
         mounted() {
             this.loggedInStatus();
-            console.log(this.isLoggedIn);
+            // console.log(this.isLoggedIn);
         },
         methods: {
             loggedInStatus() {
                 this.isLoggedIn = localStorage.getItem('isLoggedIn');
-            }
+            },
         },
     })
 </script>
