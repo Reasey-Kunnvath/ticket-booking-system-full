@@ -135,6 +135,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone_number' => $request->phone_number,
+            'date_of_birth' => fake()->date(),
             'password' => $hash_password,
             'role_id' => config('roles.user'),
         ]);
