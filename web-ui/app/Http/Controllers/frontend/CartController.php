@@ -7,8 +7,12 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    public function CartIndex(){
-        return view('frontend.cart.cart');
+    public function CartIndex(Request $request){
+        // dd($request->query('uid'));
+        return view('frontend.cart.cart')->with([
+            'userId' => $request->query('uid'),
+            'token' => $request->query('token'),
+        ]);
     }
 
     public function checkout(){

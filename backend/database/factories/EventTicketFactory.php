@@ -24,7 +24,7 @@ class EventTicketFactory extends Factory
         $event = Event::inRandomOrder()->first();
 
         return [
-            'ticket_title' => 'Normal Ticket',
+            'ticket_title' => ['Normal Ticket', 'VIP Ticket', 'VVIP Ticket', 'Not Normal Ticket'][rand(0, 3)],
             'ticket_price' => $this->faker->randomElement([
                 10,20,30,40,50,60,70,80,90,100
             ]),

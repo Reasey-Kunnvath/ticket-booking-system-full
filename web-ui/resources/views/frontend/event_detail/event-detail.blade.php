@@ -126,7 +126,7 @@
 
     <div id="eventdetail1">
         <div class="ticket-details-page">
-            <div class="container">
+            <div class="container-4xl p-6 m-5 align-items-center justify-content-center">
                 <div class="row gx-3">
                     <div class="col">
                         <div class="section-heading">
@@ -135,24 +135,31 @@
                         <div v-for="event in eventdetail" class="right-content2" style="background: #fff;">
                             <div class="info-box">
                                 <div class="row">
-                                    <div class="col-sm-2 align-self-center" style="text-align: center">
+                                    <div class="col-sm-2 align-items-center justify-content-center"
+                                        style="text-align: center">
                                         <h5>@{{ event.mmmdd }}</h5>
-                                        <small style="color: #9a9a9a">@{{ event.dddyyyy }}</small>
+                                        <small style="color: #9a9a9a">@{{ event.dddyyyy }}</small><br>
                                         <small style="color: #9a9a9a">@{{ event.ticket_in_stock }} Tickets</small>
                                     </div>
                                     <div class="col-sm-8 align-self-center" style="text-align: left">
                                         <h5>@{{ event.evt_name }}</h5>
                                         <small>@{{ event.ticket_title }}</small>
                                     </div>
-                                    <div class="col-sm-2 align-self-center">
-                                        <div class="main-dark-button">
-                                            {{-- :href="'/cart?uid=' + payload.user_id + '&token=' + payload.token" --}}
-                                            {{-- @click.prevent="addToCart()" --}}
-                                            <a id="showAlert" @click.prevent="addToCart()"
-                                                href="javascript:void(0);">@{{ event.ticket_price }}$</a>
+                                    <div class="col-sm-2 d-flex align-items-center justify-content-center">
+                                        <div class="d-flex flex-column gap-2 w-100" style="max-width: 120px;">
+                                            <!-- Disabled Ticket Price Button -->
+                                            <a id="showAlert" href="javascript:void(0);"
+                                                class="btn btn-primary text-white text-center d-block w-100 disabled"
+                                                aria-disabled="true">
+                                                @{{ event.ticket_price }}$
+                                            </a>
+                                            <!-- Add to Cart Button -->
+                                            <button type="button"
+                                                class="btn btn-primary text-white text-center d-block w-100"
+                                                @click="addToCart(event.ticket_id, event.ticket_price)">
+                                                Add to Cart
+                                            </button>
                                         </div>
-                                        <input id="form1" min="1" name="quantity" value="1" type="number"
-                                            class="form-control form-control-sm text-center" />
                                     </div>
                                 </div>
                             </div>
@@ -190,7 +197,7 @@
         });
     </script> --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>\
-    <script>
+    <script type="module">
         document.addEventListener('DOMContentLoaded', () => {
             new Vue({
                 el: '#eventdetail1',
@@ -223,7 +230,8 @@
                             console.log(error);
                         }
                     },
-                    addToCart() {
+                    addToCart(ticket_id, ticket_price) {
+                        event.preventDefault();
                         // console.log(this.payload.token);
                         if (!this.payload.token) {
                             Swal.fire({
@@ -235,14 +243,33 @@
                             });
                             return
                         }
+                        // console.log(ticket_id, ticket_price);
 
-                        event.preventDefault();
+                        axios.post('v1/user/cart', {
+                                user_id: this.payload.user_id,
+                                token: this.payload.token,
+                                evt_id: localStorage.getItem('evt_id'),
+                                ticket_id: ticket_id,
+                                ticket_price: ticket_price
+                            })
+                            .then((response) => {
+                                Swal.fire({
+                                    title: "Item Added to Cart",
+                                    html: `Go to <a href="/cart?uid=${this.payload.user_id}&token=${this.payload.token}" style="font-weight:bold; color: #3085d6; text-decoration: underline;">Cart</a> to Checkout`,
+                                    icon: "success"
+                                });
+                            })
+                            .catch((error) => {
+                                Swal.fire({
+                                    title: "Oops...",
+                                    html: 'Something Went Wrong',
+                                    icon: "error",
+                                });
+                            });
 
-                        Swal.fire({
-                            title: "Item Added to Cart",
-                            html: `Go to <a href="/cart?uid=${this.payload.user_id}&token=${this.payload.token}" style="font-weight:bold; color: #3085d6; text-decoration: underline;">Cart</a> to Checkout`,
-                            icon: "success"
-                        });
+
+
+
 
                     }
 

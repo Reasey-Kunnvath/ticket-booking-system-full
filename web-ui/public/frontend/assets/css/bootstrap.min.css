@@ -3138,8 +3138,8 @@ fieldset:disabled .btn {
 .btn-primary:disabled,
 .btn-primary.disabled {
     color: #000;
-    background-color: #00b98e;
-    border-color: #00b98e;
+    background-color: #8c54fd;
+    border-color: #8c54fd;
 }
 
 .btn-secondary {

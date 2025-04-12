@@ -32,7 +32,8 @@ class DatabaseSeeder extends Seeder
             CouponsSeeder::class,
             OrderSeeder::class,
             TransactionsSeeder::class,
-            SupportTicketSeeder::class
+            SupportTicketSeeder::class,
+            CartSeeder::class,
         ]);
 
     }
