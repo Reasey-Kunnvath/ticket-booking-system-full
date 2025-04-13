@@ -172,7 +172,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         // for cart
         Route::apiResource('cart', UCartController::class)
             ->names('user.cart')
-            ->only(['index', 'store', 'destroy']);
+            ->only(['index', 'store', 'update', 'destroy']);
 
         // for partnership request
         Route::post('/become-a-partner', [PartnershipRequestController::class, 'partnership_request']);

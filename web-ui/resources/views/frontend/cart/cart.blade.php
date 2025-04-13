@@ -9,7 +9,11 @@
                 <div class="col-12 col-sm-8  p-4">
                     <div class="d-flex justify-content-between border-bottom pb-3 mb-3">
                         <h1 class="font-weight-bold h3">Shopping Cart</h1>
-                        <h2 class="font-weight-bold h3">2 Items</h2>
+                        <h2 class="font-weight-bold h3">
+                            <button :disabled="!hasChanges" @click="updateCart" type="button" class="btn btn-primary">
+                                Update Cart
+                            </button>
+                        </h2>
                     </div>
                     {{-- Shop Item --}}
                     <div v-for="(item, index) in items" :key="index">
@@ -26,13 +30,19 @@
                             </div>
                             Quantity
                             <div class="col-md-3 col-lg-3 col-xl-2 d-flex align-self-center">
-
-                                <input id="form1" min="1" name="quantity" :value="item.QTY" type="number"
-                                    class="form-control form-control-sm" />
-
+                                <div class="row">
+                                    <div class="input-group input-group-sm">
+                                        <button class="btn btn-secondary" type="button"
+                                            @click="changeQuantity(index,-1)">-</button>
+                                        <input id="form1" min="1" name="quantity" :value="item.QTY"
+                                            class="form-control text-center" readonly />
+                                        <button class="btn btn-success" type="button"
+                                            @click="changeQuantity(index,1)">+</button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                <h6 class="mb-0">@{{ formatCash(item.total_price) }}</h6>
+                                <h6 class="mb-0">@{{ formatCash(item.ticket_price * item.QTY) }}</h6>
                             </div>
                             <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                 <a href="#!" class="text-danger"><i class="fas fa-times"></i></a>
@@ -81,7 +91,10 @@
                                 <p class="h5 font-weight-bold mb-0">Grand Total</p>
                                 <p class="h5 font-weight-bold mb-0">@{{ formatCash(totalItemValue) }}</p>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-sm w-100">Checkout</button>
+                            <button :disabled="hasChanges" type="submit"
+                                class="btn btn-primary btn-sm w-100">Checkout</button>
+                            <span v-if="hasChanges" class="text-danger small mt-2">Please update your cart
+                                in order to proceed</span></span>
                         </div>
                     </form>
 
@@ -91,45 +104,100 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module">
         var appcart = new Vue({
             el: '#appcart',
             data: {
                 user_id: "{{ $userId }}",
-                items: {},
+                items: [],
                 totalItemValue: '',
-                enteredPromocode: ''
-
+                enteredPromocode: '',
+                hasChanges: false,
+                initialItems: [],
             },
             mounted() {
                 this.fetchCartData();
             },
+            watch: {
+                items: {
+                    deep: true,
+                    handler(newItems) {
+                        if (this.initialItems.length === 0) {
+                            this.hasChanges = false;
+                            return;
+                        }
+                        this.hasChanges = newItems.some((item, index) => {
+                            return (
+                                !this.initialItems[index] || item.QTY !== this.initialItems[index].QTY
+                            );
+                        });
+                    },
+                },
+            },
             methods: {
                 fetchCartData() {
-                    axios.get('v1/user/cart', {
+                    axios
+                        .get('v1/user/cart', {
                             params: {
-                                user_id: this.user_id
-                            }
+                                user_id: this.user_id,
+                            },
                         })
                         .then(response => {
                             this.items = response.data.data;
-                            this.totalItemValue = response.data.cartValue
-                            // console.log(this.items);
+                            this.totalItemValue = response.data.cartValue;
+                            console.log(this.items)
+
+                            this.initialItems = JSON.parse(JSON.stringify(this.items));
+                            this.hasChanges = false;
                         })
                         .catch(error => {
                             console.error('Error fetching cart data:', error);
                         });
                 },
                 formatCash(value) {
-                    return new Intl.NumberFormat("en-US", {
-                        style: "currency",
-                        currency: "USD",
+                    return new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                     }).format(value);
                 },
+                changeQuantity(index, value) {
+                    const newQuantity = this.items[index].QTY + value;
+                    if (newQuantity >= 1 && newQuantity <= 10) {
+                        this.$set(this.items[index], 'QTY', newQuantity);
+                    } else if (newQuantity < 1) {
+                        this.$set(this.items[index], 'QTY', 1);
+                    } else if (newQuantity > 10) {
+                        this.$set(this.items[index], 'QTY', 10);
+                    }
+                },
+                updateCart() {
+                    axios.put(`v1/user/cart/${this.user_id}`, {
+                            user_id: this.user_id,
+                            items: this.items,
+                        })
+                        .then(response => {
+                            // console.log(response)
+                            this.initialItems = JSON.parse(JSON.stringify(this.items));
+                            this.totalItemValue = response.data.cartValue || this.totalItemValue;
+                            this.hasChanges = false;
+                            Swal.fire({
+                                title: "You updated your cart!",
+                                html: 'Your cart has been updated successfully.',
+                                icon: "success",
+                            }).then((result) => {
+                                window.location.reload()
+                            })
+
+                        })
+                        .catch(error => {
+                            console.error('Error updating cart:', error);
+                        });
+                },
             },
-        })
+        });
     </script>
 
 

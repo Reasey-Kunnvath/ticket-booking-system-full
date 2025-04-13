@@ -40,6 +40,21 @@ class Event extends Model
     {
         return $this->hasMany(Coupons::class, 'coupons_id');
     }
+
+    public function tickets()
+    {
+        return $this->hasMany(EventTicket::class);
+    }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
+
+    public function cartItems()
+    {
+        return $this->hasMany(Cart::class, 'ticket_id');
+    }
 }
 
 
