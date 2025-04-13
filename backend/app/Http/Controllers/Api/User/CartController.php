@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api\User;
 
-use App\Http\Controllers\Controller;
 use App\Models\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
 {
@@ -13,7 +15,8 @@ class CartController extends Controller
         // $cart = Cart::where('user_id', $request->query('user_id'))->get();
 
         $cart = Cart::select(
-            'users.id',
+            'carts.id AS cart_id',
+            'users.id AS user_id',
             'events.evt_name',
             'event_tickets.ticket_title',
             'event_tickets.ticket_price',
@@ -58,5 +61,42 @@ class CartController extends Controller
             'message' => 'Ticket added to cart successfully',
             'data' => $cart,
         ], 201); // 201 Created status code
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(),[
+            'user_id' => 'required|exists:users,id',
+            'items' => 'required|array',
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'status' => false,
+                'message' => $validator->errors()->messages(),
+            ], 404);
+        }
+
+        $updatedItems = collect($request->items)->keyBy('cart_id');
+        $cartItems = Cart::where('user_id', $request->user_id)
+            ->join('event_tickets', 'carts.ticket_id', '=', 'event_tickets.ticket_id')
+            ->join('events', 'event_tickets.evt_id', '=', 'events.evt_id')
+            ->get();
+
+
+        foreach ($updatedItems as $Item) {
+            DB::table('carts')
+                ->where('id', $Item['cart_id'])
+                ->update([
+                    'QTY' => $Item['QTY'],
+                    'total_price' => $Item['QTY'] * $Item['ticket_price'],
+                ]);
+        }
+
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Cart updated successfully',
+        ]);
     }
 }
