@@ -1,7 +1,6 @@
 @extends('frontend.layout.master')
 @section('title', 'Upcoming Event')
 @section('content')
-
     <!-- Search Start -->
     <div class="container-fluid bg-secondary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
         <div class="container">
@@ -47,11 +46,10 @@
             </div>
         </div>
     </div>
-
     <!-- Search End -->
 
+    <!-- Events List Start -->
     <div id="UpcomingApp">
-        <!-- Property List Start -->
         <div class="tickets-page">
             <div class="container">
                 <div class="row">
@@ -61,7 +59,7 @@
                         </div>
                     </div>
                     <div v-if="loading" class="col-lg-4">Loading...</div>
-                    <div v-for="(ticket, index) in tickets" v-else :key="ticket.ticket_id" class="col-lg-4">
+                    <div v-for="ticket in tickets" v-else :key="ticket.ticket_id" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
                                 <img src={{ asset('frontend/assets/images/ticket-01.jpg') }} alt="" />
@@ -81,7 +79,7 @@
                                     </li>
                                 </ul>
                                 <div class="main-dark-button">
-                                    <a :href="'/event-detail/' + ticket.ticket_id">PurchaseTickets</a>
+                                    <a :href="'/event-detail/' + ticket.evt_id">Purchase Tickets</a>
                                 </div>
                             </div>
                         </div>
@@ -116,6 +114,9 @@
         <!-- Property List End -->
 
     </div>
+    <!-- End Events List -->
+
+    <!-- JavaScript Libraries Vue2 -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             new Vue({
@@ -123,6 +124,7 @@
                 data: {
                     tickets: [],
                     pagination: '',
+                    loading: true
                 },
                 mounted() {
                     this.fetch();
@@ -163,5 +165,5 @@
             })
         });
     </script>
-
+    <!-- End JavaScript Libraries Vue2 -->
 @endsection

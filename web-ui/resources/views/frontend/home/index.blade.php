@@ -28,7 +28,6 @@
     </div>
     <!-- Header End -->
 
-
     <!-- Search Start -->
     <div class="container-fluid bg-secondary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
         <div class="container">
@@ -76,20 +75,21 @@
     </div>
     <!-- Search End -->
 
-
     <!-- Category Start -->
     {{-- <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                     <h1 class="mb-3">Property Types</h1>
-                    <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
+                    <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod
+                        sit. Ipsum diam justo sed rebum vero dolor duo.</p>
                 </div>
                 <div class="row g-4">
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
                         <a class="cat-item d-block bg-light text-center rounded p-3" href="">
                             <div class="rounded p-4">
                                 <div class="icon mb-3">
-                                    <img class="img-fluid" src={{asset("frontend/assets/img/icon-apartment.png")}} alt="Icon">
+                                    <img class="img-fluid" src={{ asset('frontend/assets/img/icon-apartment.png') }}
+                                        alt="Icon">
                                 </div>
                                 <h6>Apartment</h6>
                                 <span>123 Properties</span>
@@ -100,7 +100,7 @@
                         <a class="cat-item d-block bg-light text-center rounded p-3" href="">
                             <div class="rounded p-4">
                                 <div class="icon mb-3">
-                                    <img class="img-fluid" src={{asset("frontend/assets/img/icon-villa.png")}} alt="Icon">
+                                    <img class="img-fluid" src={{ asset('frontend/assets/img/icon-villa.png') }} alt="Icon">
                                 </div>
                                 <h6>Villa</h6>
                                 <span>123 Properties</span>
@@ -111,7 +111,7 @@
                         <a class="cat-item d-block bg-light text-center rounded p-3" href="">
                             <div class="rounded p-4">
                                 <div class="icon mb-3">
-                                    <img class="img-fluid" src={{asset("frontend/assets/img/icon-house.png")}} alt="Icon">
+                                    <img class="img-fluid" src={{ asset('frontend/assets/img/icon-house.png') }} alt="Icon">
                                 </div>
                                 <h6>Home</h6>
                                 <span>123 Properties</span>
@@ -122,7 +122,8 @@
                         <a class="cat-item d-block bg-light text-center rounded p-3" href="">
                             <div class="rounded p-4">
                                 <div class="icon mb-3">
-                                    <img class="img-fluid" src={{asset("frontend/assets/img/icon-housing.png")}} alt="Icon">
+                                    <img class="img-fluid" src={{ asset('frontend/assets/img/icon-housing.png') }}
+                                        alt="Icon">
                                 </div>
                                 <h6>Office</h6>
                                 <span>123 Properties</span>
@@ -133,7 +134,8 @@
                         <a class="cat-item d-block bg-light text-center rounded p-3" href="">
                             <div class="rounded p-4">
                                 <div class="icon mb-3">
-                                    <img class="img-fluid" src={{asset("frontend/assets/img/icon-building.png")}} alt="Icon">
+                                    <img class="img-fluid" src={{ asset('frontend/assets/img/icon-building.png') }}
+                                        alt="Icon">
                                 </div>
                                 <h6>Building</h6>
                                 <span>123 Properties</span>
@@ -144,7 +146,8 @@
                         <a class="cat-item d-block bg-light text-center rounded p-3" href="">
                             <div class="rounded p-4">
                                 <div class="icon mb-3">
-                                    <img class="img-fluid" src={{asset("frontend/assets/img/icon-neighborhood.png")}} alt="Icon">
+                                    <img class="img-fluid" src={{ asset('frontend/assets/img/icon-neighborhood.png') }}
+                                        alt="Icon">
                                 </div>
                                 <h6>Townhouse</h6>
                                 <span>123 Properties</span>
@@ -155,7 +158,8 @@
                         <a class="cat-item d-block bg-light text-center rounded p-3" href="">
                             <div class="rounded p-4">
                                 <div class="icon mb-3">
-                                    <img class="img-fluid" src={{asset("frontend/assets/img/icon-condominium.png")}} alt="Icon">
+                                    <img class="img-fluid" src={{ asset('frontend/assets/img/icon-condominium.png') }}
+                                        alt="Icon">
                                 </div>
                                 <h6>Shop</h6>
                                 <span>123 Properties</span>
@@ -166,7 +170,8 @@
                         <a class="cat-item d-block bg-light text-center rounded p-3" href="">
                             <div class="rounded p-4">
                                 <div class="icon mb-3">
-                                    <img class="img-fluid" src={{asset("frontend/assets/img/icon-luxury.png")}} alt="Icon">
+                                    <img class="img-fluid" src={{ asset('frontend/assets/img/icon-luxury.png') }}
+                                        alt="Icon">
                                 </div>
                                 <h6>Garage</h6>
                                 <span>123 Properties</span>
@@ -178,38 +183,117 @@
         </div> --}}
     <!-- Category End -->
 
-    <!-- Property List Start (Upcoming Events) -->
+    <!-- Events -->
+    <div id="homepage">
+        <!-- Pupular Events -->
+        <div class="tickets-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="heading">
+                            <h1 class="p-3 text-center">Most Popular Events</h1>
+                        </div>
+                    </div>
+                    <div v-for="event in eventpopular" class="col-lg-4">
+                        <div class="ticket-item">
+                            <div class="thumb">
+                                <img src={{ asset('frontend/assets/images/ticket-02.jpg') }} alt="" />
+                                <div class="price">
+                                    <span>1 ticket<br />from <em>$ @{{ event.ticket_price }}</em></span>
+                                </div>
 
-
-    <!-- Property List End -->
-    <div class="tickets-page">
-        <div class="container">
-            <div class="row">
-                <x-event-listing :events="$events" title="Most Popular Events" />
-                <div class="col-lg-12">
-                    <div class="pagination">
-                        <ul>
-                            <li><a href="{{ route('Most-Popular-Events') }}">Browse Most Popular Events</a></li>
-                        </ul>
+                            </div>
+                            <div class="down-content">
+                                <span>There Are @{{ event.ticket_in_stock }} Tickets Left For This Show</span>
+                                <h4>@{{ event.evt_name }}</h4>
+                                <ul>
+                                    <li>
+                                        <i class="fa fa-clock-o"></i>@{{ event.evt_start_date }}
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-map-marker"></i>@{{ event.evt_address }}
+                                    </li>
+                                </ul>
+                                <div class="main-dark-button">
+                                    <a :href="'/event-detail/' + event.evt_id">Purchase Tickets</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="pagination">
+                            <ul>
+                                <li><a href="{{ route('Most-Popular-Events') }}">Browse Popular Events</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        <!-- End Pupular Events -->
+        <!-- Upcoming Events -->
+        <div class="tickets-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="heading">
+                            <h1 class="p-3 text-center">Upcoming Events</h1>
+                        </div>
+                    </div>
+                    <div v-for="comingE in coming" class="col-lg-4">
+                        <div class="ticket-item">
+                            <div class="thumb">
+                                <img src={{ asset('frontend/assets/images/ticket-02.jpg') }} alt="" />
+                                <div class="price">
+                                    <span>1 ticket<br />from <em>$ @{{ comingE.ticket_price }}</em></span>
+                                </div>
 
-    <div class="tickets-page">
-        <div class="container">
-            <x-event-listing :events="$events" title="Upcoming Events" />
-            <div class="col-lg-12">
-                <div class="pagination">
-                    <ul>
-                        <li><a href="{{ route('Upcoming-Events') }}">Browse Upcoming Events</a></li>
-                    </ul>
+                            </div>
+                            <div class="down-content">
+                                <span>There Are @{{ comingE.ticket_in_stock }} Tickets Left For This Show</span>
+                                <h4>@{{ comingE.evt_name }}</h4>
+                                <ul>
+                                    <li>
+                                        <i class="fa fa-clock-o"></i>@{{ comingE.evt_start_date }}
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-map-marker"></i>@{{ comingE.evt_address }}
+                                    </li>
+                                </ul>
+                                <div class="main-dark-button">
+                                    <a :href="'/event-detail/' + comingE.evt_id">Purchase Tickets</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="pagination">
+                            <ul>
+                                <li><a href="{{ route('Upcoming-Events') }}">Browse Upcoming Events</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- End Upcoming Events -->
+        <!-- Reuseble Component -->
+        {{-- <div class="tickets-page">
+            <div class="container">
+                <x-event-listing :events="$events" title="Upcoming Events" />
+                <div class="col-lg-12">
+                    <div class="pagination">
+                        <ul>
+                            <li><a href="{{ route('Upcoming-Events') }}">Browse Upcoming Events</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
+        <!-- End Reuseble Component -->
     </div>
-    </div>
+    <!-- End Events -->
+
     <!-- Testimonial Start -->
     <div class="container-xxl py-5">
         <div class="container">
@@ -225,7 +309,8 @@
                             stet. Est stet ea lorem amet est kasd kasd erat eos</p>
                         <div class="d-flex align-items-center">
                             <img class="img-fluid flex-shrink-0 rounded"
-                                src={{ asset('frontend/assets/img/testimonial-1.jpg') }} style="width: 45px; height: 45px;">
+                                src={{ asset('frontend/assets/img/testimonial-1.jpg') }}
+                                style="width: 45px; height: 45px;">
                             <div class="ps-3">
                                 <h6 class="fw-bold mb-1">Client Name</h6>
                                 <small>Profession</small>
@@ -239,7 +324,8 @@
                             stet. Est stet ea lorem amet est kasd kasd erat eos</p>
                         <div class="d-flex align-items-center">
                             <img class="img-fluid flex-shrink-0 rounded"
-                                src={{ asset('frontend/assets/img/testimonial-2.jpg') }} style="width: 45px; height: 45px;">
+                                src={{ asset('frontend/assets/img/testimonial-2.jpg') }}
+                                style="width: 45px; height: 45px;">
                             <div class="ps-3">
                                 <h6 class="fw-bold mb-1">Client Name</h6>
                                 <small>Profession</small>
@@ -253,7 +339,8 @@
                             stet. Est stet ea lorem amet est kasd kasd erat eos</p>
                         <div class="d-flex align-items-center">
                             <img class="img-fluid flex-shrink-0 rounded"
-                                src={{ asset('frontend/assets/img/testimonial-3.jpg') }} style="width: 45px; height: 45px;">
+                                src={{ asset('frontend/assets/img/testimonial-3.jpg') }}
+                                style="width: 45px; height: 45px;">
                             <div class="ps-3">
                                 <h6 class="fw-bold mb-1">Client Name</h6>
                                 <small>Profession</small>
@@ -265,4 +352,55 @@
         </div>
     </div>
     <!-- Testimonial End -->
+
+    <!-- JavaScript Libraries Vue2 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new Vue({
+                el: '#homepage',
+
+                data: {
+                    eventpopular: [],
+                    coming: [],
+                },
+                mounted() {
+                    this.mostpopular(),
+                        this.comingevent();
+                },
+                methods: {
+                    mostpopular() {
+                        try {
+                            axios.get('http://127.0.0.1:8000/api/popularEvents')
+                                .then((response) => {
+                                    this.eventpopular = response.data.data;
+                                    console.log(this.eventpopular);
+                                })
+                                .catch((error) => {
+                                    console.log("Error", error);
+                                })
+
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    },
+                    comingevent() {
+                        try {
+                            axios.get('http://127.0.0.1:8000/api/comingEvents')
+                                .then((response) => {
+                                    this.coming = response.data.data;
+                                    console.log(this.coming);
+                                })
+                                .catch((error) => {
+                                    console.log("Error", error);
+                                })
+
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    },
+                },
+            })
+        });
+    </script>
+    <!-- End JavaScript Libraries Vue2 -->
 @endsection

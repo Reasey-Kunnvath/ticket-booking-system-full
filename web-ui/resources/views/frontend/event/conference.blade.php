@@ -49,7 +49,7 @@
     <!-- Search End -->
 
 
-    <!-- Property List Start -->
+    <!-- Events List Start -->
     <div id="conference">
         <div class="tickets-page">
             <div class="container">
@@ -113,7 +113,9 @@
             </div>
         </div>
     </div>
-    <!-- Property List End -->
+    <!-- End Events List -->
+
+    <!-- JavaScript Libraries Vue2 -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             //console.log(window.axios);
@@ -160,4 +162,5 @@
             })
         });
     </script>
+    <!-- End JavaScript Libraries Vue2 -->
 @endsection

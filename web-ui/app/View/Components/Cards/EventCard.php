@@ -12,7 +12,9 @@ class EventCard extends Component
 
     public function __construct(array $event)
     {
+
         $this->event = $event;
+
     }
 
     public function render(): View|Closure|string
