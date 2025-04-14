@@ -99,4 +99,23 @@ class CartController extends Controller
             'message' => 'Cart updated successfully',
         ]);
     }
+
+    public function destroy($id)
+    {
+        $cart = Cart::find($id);
+
+        if (!$cart) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Item not found',
+            ], 404);
+        }
+
+        $cart->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Cart deleted successfully ' . $id,
+        ]);
+    }
 }
