@@ -30,10 +30,13 @@ class CartController extends Controller
         ->get();
 
         $cartValue = Cart::where('user_id', $request->query('user_id'))->sum('total_price');
+        $platformFee = $cartValue * 0.035;
+
 
         return response()->json([
             'data' => $cart,
             'cartValue' => $cartValue,
+            'platformFee' => $platformFee,
         ]);
     }
 
@@ -47,20 +50,39 @@ class CartController extends Controller
             'ticket_price' => 'required',
         ]);
 
-        // Create the cart entry
-        $cart = Cart::create([
-            'user_id' => $request->user_id,
-            'event_id' => $request->evt_id,
-            'ticket_id' => $request->ticket_id,
-            'QTY' => 1,
-            'total_price' => $request->ticket_price,
+        // Check if the ticket already exists in the cart
+        $cartItem = Cart::where('user_id', $request->user_id)
+            ->where('ticket_id', $request->ticket_id)
+            ->first();
+
+        if(!$cartItem) {
+            $cart = Cart::create([
+                'user_id' => $request->user_id,
+                'event_id' => $request->evt_id,
+                'ticket_id' => $request->ticket_id,
+                'QTY' => 1,
+                'total_price' => $request->ticket_price,
+            ]);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Ticket added to cart successfully',
+                'data' => $cart,
+            ], 201);
+        }
+
+        $cart = Cart::where('user_id', $request->user_id)
+        ->where('ticket_id', $request->ticket_id)
+        ->update([
+            'QTY' => $cartItem->QTY + 1,
+            'total_price' => ($cartItem->QTY + 1) * $request->ticket_price,
         ]);
 
         return response()->json([
             'status' => true,
             'message' => 'Ticket added to cart successfully',
             'data' => $cart,
-        ], 201); // 201 Created status code
+        ], 201);
     }
 
     public function update(Request $request, $id)

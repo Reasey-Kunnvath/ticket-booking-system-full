@@ -83,21 +83,54 @@
                     <div class="py-4">
                         <label for="promo" class="font-weight-bold d-block mb-2 text-muted text-sm">Promo
                             Code</label>
-                        <input id="promo" v-model="enteredPromocode" type="text" placeholder="Enter your code"
-                            class="form-control form-control-sm" />
-                        {{-- <p v-if="promoError" class="text-danger mt-1">@{{ promoError }}</p>
-                            <p v-if="appliedPromocode" class="text-success mt-1">
-                                @{{ appliedPromocode.code }} applied! You saved @{{ appliedPromocode.discount }}%
-                            </p> --}}
+                        <div class="row">
+                            <div class="col-9">
+                                <input :disabled="items.length == 0" id="promo" v-model="enteredPromocode"
+                                    type="text" placeholder="Enter your code"
+                                    class="form-control form-control-sm w-100" />
+                            </div>
+                            <div class="col-3">
+                                <button :disabled="hasChanges || items.length == 0" type="button" @click="applyPromoCode"
+                                    class="btn btn-primary btn-sm w-100">
+                                    Apply
+                                </button>
+                            </div>
+
+
+                        </div>
+
+                        <p v-if="promoError" class="text-danger mt-1">@{{ promoError }}</p>
+                        <p v-if="hasApplied">
+
+                        <div v-if="codeApplied.coupons_type == 'percentage'" class="text-success mt-1">
+                            @{{ codeApplied.coupons_title }} applied! You saved @{{ codeApplied.coupons_value }}%
+                        </div>
+                        <div v-else-if="codeApplied.coupons_type == 'amount'" class="text-success mt-1">
+                            @{{ codeApplied.coupons_title }} applied! You saved @{{ codeApplied.coupons_value }}$
+                        </div>
+                        </p>
                     </div>
                     <div class="border-top mt-4 pt-4">
-                        {{-- <div v-if="appliedPromocode" class="d-flex justify-content-between py-3 text-muted small">
-                                <p class="h5 font-weight-bold mb-0">Discount @{{ appliedPromocode.discount }}%</p>
-                                <p class="h5 font-weight-bold mb-0">- @{{ formatCash(oldPrice * (appliedPromocode.discount / 100)) }}</p>
-                            </div> --}}
-                        <div class="d-flex font-weight-bold justify-content-between py-3 text-muted small">
-                            <p class="h5 font-weight-bold mb-0">Grand Total</p>
-                            <p class="h5 font-weight-bold mb-0">@{{ formatCash(totalItemValue) }}</p>
+                        <div class="d-flex justify-content-between text-muted small">
+                            <p class="h6 font-weight-bold mb-0">Subtotal</p>
+                            <p class="h6 font-weight-bold mb-0">@{{ formatCash(totalItemValue) }}</p>
+                        </div>
+                        <div class="d-flex justify-content-between text-muted small">
+                            <p class="h6 font-weight-bold mb-0">Platform Fees</p>
+                            <p class="h6 font-weight-bold mb-0">@{{ formatCash(platformFee) }}</p>
+                        </div>
+                        <div v-if="hasApplied" class="d-flex justify-content-between text-muted small">
+                            <div v-if="codeApplied.coupons_type == 'percentage'" class="h6 font-weight-bold">
+                                Discount @{{ codeApplied.coupons_value }}%
+                            </div>
+                            <div v-else-if="codeApplied.coupons_type == 'amount'" class="h6 font-weight-bold">
+                                Discount @{{ codeApplied.coupons_value }}$
+                            </div>
+                            <p class="h6 font-weight-bold mb-0">- @{{ formatCash(discount) }}</p>
+                        </div>
+                        <div class="d-flex font-weight-bold justify-content-between pb-3 text-muted small">
+                            <p class="h6 text-success font-weight-bold mb-0">Grand Total</p>
+                            <p class="h6 text-success font-weight-bold mb-0">@{{ formatCash(parseFloat(finalTotal) + platformFee) }}</p>
                         </div>
                         <button :disabled="hasChanges || items.length == 0" type="button"
                             class="btn btn-primary btn-sm w-100" data-bs-toggle="modal"
@@ -125,7 +158,8 @@
                                     ...
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary">Save changes</button>
                                 </div>
                             </div>
@@ -146,13 +180,21 @@
             data: {
                 user_id: "{{ $userId }}",
                 items: [],
+                coupons: {},
                 totalItemValue: '',
                 enteredPromocode: '',
+                codeApplied: {},
+                promoError: null,
+                hasApplied: false,
+                finalTotal: '',
+                discount: '',
                 hasChanges: false,
                 initialItems: [],
+                platformFee: null,
             },
             mounted() {
                 this.fetchCartData();
+                this.fetchCoupons()
             },
             watch: {
                 items: {
@@ -169,6 +211,11 @@
                         });
                     },
                 },
+                promocode: {
+                    handler(newPromocode) {
+
+                    }
+                }
             },
             methods: {
                 fetchCartData() {
@@ -181,7 +228,9 @@
                         .then(response => {
                             this.items = response.data.data;
                             this.totalItemValue = response.data.cartValue;
-                            console.log(this.items)
+                            this.platformFee = response.data.platformFee;
+                            this.finalTotal = this.totalItemValue
+                            // console.log(typeof this.totalItemValue)
 
                             this.initialItems = JSON.parse(JSON.stringify(this.items));
                             this.hasChanges = false;
@@ -190,13 +239,24 @@
                             console.error('Error fetching cart data:', error);
                         });
                 },
+                fetchCoupons() {
+                    axios.get('v1/user/coupon')
+                        .then(response => {
+                            this.coupons = response.data.data;
+                            console.log(this.coupons)
+                        })
+                        .catch(error => {
+                            console.error('Error fetching coupons:', error);
+                        });
+                },
                 formatCash(value) {
+                    const toFloat = parseFloat(value);
                     return new Intl.NumberFormat('en-US', {
                         style: 'currency',
                         currency: 'USD',
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
-                    }).format(value);
+                    }).format(toFloat);
                 },
                 changeQuantity(index, value) {
                     const newQuantity = this.items[index].QTY + value;
@@ -217,14 +277,14 @@
                             // console.log(response)
                             this.initialItems = JSON.parse(JSON.stringify(this.items));
                             this.totalItemValue = response.data.cartValue || this.totalItemValue;
+                            this.finalTotal = this.totalItemValue
                             this.hasChanges = false;
                             Swal.fire({
                                 title: "You updated your cart!",
                                 html: 'Your cart has been updated successfully.',
                                 icon: "success",
                             }).then((result) => {
-                                // window.location.reload()
-                                this.fetchCartData();
+                                window.location.reload();
                             })
 
                         })
@@ -259,6 +319,43 @@
                                 });
                         }
                     })
+                },
+                applyPromoCode() {
+                    if (this.enteredPromocode === '') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please enter a promo code!',
+                        });
+                        this.foundPromoCode = null;
+                        return;
+                    }
+
+                    const matchingCoupon = this.coupons.find(coupon =>
+                        coupon.coupons_title.toLowerCase() === this.enteredPromocode.toLowerCase()
+                    );
+
+                    if (matchingCoupon) {
+                        this.codeApplied = matchingCoupon;
+                        this.promoError = null
+                        this.hasApplied = true
+
+                        this.finalTotal = this.totalItemValue
+                        if (this.codeApplied.coupons_type == 'percentage') {
+                            this.finalTotal = this.totalItemValue - (this.totalItemValue * (this.codeApplied
+                                .coupons_value / 100))
+                            this.discount = this.totalItemValue * (this.codeApplied.coupons_value / 100)
+                        } else {
+                            this.finalTotal = this.totalItemValue - this.codeApplied.coupons_value
+                            this.discount = this.codeApplied.coupons_value
+                        }
+                    } else {
+                        this.codeApplied = null;
+                        this.promoError = 'Invalid Promo Code';
+                        this.hasApplied = false
+                    }
+
+                    return this.codeApplied;
                 }
             },
         });
