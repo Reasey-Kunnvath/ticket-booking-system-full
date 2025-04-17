@@ -8,6 +8,8 @@ class Order extends Model
 {
     protected $table = 'orders';
 
+    protected $primaryKey = "order_id";
+
     protected $fillable = [
         'QTY',
         'total_amount',
@@ -28,5 +30,4 @@ class Order extends Model
     {
         return $this->belongsTo(EventTicket::class, 'ticket_id', 'ticket_id');
     }
-
 }

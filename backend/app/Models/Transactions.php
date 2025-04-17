@@ -8,6 +8,8 @@ class Transactions extends Model
 {
     protected $table = 'transactions';
 
+    protected $primaryKey = "trans_id";
+
     protected $fillable = [
         'amount',
         'currency',

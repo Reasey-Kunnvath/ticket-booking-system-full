@@ -68,6 +68,11 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(\Filament\Panel $panel): bool
     {
+
+        if ($panel->getId() === 'eventProvider') {
+            return $this->role_id === config('roles.event-provider');
+        }
+
         return $this->role_id === config('roles.admin');
     }
 }
