@@ -32,7 +32,8 @@ use App\Http\Controllers\Api\User\{
     EventController as UEventController,
     SupportTicketController as USupportTicketController,
     CartController as UCartController,
-    ChangePasswordController
+    ChangePasswordController,
+    CouponController as UCouponController
 };
 use App\Http\Controllers\Api\PartnershipRequestController;
 use App\Http\Controllers\Api\AuthController;
@@ -174,6 +175,10 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::apiResource('cart', UCartController::class)
             ->names('user.cart')
             ->only(['index', 'store', 'update', 'destroy']);
+
+        Route::apiResource('coupon', UCouponController::class)
+            ->names('user.coupon')
+            ->only(['index', 'show']);
 
         // for partnership request
         Route::post('/become-a-partner', [PartnershipRequestController::class, 'partnership_request']);
