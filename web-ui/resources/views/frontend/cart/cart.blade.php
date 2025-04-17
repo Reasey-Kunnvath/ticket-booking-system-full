@@ -312,7 +312,10 @@
                                         title: "You deleted your cart!",
                                         html: 'Your cart has been deleted successfully.',
                                         icon: "success",
+                                    }).then((result) => {
+                                        window.location.reload();
                                     })
+
                                 })
                                 .catch(error => {
                                     console.error('Error deleting cart:', error);
