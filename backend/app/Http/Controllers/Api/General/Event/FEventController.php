@@ -49,18 +49,6 @@ class FEventController extends Controller
         ],200);
     }
      public function eventcoming(){
-        // $event = DB::table('event_tickets')
-        // ->select('event_tickets.ticket_id',
-        //         'event_tickets.ticket_title',
-        //         'event_tickets.ticket_price',
-        //         'event_tickets.ticket_in_stock',
-        //         'events.evt_name',
-        //         'events.evt_start_date',
-        //         'events.evt_address')
-        // ->leftJoin('events', 'event_tickets.evt_id', '=', 'events.evt_id')
-        // ->where('events.evt_start_date', '>', now())
-        // ->get();
-
         $event = Event::select([
             'events.evt_id',
             'events.evt_name',
@@ -70,7 +58,7 @@ class FEventController extends Controller
             Event::raw('MIN(event_tickets.ticket_price) as ticket_price'),
             Event::raw('SUM(event_tickets.ticket_in_stock) as ticket_in_stock'),
         ])
-        ->join('event_tickets', 'events.evt_id', '=', 'event_tickets.evt_id')
+        ->Join('event_tickets', 'events.evt_id', '=', 'event_tickets.evt_id')
         ->where('events.evt_start_date', '>', now())
         ->groupBy([
             'events.evt_id',
@@ -143,22 +131,22 @@ class FEventController extends Controller
 
     }
     public function concert(){
-    //    $eventConcert = DB::table('events')
-    //     ->select(
-    //             'events.evt_id',
-    //             'events.evt_name',
-    //             'events.evt_start_date',
-    //             'events.evt_address',
-    //             'events.evt_status',
-    //             'event_tickets.ticket_id',
-    //             'event_tickets.ticket_title',
-    //             'event_tickets.ticket_price',
-    //             'event_tickets.ticket_in_stock'
-    //             )
-    //     ->rightJoin('event_tickets', 'events.evt_id', '=', 'event_tickets.evt_id')
-    //     ->where('events.evt_status', '=', '1')
-    //     ->where('cate_id', '=', '1')
-    //     ->get();
+        //    $eventConcert = DB::table('events')
+        //     ->select(
+        //             'events.evt_id',
+        //             'events.evt_name',
+        //             'events.evt_start_date',
+        //             'events.evt_address',
+        //             'events.evt_status',
+        //             'event_tickets.ticket_id',
+        //             'event_tickets.ticket_title',
+        //             'event_tickets.ticket_price',
+        //             'event_tickets.ticket_in_stock'
+        //             )
+        //     ->rightJoin('event_tickets', 'events.evt_id', '=', 'event_tickets.evt_id')
+        //     ->where('events.evt_status', '=', '1')
+        //     ->where('cate_id', '=', '1')
+        //     ->get();
 
         $eventConcert = Event::select([
             'events.evt_id',
@@ -199,7 +187,7 @@ class FEventController extends Controller
         ])
         ->join('event_tickets', 'events.evt_id', '=', 'event_tickets.evt_id')
         ->where('events.evt_status', '1')
-        ->where('cate_id', '=', '3')
+        ->where('cate_id', '=', '2')
         ->groupBy([
             'events.evt_id',
         ])
@@ -234,11 +222,11 @@ class FEventController extends Controller
         ])
         ->join('event_tickets', 'events.evt_id', '=', 'event_tickets.evt_id')
         ->where('events.evt_status', '1')
-        ->where('cate_id', '=', '4')
+        ->where('cate_id', '=', '3')
         ->groupBy([
             'events.evt_id',
         ])
-        ->get();
+        ->paginate(9);
 
         if($eventSport->isEmpty()){
             return response()->json([

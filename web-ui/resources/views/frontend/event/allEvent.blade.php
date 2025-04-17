@@ -47,6 +47,8 @@
         </div>
     </div>
     <!-- Search End -->
+
+    <!-- Events List -->
     <div id="allevent">
         <div class="tickets-page">
             <div class="container">
@@ -63,7 +65,6 @@
                                 <div class="price">
                                     <span>1 ticket<br />from <em>$ @{{ event.ticket_price }}</em></span>
                                 </div>
-
                             </div>
                             <div class="down-content">
                                 <span>There Are @{{ event.ticket_in_stock }} Tickets Left For This Show</span>
@@ -110,7 +111,9 @@
             </div>
         </div>
     </div>
+    <!-- End Events List -->
 
+    <!-- JavaScript Libraries Vue2 -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             new Vue({
@@ -156,4 +159,5 @@
             })
         });
     </script>
+    <!-- End JavaScript Libraries Vue2 -->
 @endsection

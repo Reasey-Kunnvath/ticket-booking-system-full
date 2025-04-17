@@ -1,7 +1,6 @@
 @extends('frontend.layout.master')
 @section('title', 'Most Popular')
 @section('content')
-
     <!-- Search Start -->
     <div class="container-fluid bg-secondary mb-5 wow fadeIn" data-wow-delay="0.1s" style="padding: 35px;">
         <div class="container">
@@ -47,11 +46,9 @@
             </div>
         </div>
     </div>
-
     <!-- Search End -->
 
-
-    <!-- Property List Start -->
+    <!-- Events List Start -->
     <div id="popular">
         <div class="tickets-page">
             <div class="container">
@@ -115,7 +112,9 @@
             </div>
         </div>
     </div>
-    <!-- Property List End -->
+    <!-- End Events List -->
+
+    <!-- JavaScript Libraries Vue2 -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             new Vue({
@@ -161,5 +160,5 @@
             })
         });
     </script>
-
+    <!-- End JavaScript Libraries Vue2 -->
 @endsection
