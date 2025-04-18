@@ -39,9 +39,14 @@
                     </div>
                     {{-- <a href="{{url('/about')}}" class="nav-item nav-link {{ request()->routeIs('About') ? 'active' : '' }}">About</a> --}}
 
-                    <a href="{{ url('/help-center') }}"
+                    {{-- <a href="{{ url('/help-center') }}"
+                        class="nav-item nav-link {{ request()->routeIs('Help-Center') ? 'active' : '' }}">Help
+                        Center</a> --}}
+                    <div v-if="isLoggedIn">
+                         <a href="{{ url('/help-center') }}"
                         class="nav-item nav-link {{ request()->routeIs('Help-Center') ? 'active' : '' }}">Help
                         Center</a>
+                    </div>
                     <div v-if="isLoggedIn">
                         {{-- href="{{ url('/cart') }}" --}}
                         <a :href="'/cart?uid=' + payload.user_id + '&token=' + payload.token"
@@ -51,6 +56,7 @@
                             <span
                                 class="small-badge top-0 start-100 translate-middle badge ms-1 rounded-pill bg-danger">2</span>
                         </a>
+
                     </div>
                     <div>
 

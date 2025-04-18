@@ -55,10 +55,6 @@ Route::controller(AboutController::class)->group(function(){
     Route::get('/about','AboutIndex')->name('About');
 });
 
-Route::controller(HelpController::class)->group(function(){
-    Route::get('/help-center','HelpCenterIndex')->name('Help-Center');
-});
-
 
 
 Route::controller(SellYourTicketController::class)->group(function(){
@@ -86,6 +82,9 @@ Route::middleware(['guest.route'])->group(function () {
 
     Route::controller(CartController::class)->group(function(){
         Route::get('/cart','CartIndex')->name('Cart');
+    });
+    Route::controller(HelpController::class)->group(function(){
+        Route::get('/help-center','HelpCenterIndex')->name('Help-Center');
     });
 });
 
