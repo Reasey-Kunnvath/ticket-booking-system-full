@@ -261,11 +261,11 @@ class PartnershipDetailResource extends Resource
                             '1' => 'danger',
                             '0' => 'success',
                             '2' => 'warning',
-                            default => 'secondary',
+                            // default => 'secondary',
                         })
                         ->icon(fn(Model $record) => match ($record->req_status) {
-                            '0' => 'heroicon-o-x-circle',
-                            '1' => 'heroicon-o-check-circle',
+                            '1' => 'heroicon-o-x-circle',
+                            '0' => 'heroicon-o-check-circle',
                             '2' => 'heroicon-o-exclamation-circle',
                             default => 'heroicon-o-pencil',
                         })

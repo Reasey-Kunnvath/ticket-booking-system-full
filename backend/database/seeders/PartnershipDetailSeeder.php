@@ -24,8 +24,8 @@ class PartnershipDetailSeeder extends Seeder
             'ambassador_email'  => 'puk@puk.com',
             'ambassador_phone'  => '069696969',
             'status' => '1',
-            //default pending
-            'req_status' => '2',
+            //default approve
+            'req_status' => '1',
             // 'user_id'  => '3'
         ]);
 
