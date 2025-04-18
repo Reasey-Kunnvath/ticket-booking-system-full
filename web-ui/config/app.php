@@ -12,6 +12,7 @@ return [
     | other UI elements where an application name needs to be displayed.
     |
     */
+    'backend_api_url' => env('BACKEND_API_URL', 'http://localhost:8000/api'),
 
     'name' => env('APP_NAME', 'Laravel'),
 

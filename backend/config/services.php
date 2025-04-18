@@ -14,6 +14,12 @@ return [
     |
     */
 
+    'khqr' => [
+        'api_key' => env('KHQR_API_KEY'),
+        'base_url' => env('KHQR_API_BASE_URL'),
+        'rate_limit' => env('KHQR_RATE_LIMIT', 100),
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
