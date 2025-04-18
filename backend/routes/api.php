@@ -33,7 +33,8 @@ use App\Http\Controllers\Api\User\{
     SupportTicketController as USupportTicketController,
     CartController as UCartController,
     ChangePasswordController,
-    CouponController as UCouponController
+    CouponController as UCouponController,
+    KhqrController
 };
 use App\Http\Controllers\Api\PartnershipRequestController;
 use App\Http\Controllers\Api\AuthController;
@@ -179,6 +180,14 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::apiResource('coupon', UCouponController::class)
             ->names('user.coupon')
             ->only(['index', 'show']);
+
+        Route::prefix('khqr')->middleware('throttle:khqr')->group(function () {
+            Route::post('generate', [KhqrController::class, 'generate']);
+            Route::post('verify', [KhqrController::class, 'verify']);
+            Route::post('decode', [KhqrController::class, 'decode']);
+            Route::post('deeplink', [KhqrController::class, 'deeplink']);
+            Route::get('check-account/{accountId}', [KhqrController::class, 'checkAccount']);
+        });
 
         // for partnership request
         Route::post('/become-a-partner', [PartnershipRequestController::class, 'partnership_request']);

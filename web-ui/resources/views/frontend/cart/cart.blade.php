@@ -1,7 +1,102 @@
 @extends('frontend.layout.master')
 @section('title', 'Cart - Checkout')
 @section('content')
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> --}}
+    <style>
+        /* Modal Styling */
+        .khqr-modal .modal-content {
+            align-content: center;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .khqr-header {
+            background-color: #dc3545;
+            /* KHQR red */
+            color: white;
+            text-align: center;
+            align-items: center;
+            align-content: center;
+            padding: 12px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-bottom: none;
+        }
+
+        .khqr-ticket {
+            background: white;
+            /* border-radius: 8px;
+                                                    padding: 20px;
+                                                    margin: 20px auto; */
+            /* max-width: 300px; */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .khqr-ticket img {
+            align-items: center;
+            align-content: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            /* margin-bottom: 12px; */
+        }
+
+        .khqr-ticket h6 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .khqr-ticket p {
+            font-size: 1rem;
+            color: #555;
+            margin: 4px 0;
+        }
+
+        .khqr-ticket .amount {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #dc3545;
+        }
+
+        .modal-footer {
+            justify-content: center;
+            border-top: none;
+        }
+
+        .modal-footer .btn {
+            border-radius: 20px;
+            padding: 8px 24px;
+            font-weight: 500;
+        }
+
+        /* Fade-in animation */
+        .modal.fade .modal-dialog {
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            transform: translateY(-20px);
+        }
+
+        .modal.show .modal-dialog {
+            transform: translateY(0);
+        }
+
+        /* Loading spinner */
+        .loading {
+            font-size: 1rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .spinner-border {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+    </style>
 
     <div class="container-3xl p-5 m-5 align-items-center justify-content-center">
         <div id="appcart">
@@ -133,8 +228,8 @@
                             <p class="h6 text-success font-weight-bold mb-0">@{{ formatCash(parseFloat(finalTotal) + platformFee) }}</p>
                         </div>
                         <button :disabled="hasChanges || items.length == 0" type="button"
-                            class="btn btn-primary btn-sm w-100" data-bs-toggle="modal"
-                            data-bs-target="#exampleModalCenter">
+                            class="btn btn-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#exampleModalCenter"
+                            @click="prepareKhqr">
                             Checkout
                         </button>
                         <span v-if="hasChanges" class="text-danger small mt-2">Please update your cart
@@ -143,24 +238,27 @@
                             cart</span>
                     </div>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
+                    <!-- Redesigned Modal for KHQR QR Code -->
+                    <div class="modal fade khqr-modal" id="exampleModalCenter" tabindex="-1"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                    <button type="button" class="close" data-bs-dismiss="modal" aria-bs-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    ...
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                <div class="khqr-header" id="exampleModalLabel">KHQR Payment</div>
+                                <button type="button" class="btn-close position-absolute top-0 end-0 m-3"
+                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                <div class="modal-body p-0">
+                                    <div v-if="error" class="alert alert-danger">
+                                        @{{ error }}
+                                    </div>
+                                    <div v-else-if="qrImageUrl" class="khqr-ticket">
+                                        <img :src="qrImageUrl" alt="KHQR Code" class="img-fluid"
+                                            style="width: 100%;" />
+                                    </div>
+                                    <div v-else class="loading p-4">
+                                        <span class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                        @{{ processingMsg }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -173,8 +271,34 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module">
+        // Vue.directive('qrcode', {
+        //     bind(el, binding) {
+        //         if (binding.value) {
+        //             el.innerHTML = '';
+        //             new QRCode(el, {
+        //                 text: binding.value,
+        //                 width: 200,
+        //                 height: 200
+        //             });
+        //         }
+        //     },
+        //     update(el, binding) {
+        //         if (binding.value && binding.value !== binding.oldValue) {
+        //             el.innerHTML = '';
+        //             new QRCode(el, {
+        //                 text: binding.value,
+        //                 width: 200,
+        //                 height: 200
+        //             });
+        //         }
+        //     }
+        // });
+
         var appcart = new Vue({
             el: '#appcart',
             data: {
@@ -191,6 +315,14 @@
                 hasChanges: false,
                 initialItems: [],
                 platformFee: null,
+                // KHQR-specific data
+                // khqrString: null,
+                qrImageUrl: null,
+                responseData: {},
+                error: null,
+                khqrAmount: 0,
+                processingMsg: ''
+
             },
             mounted() {
                 this.fetchCartData();
@@ -243,7 +375,7 @@
                     axios.get('v1/user/coupon')
                         .then(response => {
                             this.coupons = response.data.data;
-                            console.log(this.coupons)
+                            // console.log(this.coupons)
                         })
                         .catch(error => {
                             console.error('Error fetching coupons:', error);
@@ -359,6 +491,64 @@
                     }
 
                     return this.codeApplied;
+                },
+                prepareKhqr() {
+                    this.qrImageUrl = null;
+                    this.error = null;
+                    this.khqrAmount = parseFloat(this.finalTotal) + this.platformFee;
+                    this.generateKhqr();
+                },
+                async generateKhqr() {
+                    try {
+                        this.processingMsg = 'Requesting QR code...';
+                        const khqrResponse = await axios.post(
+                            `v1/user/khqr/generate`, {
+                                "type": "merchant",
+                                "accountId": "merchant@bakong",
+                                "merchantName": "Ticket Booking By OG",
+                                "merchantCity": "Phnom Penh",
+                                "merchantId": "123456789",
+                                "merchantBIC": "BANKKHPXXX",
+                                "optional": {
+                                    "currency": "usd",
+                                    "amount": this.khqrAmount,
+                                    "billNumber": "INV-001"
+                                }
+                            }, {
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Accept': 'application/json'
+                                }
+                            }
+                        );
+
+                        if (!khqrResponse.data.success) {
+                            this.error = khqrResponse.data.error || 'Failed to generate KHQR string';
+                            return;
+                        }
+
+                        this.responseData = khqrResponse.data.data;
+                        this.processingMsg = 'Generating QR code...';
+
+
+                        const webhookResponse = await axios.post(
+                            'https://bot.gavined.com/webhook/qrcode', {
+                                qr: khqrResponse.data.data.qrString
+                            }, {
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            }
+                        );
+
+                        if (webhookResponse.data.Mime === 'image/png' && webhookResponse.data.base64) {
+                            this.qrImageUrl = `data:image/png;base64,${webhookResponse.data.base64}`;
+                        } else {
+                            this.error = 'Invalid webhook response';
+                        }
+                    } catch (err) {
+                        this.error = err.response?.data?.error || 'Failed to generate QR code';
+                    }
                 }
             },
         });
