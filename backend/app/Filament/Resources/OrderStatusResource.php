@@ -37,7 +37,7 @@ class OrderStatusResource extends Resource
         return $table->defaultSort('created_at', 'desc')
             ->columns([
                 //
-                TextColumn::make('status_name')
+                TextColumn::make('status_name')->label("Status")->searchable()
             ])
             ->filters([
                 //

@@ -18,4 +18,19 @@ class Transactions extends Model
         'method_id',
         'status_id'
     ];
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id');
+    }
+
+    public function method()
+    {
+        return $this->belongsTo(PaymentMethod::class, 'method_id');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(transactionStatus::class, 'status_id');
+    }
 }

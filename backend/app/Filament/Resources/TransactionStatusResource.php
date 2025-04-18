@@ -19,7 +19,7 @@ class TransactionStatusResource extends Resource
 {
     protected static ?string $model = TransactionStatus::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-check-circle';
 
     protected static ?string $navigationGroup = 'Finacial Management';
 
@@ -39,7 +39,7 @@ class TransactionStatusResource extends Resource
         return $table->defaultSort('created_at', 'desc')
             ->columns([
                 //
-                TextColumn::make('status_name')
+                TextColumn::make('status_name')->label("Status")->searchable()
             ])
             ->filters([
                 //

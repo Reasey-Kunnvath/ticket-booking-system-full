@@ -30,4 +30,14 @@ class Order extends Model
     {
         return $this->belongsTo(EventTicket::class, 'ticket_id', 'ticket_id');
     }
+
+    public function status()
+    {
+        return $this->belongsTo(OrderStatus::class, 'status_id', 'status_id');
+    }
+
+    public function coupon()
+    {
+        return $this->belongsTo(Coupons::class, 'coupons_id', 'coupons_id');
+    }
 }

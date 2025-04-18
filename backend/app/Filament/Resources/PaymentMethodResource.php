@@ -19,7 +19,7 @@ class PaymentMethodResource extends Resource
 {
     protected static ?string $model = PaymentMethod::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-wallet';
 
     protected static ?string $navigationGroup = 'Finacial Management';
 
@@ -38,7 +38,7 @@ class PaymentMethodResource extends Resource
         return $table->defaultSort('created_at', 'desc')
             ->columns([
                 //
-                TextColumn::make("method_name")
+                TextColumn::make("method_name")->label("Method")->searchable()
             ])
             ->filters([
                 //
