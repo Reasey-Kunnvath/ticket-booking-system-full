@@ -19,7 +19,7 @@ class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-shield-check';
 
     protected static ?string $navigationGroup = 'User & Role Management';
     protected static ?int $navigationSort = 2;
@@ -40,8 +40,15 @@ class RoleResource extends Resource
     {
         return $table
             ->columns([
-                //
                 TextColumn::make('role_name')
+                    ->searchable()
+                    ->label("Role"),
+                TextColumn::make('created_at')
+                    ->date('d M Y, h:i A')
+                    ->label("Created Date"),
+                TextColumn::make('updated_at')
+                    ->date('d M Y, h:i A')
+                    ->label("Updated Date"),
             ])
             ->filters([
                 //

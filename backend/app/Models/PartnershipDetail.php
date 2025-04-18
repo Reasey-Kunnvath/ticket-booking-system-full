@@ -21,17 +21,17 @@ class PartnershipDetail extends Model
         'ambassador_phone',
         'status',
         'req_status',
-        'user_id'
+        // 'user_id'
     ];
 
 
-    public function  user()
+    public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(User::class, 'partnership_id', 'partnership_id');
     }
 
-    public function  events()
+    public function events()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(Event::class);
     }
 }

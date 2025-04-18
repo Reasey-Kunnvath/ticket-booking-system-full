@@ -18,10 +18,15 @@ return new class extends Migration
             $table->timestamps(); //it's can use for orderDate
 
             //Foreign Key
-            $table->integer('user_id'); //Primary Kry form Users.user_id
-            $table->integer('ticket_id'); //Primary Kry form Event_Ticket.ticket_id
-            $table->integer('status_id'); //Primary Kry form OrderStatus.status_id
-            $table->integer('coupon_id'); //Primary Kry form Coupons.conpons_id
+            // $table->integer('user_id'); //Primary Kry form Users.user_id
+            // $table->integer('ticket_id'); //Primary Kry form Event_Ticket.ticket_id
+            // $table->integer('status_id'); //Primary Kry form OrderStatus.status_id
+            // $table->integer('coupon_id'); //Primary Kry form Coupons.conpons_id
+
+            $table->foreignId('user_id')->constrained("users");
+            $table->foreignId('ticket_id')->constrained("event_tickets", 'ticket_id');
+            $table->foreignId('status_id')->constrained("orderstatus", 'status_id');
+            $table->foreignId('coupon_id')->constrained("coupons", "coupons_id");
         });
     }
 

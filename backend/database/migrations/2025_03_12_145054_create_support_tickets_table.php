@@ -19,7 +19,9 @@ return new class extends Migration
             $table->timestamps();
 
             //Foreign Key
-            $table->integer('user_id'); //Primary Kry form Users.user_id
+            // $table->integer('user_id'); //Primary Kry form Users.user_id
+
+            $table->foreignId('user_id')->constrained("users")->onDelete("cascade");
         });
     }
 

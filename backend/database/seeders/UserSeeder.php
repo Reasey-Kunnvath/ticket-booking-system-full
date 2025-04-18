@@ -28,13 +28,13 @@ class UserSeeder extends Seeder
             'phone_number' => '012222333',
         ]);
 
-        User::factory()->create([
-            'name' => 'Event Provider',
-            'email' => 'eventprovider@eventprovider.com',
-            'password' => bcrypt('12345678'),
-            'role_id' => $event_provider_role_id,
-            'phone_number' => '023222333',
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Event Provider',
+        //     'email' => 'eventprovider@eventprovider.com',
+        //     'password' => bcrypt('12345678'),
+        //     'role_id' => $event_provider_role_id,
+        //     'phone_number' => '023222333',
+        // ]);
 
         User::factory()->create([
             'name' => 'User',

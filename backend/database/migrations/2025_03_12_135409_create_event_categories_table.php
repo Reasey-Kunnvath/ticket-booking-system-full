@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('cate_name');
             $table->text('cate_description');
             $table->enum('status', ['0', '1'])->default(1);
-            $table->integer('created_by')->nullable();
+            $table->foreignId('created_by')->nullable()->constrained("users");
             $table->timestamps();
         });
     }

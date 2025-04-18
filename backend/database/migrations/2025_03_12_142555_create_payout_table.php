@@ -23,10 +23,14 @@ return new class extends Migration
             $table->timestamps();
 
             //Foreign Key
-            $table->integer('evt_provider_id'); //Primary Kry form Partnership_detial.partnetship_id
-            $table->integer('evt_id'); //Primary Kry form Event.evt_id
-            $table->integer('payout_status_id'); //Primary Kry form TransactionStatus.status_id
-            $table->integer('method_id'); //Primary Kry form PaymentMethod.method_id
+            // $table->integer('evt_provider_id'); //Primary Kry form Partnership_detial.partnetship_id
+            // $table->integer('evt_id'); //Primary Kry form Event.evt_id
+            // $table->integer('payout_status_id'); //Primary Kry form TransactionStatus.status_id
+            // $table->integer('method_id'); //Primary Kry form PaymentMethod.method_id
+
+            $table->foreignId('evt_id')->constrained("events", "evt_id");
+            $table->foreignId('payout_status_id')->constrained("transactionstatus", "status_id");
+            $table->foreignId('method_id')->constrained("paymentmethod", "method_id");
         });
     }
 

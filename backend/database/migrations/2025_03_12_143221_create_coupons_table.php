@@ -23,8 +23,11 @@ return new class extends Migration
             $table->timestamps();
 
             //Foreign key
-            $table->integer('createdby'); //Primary Kry form Users.user_id
-            $table->integer('evt_id')->nullable(); //Primary Kry form Events.evt_id
+            // $table->integer('createdby'); //Primary Kry form Users.user_id
+            // $table->integer('evt_id')->nullable(); //Primary Kry form Events.evt_id
+
+            $table->foreignId('createdby')->constrained("users");
+            $table->foreignId('evt_id')->nullable()->constrained("events", "evt_id");
         });
     }
 

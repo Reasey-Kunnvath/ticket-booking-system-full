@@ -21,7 +21,9 @@ return new class extends Migration
             $table->timestamps();
 
             //foreign Key
-            $table->integer('evt_id'); //Primary Kry form Event.evt_id
+            // $table->integer('evt_id'); //Primary Kry form Event.evt_id
+
+            $table->foreignId('evt_id')->constrained('events', 'evt_id')->onDelete('cascade');
         });
     }
 

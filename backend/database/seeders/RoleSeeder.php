@@ -11,10 +11,26 @@ class RoleSeeder extends Seeder
     {
         $roles = config('roles');
 
+
         DB::table('roles')->insertOrIgnore([
-            ['id' => $roles['admin'], 'role_name' => 'admin'],
-            ['id' => $roles['event-provider'], 'role_name' => 'event-provider'],
-            ['id' => $roles['user'], 'role_name' => 'user'],
+            [
+                'id' => $roles['admin'],
+                'role_name' => 'admin',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => $roles['event-provider'],
+                'role_name' => 'event-provider',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => $roles['user'],
+                'role_name' => 'user',
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
         ]);
     }
 }

@@ -27,7 +27,7 @@ return new class extends Migration
 
 
             //Foreign Key
-            $table->integer('user_id'); //Primary Kry form Users.user_id
+            // $table->integer('user_id'); //Primary Kry form Users.user_id
 
         });
     }

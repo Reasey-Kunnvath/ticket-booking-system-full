@@ -24,7 +24,7 @@ class EventChart extends ChartWidget
                 [
                     'label' => 'Events Created',
                     'data' => $eventCounts,
-                    'backgroundColor' => '#facc15',
+                    'backgroundColor' => 'primary',
                 ],
             ],
             'labels' => $months,

@@ -28,7 +28,13 @@ class EventProviderPanelProvider extends PanelProvider
             ->path('event-provider')
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+                // 'primary' => Color::Amber,
+                'danger' => Color::Rose,
+                'gray' => Color::Gray,
+                'info' => Color::Blue,
+                'primary' => Color::Indigo,
+                'success' => Color::Emerald,
+                'warning' => Color::Orange,
             ])
             ->discoverResources(in: app_path('Filament/EventProvider/Resources'), for: 'App\\Filament\\EventProvider\\Resources')
             ->discoverPages(in: app_path('Filament/EventProvider/Pages'), for: 'App\\Filament\\EventProvider\\Pages')

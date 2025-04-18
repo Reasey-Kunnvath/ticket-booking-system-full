@@ -26,6 +26,7 @@ class User extends Authenticatable implements FilamentUser
         'password',
         'phone_number',
         'role_id',
+        'partnership_id',
     ];
 
     /**
@@ -74,5 +75,10 @@ class User extends Authenticatable implements FilamentUser
         }
 
         return $this->role_id === config('roles.admin');
+    }
+
+    public function partnership()
+    {
+        return $this->belongsTo(PartnershipDetail::class, 'partnership_id', 'partnership_id');
     }
 }

@@ -18,9 +18,13 @@ return new class extends Migration
             $table->timestamps(); //transaction_date
 
             //Foreign Key
-            $table->integer('order_id'); //Primary Kry form Order.order_id
-            $table->integer('method_id'); //Primary Kry form PaymentMethod.method_id
-            $table->integer('status_id'); //Primary Kry form TransectionStatus.status_id
+            // $table->integer('order_id'); //Primary Kry form Order.order_id
+            // $table->integer('method_id'); //Primary Kry form PaymentMethod.method_id
+            // $table->integer('status_id'); //Primary Kry form TransectionStatus.status_id
+
+            $table->foreignId('order_id')->constrained("orders", "order_id");
+            $table->foreignId('method_id')->constrained("paymentmethod", 'method_id');
+            $table->foreignId('status_id')->constrained("transactionstatus", "status_id");
         });
     }
 

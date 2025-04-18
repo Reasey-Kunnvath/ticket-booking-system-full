@@ -21,12 +21,14 @@ return new class extends Migration
             $table->string('evt_address');
             $table->text('evt_address_link');
             $table->enum('status', ['0', '1'])->default(1);
-            $table->enum('evt_status', ['0', '1','2'])->default(0);
+            $table->enum('evt_status', ['0', '1', '2'])->default(0);
             $table->timestamps();
 
             // Foreign keys
-            $table->integer('cate_id'); //Primary Kry form Event_Categories.cate_id
-            $table->integer('partnership_id'); //Primary Kry form Partnership_Detail.partnership_id
+            // $table->integer('cate_id'); //Primary Kry form Event_Categories.cate_id
+            // $table->integer('partnership_id'); //Primary Kry form Partnership_Detail.partnership_id
+
+            $table->foreignId('cate_id')->constrained('event_categories', 'cate_id')->onDelete('restrict');
         });
     }
 
