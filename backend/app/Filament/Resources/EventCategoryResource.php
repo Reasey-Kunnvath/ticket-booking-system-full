@@ -13,13 +13,14 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class EventCategoryResource extends Resource
 {
     protected static ?string $model = EventCategory::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-tag';
 
     protected static ?string $navigationGroup = 'Event Management';
 
@@ -28,18 +29,23 @@ class EventCategoryResource extends Resource
         return $form
             ->schema([
                 TextInput::make('cate_name')
+                    ->label("Category Name")
                     ->required()
-                    ->maxLength(255),
-                Textarea::make('cate_description')
-                    ->required()
-                    ->maxLength(65535),
+                    ->maxLength(255)
+                    ->columnSpanFull(),
                 Select::make('status')
                     ->options([
                         '1' => 'Active',
                         '0' => 'Inactive'
                     ])
                     ->required()
-                    ->default('1'),
+                    ->default('1')
+                    ->columnSpanFull(),
+                Textarea::make('cate_description')
+                    ->label("Description")
+                    ->required()
+                    ->columnSpanFull(),
+
                 Hidden::make('created_by')
                     ->default(auth()->id())
             ]);
@@ -47,14 +53,22 @@ class EventCategoryResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
+        return $table->defaultSort('created_at', 'desc')
             ->columns([
-                TextColumn::make('cate_name'),
+                TextColumn::make('cate_name')->label("Name")->searchable(),
                 TextColumn::make('status')
                     ->formatStateUsing(fn(string $state): string => $state === '1' ? 'Active' : 'Inactive')
                     ->badge()
                     ->color(fn(string $state): string => $state === '1' ? 'success' : 'danger'),
-                TextColumn::make('cate_description'),
+                TextColumn::make('cate_description')->label("Description"),
+            ])
+            ->filters([
+                SelectFilter::make('status')
+                    ->options([
+                        '0' => 'Inactive',
+                        '1' => 'Active',
+                    ])
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make()

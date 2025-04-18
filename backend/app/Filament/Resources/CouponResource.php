@@ -32,7 +32,7 @@ class CouponResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
+        return $form->defaultSort('created_at', 'desc')
             ->schema([
                 //
                 Select::make('evt_id')

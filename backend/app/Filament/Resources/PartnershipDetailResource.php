@@ -122,7 +122,7 @@ class PartnershipDetailResource extends Resource
     {
         return $table->query(
             PartnershipDetail::query()->with('user')
-        )
+        )->defaultSort('created_at', 'desc')
             ->actionsPosition(Tables\Enums\ActionsPosition::BeforeColumns)
             ->columns([
                 TextColumn::make("org_name")->label("Name")->searchable(),
