@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * The path to the "home" route for your application.
+     *
      */
     public const HOME = '/';
 
     /**
-     * Define your route model bindings, pattern filters, etc.
+     *
      */
     public function boot(): void
     {
@@ -28,7 +28,7 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Configure the rate limiters for the application.
+     *
      */
     protected function configureRateLimiting(): void
     {

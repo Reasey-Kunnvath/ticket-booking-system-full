@@ -27,8 +27,8 @@
         .khqr-ticket {
             background: white;
             /* border-radius: 8px;
-                                                    padding: 20px;
-                                                    margin: 20px auto; */
+                                                                        padding: 20px;
+                                                                        margin: 20px auto; */
             /* max-width: 300px; */
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
@@ -276,29 +276,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module">
-        // Vue.directive('qrcode', {
-        //     bind(el, binding) {
-        //         if (binding.value) {
-        //             el.innerHTML = '';
-        //             new QRCode(el, {
-        //                 text: binding.value,
-        //                 width: 200,
-        //                 height: 200
-        //             });
-        //         }
-        //     },
-        //     update(el, binding) {
-        //         if (binding.value && binding.value !== binding.oldValue) {
-        //             el.innerHTML = '';
-        //             new QRCode(el, {
-        //                 text: binding.value,
-        //                 width: 200,
-        //                 height: 200
-        //             });
-        //         }
-        //     }
-        // });
-
         var appcart = new Vue({
             el: '#appcart',
             data: {
@@ -315,8 +292,6 @@
                 hasChanges: false,
                 initialItems: [],
                 platformFee: null,
-                // KHQR-specific data
-                // khqrString: null,
                 qrImageUrl: null,
                 responseData: {},
                 error: null,
