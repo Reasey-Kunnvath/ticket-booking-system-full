@@ -16,47 +16,43 @@ class OrderSeeder extends Seeder
      */
     public function run(): void
     {
-        $total = 0;
-        $ticket_qty = 5;
-        $get_ticket_price = EventTicket::where('ticket_id', 1)->first()->ticket_price;
-        $get_coupons = Coupons::where('coupons_id', 1)->first();
-        $original_amount = $ticket_qty * $get_ticket_price;
+        // $total = 0;
+        // $ticket_qty = 5;
+        // $get_ticket_price = EventTicket::where('ticket_id', 1)->first()->ticket_price;
+        // $get_coupons = Coupons::where('coupons_id', 1)->first();
+        // $original_amount = $ticket_qty * $get_ticket_price;
 
-        if($get_coupons->coupons_type == 'percentage'){
-            $discount = $original_amount - ($original_amount * $get_coupons->coupons_value/100);
-            $total = $original_amount - $discount;
-        }else if($get_coupons->coupons_type == 'amount'){
-            $total = $original_amount - $get_coupons->coupons_value;
-        }
+        // if($get_coupons->coupons_type == 'percentage'){
+        //     $discount = $original_amount - ($original_amount * $get_coupons->coupons_value/100);
+        //     $total = $original_amount - $discount;
+        // }else if($get_coupons->coupons_type == 'amount'){
+        //     $total = $original_amount - $get_coupons->coupons_value;
+        // }
 
         Order::create([
-            'QTY' => 5,
-            'total_amount' => $total,
-            'created_at' => Carbon::now()->subMonth(2),
-            'user_id' => 3,
-            'ticket_id' => 1,
-            'status_id' => 2,
+            'status_id' => 1,
+            'useCoupon' => '1',
             'coupon_id' => 1,
-        ]);
-
-        Order::create([
-            'QTY' => 10,
-            'total_amount' => 100,
+            'total_amount' =>950,
+            'user_id' => 3,
             'created_at' => Carbon::now()->subMonth(1),
-            'user_id' => 3,
-            'ticket_id' => 1,
-            'status_id' => 2,
-            'coupon_id' => 1,
+
         ]);
 
         Order::create([
-            'QTY' => 15,
-            'total_amount' => 150,
-            'created_at' => Carbon::now(),
+            'status_id' => 1,
+            'useCoupon' => '0',
+            'total_amount' => 300,
             'user_id' => 3,
-            'ticket_id' => 1,
-            'status_id' => 2,
-            'coupon_id' => 1,
+            'created_at' => Carbon::now()->subMonth(1),
+        ]);
+
+        Order::create([
+            'status_id' => 1,
+            'useCoupon' => '0',
+            'total_amount' => 1500,
+            'user_id' => 3,
+            'created_at' => Carbon::now(),
         ]);
     }
 }

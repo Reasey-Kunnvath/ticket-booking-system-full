@@ -228,7 +228,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::get('/mostpopular', 'mostpopular')->name('mostpopular');
         Route::get('/concert', 'concert')->name('concert');
         Route::get('/conferences', 'conferences')->name('conferences');
-        Route::get('/sport', 'sport')->name('sport');
+        Route::get('/sport', 'sports')->name('sport');
     });
     Route::controller(FEventDetailController::class)->group(function () {
         Route::get('/eventdetail/{id}', 'EventDetailIndex')->name('eventdetail');

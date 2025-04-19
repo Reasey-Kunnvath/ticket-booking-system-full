@@ -198,6 +198,9 @@
                         <div class="ticket-item">
                             <div class="thumb">
                                 <img src={{ asset('frontend/assets/images/ticket-02.jpg') }} alt="" />
+                                <div class="category">
+                                    <span> <b>@{{ event.cate_name }}</b> </span>
+                                </div>
                                 <div class="price">
                                     <span>1 ticket<br />from <em>$ @{{ event.ticket_price }}</em></span>
                                 </div>
@@ -244,6 +247,9 @@
                         <div class="ticket-item">
                             <div class="thumb">
                                 <img src={{ asset('frontend/assets/images/ticket-02.jpg') }} alt="" />
+                                <div class="category">
+                                    <span> <b>@{{ comingE.cate_name }}</b> </span>
+                                </div>
                                 <div class="price">
                                     <span>1 ticket<br />from <em>$ @{{ comingE.ticket_price }}</em></span>
                                 </div>
