@@ -79,8 +79,7 @@
                         </a>
                     @endif --}}
                 </div>
-                <a href="{{ url('/sell-your-ticket') }}" class="btn btn-primary px-3 d-none d-lg-flex">Sell Your
-                    Tickets</a>
+                <a href="{{ url('/sell-your-ticket') }}" class="btn btn-primary px-3 d-none d-lg-flex">Become a partner</a>
             </div>
             <div v-if="isLoggedIn">
                 {{-- /cart?uid=${this.payload.user_id}&token=${this.payload.token}" --}}

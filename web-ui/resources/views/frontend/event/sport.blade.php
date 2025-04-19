@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                             <div class="down-content">
-                                <span>There Are @{{ sport.ticket_in_stock }} Tickets Left For This Show</span>
+                                <span>@{{ sport.total_tickets_sold }} Tickets Sold</span>
                                 <h4>@{{ sport.evt_name }}</h4>
                                 <ul>
                                     <li>
