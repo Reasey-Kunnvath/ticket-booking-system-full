@@ -387,8 +387,8 @@
                         try {
                             axios.get('http://127.0.0.1:8000/api/comingEvents')
                                 .then((response) => {
-                                    // this.coming = response.data.data.data;
-                                    console.log(response.data);
+                                    this.coming = response.data.data.data;
+                                    // console.log(response.data);
                                 })
                                 .catch((error) => {
                                     console.log("Error", error);
