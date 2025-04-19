@@ -364,16 +364,16 @@
                     coming: [],
                 },
                 mounted() {
-                    this.mostpopular(),
-                        this.comingevent();
+                    this.mostpopular();
+                    this.comingevent();
                 },
                 methods: {
                     mostpopular() {
                         try {
                             axios.get('http://127.0.0.1:8000/api/popularEvents')
                                 .then((response) => {
-                                    this.eventpopular = response.data.data;
-                                    console.log(this.eventpopular);
+                                    this.eventpopular = response.data.data.data;
+                                    // console.log("aaa", response.data.data.data);
                                 })
                                 .catch((error) => {
                                     console.log("Error", error);
@@ -387,8 +387,8 @@
                         try {
                             axios.get('http://127.0.0.1:8000/api/comingEvents')
                                 .then((response) => {
-                                    this.coming = response.data.data;
-                                    console.log(this.coming);
+                                    // this.coming = response.data.data.data;
+                                    console.log(response.data);
                                 })
                                 .catch((error) => {
                                     console.log("Error", error);
