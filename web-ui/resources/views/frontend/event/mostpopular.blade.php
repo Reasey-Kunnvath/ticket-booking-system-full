@@ -62,12 +62,15 @@
                         <div class="ticket-item">
                             <div class="thumb">
                                 <img src={{ asset('frontend/assets/images/ticket-01.jpg') }} alt="" />
+                                <div class="category">
+                                    <span> <b>@{{ eventpop.cate_name }}</b> </span>
+                                </div>
                                 <div class="price">
                                     <span>1 ticket<br />from <em>$@{{ eventpop.ticket_price }}</em></span>
                                 </div>
                             </div>
                             <div class="down-content">
-                                <span>There Are @{{ eventpop.ticket_in_stock }} Tickets Left For This Show</span>
+                                <span>@{{ eventpop.total_quantity_sold }} Tickets Sold</span>
                                 <h4>@{{ eventpop.evt_name }}</h4>
                                 <ul>
                                     <li>

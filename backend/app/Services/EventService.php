@@ -8,20 +8,29 @@ class EventService
 {
     public function allevent(){
         $event = Event::select([
-                    'events.evt_id',
-                    'events.evt_name',
-                    'events.evt_start_date',
-                    'events.evt_address',
-                    'events.evt_status',
-                    Event::raw('MIN(event_tickets.ticket_price) as ticket_price'),
-                    Event::raw('SUM(event_tickets.ticket_in_stock) as ticket_in_stock'),
-                ])
-                ->join('event_tickets', 'events.evt_id', '=', 'event_tickets.evt_id')
-                ->where('events.evt_status', '1')
-                ->groupBy([
-                    'events.evt_id',
-                ])
-                ->paginate(9);
+            'events.evt_id',
+            'events.evt_name',
+            'events.evt_start_date',
+            'events.evt_address',
+            'events.evt_status',
+            'event_categories.cate_name',
+            DB::raw('MIN(event_tickets.ticket_price) as ticket_price'),
+            DB::raw('SUM(event_tickets.ticket_in_stock) as ticket_in_stock'),
+            DB::raw('COALESCE(SUM(order_details.QTY), 0) as total_tickets_sold'), // Use COALESCE to return 0 if no tickets sold
+        ])
+        ->join('event_tickets', 'events.evt_id', '=', 'event_tickets.evt_id')
+        ->join('event_categories', 'events.cate_id', '=', 'event_categories.cate_id')
+        ->leftJoin('order_details', 'event_tickets.ticket_id', '=', 'order_details.ticket_id') // Left join to include events with 0 sales
+        ->where('events.evt_status', '1')
+        ->orderBy('total_tickets_sold', 'desc') // Order by total tickets sold
+        ->groupBy([
+            'events.evt_id',
+            'events.evt_name',
+            'events.evt_start_date',
+            'events.evt_address',
+            'events.evt_status',
+        ])
+        ->paginate(9);
 
         return response()->json([
             'data' => $event
@@ -35,14 +44,23 @@ class EventService
             'events.evt_start_date',
             'events.evt_address',
             'events.evt_status',
-            Event::raw('MIN(event_tickets.ticket_price) as ticket_price'),
-            Event::raw('SUM(event_tickets.ticket_in_stock) as ticket_in_stock'),
+            'event_categories.cate_name',
+            DB::raw('MIN(event_tickets.ticket_price) as ticket_price'),
+            DB::raw('SUM(event_tickets.ticket_in_stock) as ticket_in_stock'),
+            DB::raw('COALESCE(SUM(order_details.QTY), 0) as total_tickets_sold'),
         ])
-        ->Join('event_tickets', 'events.evt_id', '=', 'event_tickets.evt_id')
+        ->join('event_tickets', 'events.evt_id', '=', 'event_tickets.evt_id')
+        ->join('event_categories', 'events.cate_id', '=', 'event_categories.cate_id')
+        ->leftJoin('order_details', 'event_tickets.ticket_id', '=', 'order_details.ticket_id')
         ->where('events.evt_start_date', '>', now())
         ->groupBy([
             'events.evt_id',
+            'events.evt_name',
+            'events.evt_start_date',
+            'events.evt_address',
+            'events.evt_status',
         ])
+        ->orderBy('total_tickets_sold', 'desc') // Order by event start date
         ->paginate(9);
 
         if($event->isEmpty()){
@@ -63,42 +81,44 @@ class EventService
             // ->select('*')
             // ->paginate(9);
 
-        $popularEvent = Event::select([
-            'events.evt_id',
-            'events.evt_name',
-            'events.evt_start_date',
-            'events.evt_address',
-            'events.evt_status',
-            'ticket_data.ticket_price',
-            'ticket_data.ticket_in_stock',
-            Event::raw('SUM(orders.QTY) as total_quantity_sold'),
-        ])
-        ->joinSub(
-            DB::table('event_tickets')
-                ->select([
-                    'evt_id',
-                    DB::raw('MIN(ticket_price) as ticket_price'),
-                    DB::raw('SUM(ticket_in_stock) as ticket_in_stock'),
-                ])
-                ->groupBy('evt_id'),
-            'ticket_data',
-            'events.evt_id',
-            '=',
-            'ticket_data.evt_id'
-        )
-        ->join('event_tickets', 'events.evt_id', '=', 'event_tickets.evt_id')
-        ->join('orders', 'event_tickets.ticket_id', '=', 'orders.ticket_id')
-        ->groupBy([
-            'events.evt_id',
-            'events.evt_name',
-            'events.evt_start_date',
-            'events.evt_address',
-            'events.evt_status',
-            'ticket_data.ticket_price',
-            'ticket_data.ticket_in_stock',
-        ])
-        ->orderByDesc('total_quantity_sold')
-        ->paginate(9);
+            $popularEvent = Event::select([
+                'events.evt_id',
+                'events.evt_name',
+                'events.evt_start_date',
+                'events.evt_address',
+                'events.evt_status',
+                'ticket_data.ticket_price',
+                'ticket_data.ticket_in_stock',
+                'event_categories.cate_name',
+                DB::raw('SUM(order_details.QTY) as total_quantity_sold'),
+            ])
+            ->joinSub(
+                DB::table('event_tickets')
+                    ->select([
+                        'evt_id',
+                        DB::raw('MIN(ticket_price) as ticket_price'),
+                        DB::raw('SUM(ticket_in_stock) as ticket_in_stock'),
+                    ])
+                    ->groupBy('evt_id'),
+                'ticket_data',
+                'events.evt_id',
+                '=',
+                'ticket_data.evt_id'
+            )
+            ->join('event_tickets', 'events.evt_id', '=', 'event_tickets.evt_id')
+            ->join('order_details', 'event_tickets.ticket_id', '=', 'order_details.ticket_id')
+            ->join('event_categories', 'events.cate_id', '=', 'event_categories.cate_id')
+            ->groupBy([
+                'events.evt_id',
+                'events.evt_name',
+                'events.evt_start_date',
+                'events.evt_address',
+                'events.evt_status',
+                'ticket_data.ticket_price',
+                'ticket_data.ticket_in_stock',
+            ])
+            ->orderByDesc('total_quantity_sold')
+            ->paginate(9);
 
         if($popularEvent->isEmpty()){
             return response()->json([
@@ -113,22 +133,30 @@ class EventService
     }
 
     public function concert(){
-
         $eventConcert = Event::select([
             'events.evt_id',
             'events.evt_name',
             'events.evt_start_date',
             'events.evt_address',
             'events.evt_status',
-            Event::raw('MIN(event_tickets.ticket_price) as ticket_price'),
-            Event::raw('SUM(event_tickets.ticket_in_stock) as ticket_in_stock'),
+            'event_categories.cate_name',
+            DB::raw('MIN(event_tickets.ticket_price) as ticket_price'),
+            DB::raw('SUM(event_tickets.ticket_in_stock) as ticket_in_stock'),
+            DB::raw('COALESCE(SUM(order_details.QTY), 0) as total_tickets_sold'),
         ])
         ->join('event_tickets', 'events.evt_id', '=', 'event_tickets.evt_id')
+        ->join('event_categories', 'events.cate_id', '=', 'event_categories.cate_id')
+        ->leftJoin('order_details', 'event_tickets.ticket_id', '=', 'order_details.ticket_id')
         ->where('events.evt_status', '1')
-        ->where('cate_id', '=', '1')
+        ->where('events.cate_id', '=', '1')
         ->groupBy([
             'events.evt_id',
+            'events.evt_name',
+            'events.evt_start_date',
+            'events.evt_address',
+            'events.evt_status',
         ])
+        ->orderBy('total_tickets_sold', 'desc')
         ->paginate(9);
 
         if($eventConcert->isEmpty()){
@@ -149,15 +177,24 @@ class EventService
             'events.evt_start_date',
             'events.evt_address',
             'events.evt_status',
-            Event::raw('MIN(event_tickets.ticket_price) as ticket_price'),
-            Event::raw('SUM(event_tickets.ticket_in_stock) as ticket_in_stock'),
+            'event_categories.cate_name',
+            DB::raw('MIN(event_tickets.ticket_price) as ticket_price'),
+            DB::raw('SUM(event_tickets.ticket_in_stock) as ticket_in_stock'),
+            DB::raw('COALESCE(SUM(order_details.QTY), 0) as total_tickets_sold'),
         ])
         ->join('event_tickets', 'events.evt_id', '=', 'event_tickets.evt_id')
+        ->join('event_categories', 'events.cate_id', '=', 'event_categories.cate_id')
+        ->leftJoin('order_details', 'event_tickets.ticket_id', '=', 'order_details.ticket_id')
         ->where('events.evt_status', '1')
-        ->where('cate_id', '=', '2')
+        ->where('events.cate_id', '=', '2')
         ->groupBy([
             'events.evt_id',
+            'events.evt_name',
+            'events.evt_start_date',
+            'events.evt_address',
+            'events.evt_status',
         ])
+        ->orderBy('total_tickets_sold', 'desc')
         ->paginate(9);
 
         if($eventConferences->isEmpty()){
@@ -184,15 +221,24 @@ class EventService
             'events.evt_start_date',
             'events.evt_address',
             'events.evt_status',
-            Event::raw('MIN(event_tickets.ticket_price) as ticket_price'),
-            Event::raw('SUM(event_tickets.ticket_in_stock) as ticket_in_stock'),
+            'event_categories.cate_name',
+            DB::raw('MIN(event_tickets.ticket_price) as ticket_price'),
+            DB::raw('SUM(event_tickets.ticket_in_stock) as ticket_in_stock'),
+            DB::raw('COALESCE(SUM(order_details.QTY), 0) as total_tickets_sold'),
         ])
         ->join('event_tickets', 'events.evt_id', '=', 'event_tickets.evt_id')
+        ->join('event_categories', 'events.cate_id', '=', 'event_categories.cate_id')
+        ->leftJoin('order_details', 'event_tickets.ticket_id', '=', 'order_details.ticket_id')
         ->where('events.evt_status', '1')
-        ->where('cate_id', '=', '3')
+        ->where('events.cate_id', '=', '3')
         ->groupBy([
             'events.evt_id',
+            'events.evt_name',
+            'events.evt_start_date',
+            'events.evt_address',
+            'events.evt_status',
         ])
+        ->orderBy('total_tickets_sold', 'desc')
         ->paginate(9);
 
         if($eventSport->isEmpty()){

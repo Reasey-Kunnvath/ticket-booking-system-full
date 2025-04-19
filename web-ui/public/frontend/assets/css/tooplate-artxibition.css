@@ -1929,12 +1929,31 @@ Tickets Page
 }
 
 .tickets-page .ticket-item .thumb .price {
-    background-color: rgba(91, 0, 177, 0.9);
+    border-radius: 5px;
+    background-color: rgba(114, 46, 179, 0.9);
     display: inline-block;
     padding: 20px;
     position: absolute;
     left: 30px;
     bottom: 30px;
+}
+
+.tickets-page .ticket-item .thumb .category {
+    border-radius: 5px;
+    background-color: rgba(255, 155, 55, 0.9);
+    display: inline-block;
+    width: 120px auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.tickets-page .ticket-item .thumb .category span {
+    color: #fff;
+    font-size: 14px;
+    line-height: 25px;
 }
 
 .tickets-page .ticket-item .thumb .price span {
