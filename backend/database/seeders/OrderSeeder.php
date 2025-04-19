@@ -30,28 +30,28 @@ class OrderSeeder extends Seeder
         // }
 
         Order::create([
-            'status_id' => 1,
+            'status_id' => 2,
             'useCoupon' => '1',
             'coupon_id' => 1,
             'total_amount' =>950,
-            'user_id' => 3,
+            'user_id' => 2,
             'created_at' => Carbon::now()->subMonth(1),
 
         ]);
 
         Order::create([
-            'status_id' => 1,
+            'status_id' => 2,
             'useCoupon' => '0',
             'total_amount' => 300,
-            'user_id' => 3,
+            'user_id' => 2,
             'created_at' => Carbon::now()->subMonth(1),
         ]);
 
         Order::create([
-            'status_id' => 1,
+            'status_id' => 2,
             'useCoupon' => '0',
             'total_amount' => 1500,
-            'user_id' => 3,
+            'user_id' => 2,
             'created_at' => Carbon::now(),
         ]);
     }

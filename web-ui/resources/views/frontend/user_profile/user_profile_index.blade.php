@@ -545,7 +545,6 @@
         });
 
         // Your Order
-
         new Vue({
             el: '#yourOrder',
             data: {
@@ -564,7 +563,7 @@
                         })
                         .then(response => {
                             this.order = response.data.data;
-                            // console.log(this.order)
+                            console.log(this.order)
                         })
                         .catch(error => {
                             console.log(error)
