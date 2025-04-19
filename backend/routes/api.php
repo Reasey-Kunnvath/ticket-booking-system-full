@@ -51,6 +51,10 @@ Route::post('/user/login', [AuthController::class, 'user_login']);
 Route::post('/admin/login', [AuthController::class, 'admin_login']);
 Route::post('/event-provider/login', [AuthController::class, 'event_provider_login']);
 
+// for partnership request
+Route::post('/become-a-partner', [PartnershipRequestController::class, 'partnership_request'])
+    ->name('partnership-request');
+
 
 
 //  token guard
@@ -189,9 +193,10 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
             Route::get('check-account/{accountId}', [KhqrController::class, 'checkAccount']);
         });
 
-        // for partnership request
-        Route::post('/become-a-partner', [PartnershipRequestController::class, 'partnership_request']);
+
     });
+
+
 
     // general
     // Route::apiResource('event-providers', EventProviderController::class)
