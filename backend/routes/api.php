@@ -34,7 +34,9 @@ use App\Http\Controllers\Api\User\{
     CartController as UCartController,
     ChangePasswordController,
     CouponController as UCouponController,
-    KhqrController
+    KhqrController,
+    TransactionController as UTransactionController,
+    HeaderController as UHeaderController
 };
 use App\Http\Controllers\Api\PartnershipRequestController;
 use App\Http\Controllers\Api\AuthController;
@@ -193,6 +195,11 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
             Route::get('check-account/{accountId}', [KhqrController::class, 'checkAccount']);
         });
 
+        Route::apiResource('transactions', UTransactionController::class)
+            ->names('user.transactions')
+            ->only(['store']);
+
+        Route::apiResource('cartItemCount', UHeaderController::class)->only(['index']);
 
     });
 

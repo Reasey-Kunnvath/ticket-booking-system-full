@@ -27,8 +27,8 @@
         .khqr-ticket {
             background: white;
             /* border-radius: 8px;
-                                                                        padding: 20px;
-                                                                        margin: 20px auto; */
+                                                                                                                                                                                                        padding: 20px;
+                                                                                                                                                                                                        margin: 20px auto; */
             /* max-width: 300px; */
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
@@ -238,21 +238,22 @@
                             cart</span>
                     </div>
 
-                    <!-- Redesigned Modal for KHQR QR Code -->
-                    <div class="modal fade khqr-modal" id="exampleModalCenter" tabindex="-1"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <!-- KHQR QR Code -->
+                    <div class="modal fade khqr-modal" id="exampleModalCenter" data-bs-backdrop="static"
+                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="khqr-header" id="exampleModalLabel">KHQR Payment</div>
-                                <button type="button" class="btn-close position-absolute top-0 end-0 m-3"
-                                    data-bs-dismiss="modal" aria-label="Close"></button>
                                 <div class="modal-body p-0">
                                     <div v-if="error" class="alert alert-danger">
                                         @{{ error }}
                                     </div>
-                                    <div v-else-if="qrImageUrl" class="khqr-ticket">
+                                    <div v-else-if="qrImageUrl" class="khqr-ticket position-relative">
                                         <img :src="qrImageUrl" alt="KHQR Code" class="img-fluid"
                                             style="width: 100%;" />
+                                        <button type="button"
+                                            class="btn btn-secondary position-absolute bottom-0 start-50 translate-middle-x mb-3"
+                                            data-bs-dismiss="modal" @click="submitOrder()">Done</button>
                                     </div>
                                     <div v-else class="loading p-4">
                                         <span class="spinner-border spinner-border-sm" role="status"
@@ -260,6 +261,7 @@
                                         @{{ processingMsg }}
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -524,6 +526,36 @@
                     } catch (err) {
                         this.error = err.response?.data?.error || 'Failed to generate QR code';
                     }
+                },
+                async submitOrder() {
+                    // console.log({
+                    //     use_Coupon: this.codeApplied.coupons_id ? 1 : 0,
+                    //     coupon_id: this.codeApplied.coupons_id || null,
+                    //     total_amount: this.finalTotal,
+                    //     user_id: this.user_id,
+                    //     items: this.items
+                    // })
+
+                    await axios.post(`v1/user/transactions`, {
+                        use_Coupon: this.codeApplied.coupons_id ? 1 : 0,
+                        coupon_id: this.codeApplied.coupons_id || 0,
+                        total_amount: this.finalTotal,
+                        user_id: this.user_id,
+                        items: this.items
+                    }).then(response => {
+                        // console.log(response)
+                        if (response.data.success) {
+                            swal.fire({
+                                title: "Order Placed Successfully",
+                                html: `Your order has been placed successfully.`,
+                                icon: "success",
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.reload();
+                                }
+                            })
+                        }
+                    })
                 }
             },
         });

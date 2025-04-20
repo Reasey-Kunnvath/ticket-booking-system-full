@@ -54,7 +54,9 @@
                             Cart
                             <i class="fa-sharp fa-solid fa-cart-shopping"></i>
                             <span
-                                class="small-badge top-0 start-100 translate-middle badge ms-1 rounded-pill bg-danger">2</span>
+                                class="small-badge top-0 start-100 translate-middle badge ms-1 rounded-pill bg-danger">
+                                @{{ ItemCount }}
+                            </span>
                         </a>
 
                     </div>
@@ -122,7 +124,7 @@
     </div>
 </div>
 
-<script>
+<script type="module">
     new Vue({
         el: '#appuser',
         data: {
@@ -130,17 +132,30 @@
             payload: {
                 user_id: localStorage.getItem('uid?'),
                 token: localStorage.getItem('token')
-            }
+            },
+            ItemCount: 0
 
         },
         mounted() {
             this.loggedInStatus();
+            this.cartItemCount()
             // console.log(this.isLoggedIn);
         },
         methods: {
             loggedInStatus() {
                 this.isLoggedIn = localStorage.getItem('isLoggedIn');
             },
+            async cartItemCount(){
+                await axios.get('v1/user/cartItemCount', {
+                    params: {
+                        user_id: this.payload.user_id,
+                        token: this.payload.token
+                    }
+                }).then((response) => {
+                    // console.log(response.data);
+                    this.ItemCount = response.data.data
+                })
+            }
         },
     })
 </script>
