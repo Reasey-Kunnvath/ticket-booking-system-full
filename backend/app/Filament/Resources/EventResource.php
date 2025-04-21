@@ -17,8 +17,10 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Filters\SelectFilter;
 
 class EventResource extends Resource
@@ -37,6 +39,11 @@ class EventResource extends Resource
             ->schema([
                 Section::make('Basic Information')
                     ->schema([
+                        FileUpload::make('image')
+                            ->image()
+                            ->imageEditor()
+                            ->disk('public')
+                            ->columnSpanFull(),
                         Grid::make(2)
                             ->schema([
                                 Select::make('cate_id')
@@ -116,6 +123,7 @@ class EventResource extends Resource
     {
         return $table->defaultSort('created_at', 'desc')
             ->columns([
+                ImageColumn::make('image')->circular(),
                 TextColumn::make('evt_name')->label("Name")->searchable(),
                 TextColumn::make('evt_start_date')->label("Start Date"),
                 TextColumn::make('evt_end_date')->label("End Date"),

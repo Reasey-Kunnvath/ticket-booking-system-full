@@ -24,7 +24,8 @@ class Event extends Model
         'status',
         'evt_status',
         'cate_id',
-        'partnership_id'
+        'partnership_id',
+        'image'
     ];
 
     public function partnership()

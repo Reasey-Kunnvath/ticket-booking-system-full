@@ -22,6 +22,7 @@ return new class extends Migration
             $table->text('evt_address_link');
             $table->enum('status', ['0', '1'])->default(1);
             $table->enum('evt_status', ['0', '1', '2'])->default(0);
+            $table->string('image')->nullable();
             $table->timestamps();
 
             // Foreign keys

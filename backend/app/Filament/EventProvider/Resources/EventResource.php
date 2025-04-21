@@ -5,6 +5,7 @@ namespace App\Filament\EventProvider\Resources;
 use App\Filament\EventProvider\Resources\EventResource\Pages;
 use App\Models\Event;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Section;
@@ -14,6 +15,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -31,6 +33,11 @@ class EventResource extends Resource
             ->schema([
                 Section::make('Basic Information')
                     ->schema([
+                        FileUpload::make('image')
+                            ->image()
+                            ->imageEditor()
+                            ->disk('public')
+                            ->columnSpanFull(),
                         Grid::make(2)
                             ->schema([
                                 Select::make('cate_id')
@@ -96,6 +103,7 @@ class EventResource extends Resource
             ->query(Event::where("partnership_id", auth()->user()->partnership_id))
             ->defaultSort('created_at', 'desc')
             ->columns([
+                ImageColumn::make('image')->circular(),
                 TextColumn::make('evt_name')->label("Name")->searchable(),
                 TextColumn::make('evt_start_date')->label("Start Date"),
                 TextColumn::make('evt_end_date')->label("End Date"),

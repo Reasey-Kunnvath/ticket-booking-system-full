@@ -160,6 +160,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
             Route::apiResource('billing-information', UBillingInfoController::class)
                 ->names('user.profile.billing-information')
                 ->only(['index', 'show', 'update']);
+            Route::post("update-profile", [UProfileController::class, 'update_profile']);
         });
 
         // for home
