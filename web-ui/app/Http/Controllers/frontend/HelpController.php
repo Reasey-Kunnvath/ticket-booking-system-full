@@ -7,7 +7,12 @@ use Illuminate\Http\Request;
 
 class HelpController extends Controller
 {
-    public function HelpCenterIndex(){
-        return view('frontend.help_center.help-center');
+    public function HelpCenterIndex(Request $request){
+
+
+        return view('frontend.help_center.help-center')->with([
+            'userId' => $request->query('uid'),
+            'token' => $request->query('token'),
+        ]);
     }
 }
