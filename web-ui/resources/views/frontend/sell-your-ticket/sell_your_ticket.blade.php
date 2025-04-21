@@ -127,158 +127,155 @@
                 <div class="container w-full">
                     <div class="card card-style1 border-0">
                         <div class="card-body p-4 p-md-5 p-xl-6">
-                            <form>
-                                <h1>Partnership Request Form</h1>
-                                <br>
-                                <h5>Create Your Own Event With Us!</h5>
-                                <br>
-                                <ul>
-                                    <li>Promote and pre-sell eTickets for your events on our platform!. app, no matter the
-                                        size of your event or even if its are free.</li>
-                                    <li>Scan attendees at your event to admit them quickly and even check ID & vaccination
-                                        status</li>
-                                    <li>Review detailed event insights with full access and sales visibility.</li>
-                                    <li>No need to print physical tickets</li>
-                                </ul>
-                                <br>
-                                <hr>
-                                <h5>Partnership Request Process</h5>
-                                <div class="container-fluid padding-bottom-3x pt-4">
-                                    <div class="card border-0">
-                                        <div class="card-body">
-                                            <div
-                                                class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
-                                                <div class="step completed">
-                                                    <div class="step-icon-wrap">
-                                                        <div class="step-icon"><i class="fa-solid fa-file-lines"></i></div>
-                                                    </div>
-                                                    <h4 class="step-title">Fill in the form</h4>
+                            <h1>Partnership Request Form</h1>
+                            <br>
+                            <h5>Create Your Own Event With Us!</h5>
+                            <br>
+                            <ul>
+                                <li>Promote and pre-sell eTickets for your events on our platform!. app, no matter the
+                                    size of your event or even if its are free.</li>
+                                <li>Scan attendees at your event to admit them quickly and even check ID & vaccination
+                                    status</li>
+                                <li>Review detailed event insights with full access and sales visibility.</li>
+                                <li>No need to print physical tickets</li>
+                            </ul>
+                            <br>
+                            <hr>
+                            <h5>Partnership Request Process</h5>
+                            <div class="container-fluid padding-bottom-3x pt-4">
+                                <div class="card border-0">
+                                    <div class="card-body">
+                                        <div
+                                            class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
+                                            <div class="step completed">
+                                                <div class="step-icon-wrap">
+                                                    <div class="step-icon"><i class="fa-solid fa-file-lines"></i></div>
                                                 </div>
-                                                <div class="step completed">
-                                                    <div class="step-icon-wrap">
-                                                        <div class="step-icon"><i class="fa-solid fa-paper-plane"></i></div>
-                                                    </div>
-                                                    <h4 class="step-title">Submit Request</h4>
+                                                <h4 class="step-title">Fill in the form</h4>
+                                            </div>
+                                            <div class="step completed">
+                                                <div class="step-icon-wrap">
+                                                    <div class="step-icon"><i class="fa-solid fa-paper-plane"></i></div>
                                                 </div>
-                                                <div class="step completed">
-                                                    <div class="step-icon-wrap">
-                                                        <div class="step-icon"><i class="fa-solid fa-magnifying-glass"></i>
-                                                        </div>
+                                                <h4 class="step-title">Submit Request</h4>
+                                            </div>
+                                            <div class="step completed">
+                                                <div class="step-icon-wrap">
+                                                    <div class="step-icon"><i class="fa-solid fa-magnifying-glass"></i>
                                                     </div>
-                                                    <h4 class="step-title">Review Request</h4>
                                                 </div>
-                                                <div class="step completed">
-                                                    <div class="step-icon-wrap">
-                                                        <div class="step-icon"><i class="fa-solid fa-comments"></i></div>
-                                                    </div>
-                                                    <h4 class="step-title">Negotiate Terms</h4>
+                                                <h4 class="step-title">Review Request</h4>
+                                            </div>
+                                            <div class="step completed">
+                                                <div class="step-icon-wrap">
+                                                    <div class="step-icon"><i class="fa-solid fa-comments"></i></div>
                                                 </div>
-                                                <div class="step completed">
-                                                    <div class="step-icon-wrap">
-                                                        <div class="step-icon"><i class="fa-solid fa-user-check"></i></div>
-                                                    </div>
-                                                    <h4 class="step-title">Request Approved</h4>
+                                                <h4 class="step-title">Negotiate Terms</h4>
+                                            </div>
+                                            <div class="step completed">
+                                                <div class="step-icon-wrap">
+                                                    <div class="step-icon"><i class="fa-solid fa-user-check"></i></div>
                                                 </div>
-                                                <div class="step completed">
-                                                    <div class="step-icon-wrap">
-                                                        <div class="step-icon"><i class="fa-solid fa-truck-fast"></i></div>
-                                                    </div>
-                                                    <h4 class="step-title">Deliver CMS</h4>
+                                                <h4 class="step-title">Request Approved</h4>
+                                            </div>
+                                            <div class="step completed">
+                                                <div class="step-icon-wrap">
+                                                    <div class="step-icon"><i class="fa-solid fa-truck-fast"></i></div>
                                                 </div>
+                                                <h4 class="step-title">Deliver CMS</h4>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                </div>
-                                <em>After submission, It Usually takes 1-3 business days for our team to review
-                                    your request. Please stay alert of any call from our team at +855 23 456 789</em>
-                                <br>
-                                <hr>
+                            </div>
+                            <em>After submission, It Usually takes 1-3 business days for our team to review
+                                your request. Please stay alert of any call from our team at +855 23 456 789</em>
+                            <br>
+                            <hr>
 
-                                <h1>Organization Information</h1>
-                                <br>
-                                <h5>Your Organization</h5>
-                                <br>
-                                <div class="mb-3 row">
-                                    <div class="col-md-6">
-                                        <label for="organizationName" class="form-label">Organization Name <span
-                                                style="color:red">*</span></label>
-                                        <input v-model="payload.orgName" type="text" class="form-control"
-                                            id="organizationName" placeholder="Enter organization name" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="organizationType" class="form-label">Organization Type <span
-                                                style="color:red">*</span></label>
-
-                                        <select class="form-control" id="organizationType" v-model="payload.orgType"
-                                            required>
-                                            <option value="nonprofit">Non-Profit</option>
-                                            <option value="corporate">Corporate</option>
-                                            <option value="government">Government</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <div class="col-md-6">
-                                        <label for="organizationName" class="form-label">Organization Email <span
-                                                style="color:red">*</span></label>
-                                        <input v-model="payload.orgEmail" type="text" class="form-control"
-                                            id="organizationName" placeholder="Enter organization Email" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="organizationType" class="form-label">Organization Phone Number <span
-                                                style="color:red">*</span></label>
-                                        <input v-model="payload.orgPhone" type="text" class="form-control"
-                                            id="organizationName" placeholder="Enter organization Phone Number" required>
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <div class="col-md-6">
-                                        <label for="organizationName" class="form-label">Organization Address <span
-                                                style="color:red">*</span></label>
-                                        <input v-model="payload.orgAddress" type="text" class="form-control"
-                                            id="organizationName" placeholder="Enter organization Email" required>
-                                    </div>
-                                </div>
-                                <br>
-                                <hr>
-
-                                <h1>Contact Information</h1>
-                                <br>
-                                <h5>In case of problems our team will reach out to this contact</h5>
-                                <br>
-                                <div class="mb-3 row">
-                                    <div class="col-md-6">
-                                        <label for="fullName" class="form-label">Full Name <span
-                                                style="color:red">*</span></label>
-                                        <input v-model="payload.fullName" type="text" class="form-control" id="fullName"
-                                            placeholder="Enter Your Fullname" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="email" class="form-label">Email <span
-                                                style="color:red">*</span></label>
-                                        <input v-model="payload.email" type="text" class="form-control"
-                                            id="fullName" placeholder="Enter Your Email" required>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="phoneNumber" class="form-label">Phone Number <span
+                            <h1>Organization Information</h1>
+                            <br>
+                            <h5>Your Organization</h5>
+                            <br>
+                            <div class="mb-3 row">
+                                <div class="col-md-6">
+                                    <label for="organizationName" class="form-label">Organization Name <span
                                             style="color:red">*</span></label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">+855</span>
-                                        <input v-model="payload.phoneNumber" type="tel" class="form-control"
-                                            id="phoneNumber" placeholder="Enter Your Phone Number" pattern="[0-9]{8,10}"
-                                            required aria-describedby="phoneHelp">
-                                    </div>
+                                    <input v-model="payload.orgName" type="text" class="form-control"
+                                        id="organizationName" placeholder="Enter organization name" required>
                                 </div>
-                                <br>
-                                <hr>
+                                <div class="col-md-6">
+                                    <label for="organizationType" class="form-label">Organization Type <span
+                                            style="color:red">*</span></label>
 
-                                <!-- Submit Button -->
-                                <div class="text-center mt-4">
-                                    <button @click="validate()" class="btn btn-primary px-5">Complete</button>
+                                    <select class="form-control" id="organizationType" v-model="payload.orgType" required>
+                                        <option value="nonprofit">Non-Profit</option>
+                                        <option value="corporate">Corporate</option>
+                                        <option value="government">Government</option>
+                                    </select>
                                 </div>
-                            </form>
+                            </div>
+                            <div class="mb-3 row">
+                                <div class="col-md-6">
+                                    <label for="organizationName" class="form-label">Organization Email <span
+                                            style="color:red">*</span></label>
+                                    <input v-model="payload.orgEmail" type="text" class="form-control"
+                                        id="organizationName" placeholder="Enter organization Email" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="organizationType" class="form-label">Organization Phone Number <span
+                                            style="color:red">*</span></label>
+                                    <input v-model="payload.orgPhone" type="text" class="form-control"
+                                        id="organizationName" placeholder="Enter organization Phone Number" required>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <div class="col-md-6">
+                                    <label for="organizationName" class="form-label">Organization Address <span
+                                            style="color:red">*</span></label>
+                                    <input v-model="payload.orgAddress" type="text" class="form-control"
+                                        id="organizationName" placeholder="Enter organization Email" required>
+                                </div>
+                            </div>
+                            <br>
+                            <hr>
+
+                            <h1>Contact Information</h1>
+                            <br>
+                            <h5>In case of problems our team will reach out to this contact</h5>
+                            <br>
+                            <div class="mb-3 row">
+                                <div class="col-md-6">
+                                    <label for="fullName" class="form-label">Full Name <span
+                                            style="color:red">*</span></label>
+                                    <input v-model="payload.fullName" type="text" class="form-control" id="fullName"
+                                        placeholder="Enter Your Fullname" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email <span
+                                            style="color:red">*</span></label>
+                                    <input v-model="payload.email" type="text" class="form-control" id="fullName"
+                                        placeholder="Enter Your Email" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phoneNumber" class="form-label">Phone Number <span
+                                        style="color:red">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text">+855</span>
+                                    <input v-model="payload.phoneNumber" type="tel" class="form-control"
+                                        id="phoneNumber" placeholder="Enter Your Phone Number" pattern="[0-9]{8,10}"
+                                        required aria-describedby="phoneHelp">
+                                </div>
+                            </div>
+                            <br>
+                            <hr>
+
+                            <!-- Submit Button -->
+                            <div class="text-center mt-4">
+                                <button @click="validate()" class="btn btn-primary px-5">Complete</button>
+                            </div>
                         </div>
                     </div>
                 </div>
