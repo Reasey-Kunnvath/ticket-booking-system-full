@@ -192,12 +192,16 @@
                             </div>
 
                             <div class="card-body d-flex align-items-center">
-                                <img src="{{ asset('frontend/assets/img/userprofile.png') }}" alt=""
+                                <img v-if="image" :src="'http://localhost:8000/storage/' + image" alt="Profile Image"
                                     class="d-block ui-w-80" />
+                                <img v-else src="{{ asset('frontend/assets/img/userprofile.png') }}" alt="Default Image"
+                                    class="d-block ui-w-80" />
+
                                 <div class="ms-4">
                                     <label class="btn btn-outline-primary">
                                         Upload new photo
-                                        <input type="file" class="account-settings-fileinput" />
+                                        <input type="file" class="account-settings-fileinput"
+                                            @change="handleImageChange" />
                                     </label>
                                     &nbsp;
                                     <button type="button" class="btn btn-default">Reset</button>
@@ -586,6 +590,7 @@
                 },
                 originalUser: null, // Store the original user data
                 hasChanges: false, // Track whether the form has changed
+                image: ""
             },
             created() {
                 this.fetchAccountInfo();
@@ -625,10 +630,13 @@
                                 this.user.email = this.response.email;
                                 this.user.date_of_birth = this.response.date_of_birth;
                                 this.user.phone_number = this.response.phone_number;
+                                this.image = this.response.profile;
                                 // console.log(this.user)
                                 // Create a deep copy of the user data
                                 this.originalUser = JSON.parse(JSON.stringify(this.user));
                                 this.hasChanges = false;
+
+                                console.log(first)
                             })
                             .catch(error => {
                                 console.log(error)
@@ -661,7 +669,63 @@
                     } catch (error) {
                         console.log(error)
                     }
+                },
+                handleImageChange(event) {
+                    const file = event.target.files[0];
+                    if (!file) return;
+
+                    if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Invalid file type',
+                            text: 'Only JPG, PNG, and GIF files are allowed.'
+                        });
+                        return;
+                    }
+
+                    if (file.size > 800 * 1024) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'File too large',
+                            text: 'The maximum allowed size is 800KB.'
+                        });
+                        return;
+                    }
+
+                    this.uploadImage(file);
+                },
+
+                async uploadImage(file) {
+                    const formData = new FormData();
+                    formData.append('image', file);
+                    try {
+                        const response = await axios.post('v1/user/profile/update-profile', formData, {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
+                            }
+                        });
+
+                        if (response.data.success) {
+                            this.image = response.data.data;
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Image Uploaded',
+                                text: 'Your profile picture has been updated successfully.'
+                            });
+                        }
+
+                    } catch (error) {
+                        console.log(error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Upload failed',
+                            text: 'There was a problem uploading your image.'
+                        });
+                    }
                 }
+
+
             }
         });
 
