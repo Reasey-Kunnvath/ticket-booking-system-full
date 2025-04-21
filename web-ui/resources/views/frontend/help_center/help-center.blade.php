@@ -1,21 +1,27 @@
 @extends('frontend.layout.master')
 @section('title', 'Help Center')
 @section('content')
-    <div class="container">
+    <div id="app" class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="container">
                     <div class="card card-style1 border-0">
                         <div class="card-body p-4 p-md-5 p-xl-6">
                             <h1>Open Support Tickets</h1>
-                            <form>
-                                <div class="form-group">
-                                    <label for="message" class="form-label">Your message</label>
-                                    <textarea id="message" rows="10" class="form-control" placeholder="Tell us about your problem..."
-                                        style="resize: none;"></textarea>
-                                </div><br>
-                                <button type="submit btn-primary" class="btn btn-primary">Submit</button>
-                            </form>
+
+                            <div class="form-group mb-4 mt-3">
+                                <label for="message" class="form-label">Subject</label>
+                                <textarea v-model="messageSubject" id="message" rows="1" class="form-control"
+                                    placeholder="What problem are you having?" style="resize: none;"></textarea>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="message" class="form-label">Your message</label>
+                                <textarea v-model="message" id="message" rows="10" class="form-control" placeholder="Describe your problem..."
+                                    style="resize: none;"></textarea>
+                            </div><br>
+                            <button @click="submitSupportTicket()" class="btn btn-primary">Submit</button>
+
                         </div>
                     </div>
                 </div>
@@ -123,4 +129,42 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module">
+        new Vue({
+            el: '#app',
+            data: {
+                user_id: {{ $userId }},
+                messageSubject: '',
+                message: '',
+                response: {}
+            },
+            methods: {
+                async submitSupportTicket() {
+
+                    await axios.post('v1/user/support-ticket', {
+                            user_id: this.user_id,
+                            message_subject: this.messageSubject,
+                            message: this.message
+                        })
+                        .then((response) => {
+                            this.response = response.data
+                            if (this.response.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Support Ticket Created',
+                                    text: 'You will hear from us at your email',
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.reload()
+                                    }
+                                });
+                            }
+                        }).catch((error) => {
+                            this.response = error
+                        })
+                }
+            }
+        })
+    </script>
 @endsection

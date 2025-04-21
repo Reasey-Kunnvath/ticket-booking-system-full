@@ -43,7 +43,7 @@
                         class="nav-item nav-link {{ request()->routeIs('Help-Center') ? 'active' : '' }}">Help
                         Center</a> --}}
                     <div v-if="isLoggedIn">
-                         <a href="{{ url('/help-center') }}"
+                         <a :href="'/help-center?uid=' + payload.user_id + '&token=' + payload.token"
                         class="nav-item nav-link {{ request()->routeIs('Help-Center') ? 'active' : '' }}">Help
                         Center</a>
                     </div>
