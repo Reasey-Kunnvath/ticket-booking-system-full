@@ -13,28 +13,28 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         // $order = Order::with('ticket')->where('user_id', $request->query('user_id'))->get();
-        $order = DB::table('users as u')
-            ->select(
-                'u.id',
-                'u.name',
-                'u.email',
-                'o.order_id',
-                'et.ticket_title',
-                'e.evt_name',
-                'o.QTY',
-                'et.ticket_price',
-                'o.total_amount',
-                'o.created_at',
-                'os.status_name',
-                'os.status_color',
-            )
-            ->join('orders as o', 'u.id', '=', 'o.user_id')
-            ->join('orderstatus as os', 'os.status_id', '=', 'o.status_id')
-            ->join('event_tickets as et', 'et.ticket_id', '=', 'o.ticket_id')
-            ->join('events as e', 'e.evt_id', '=', 'et.evt_id')
-            ->where('u.id', $request->query('user_id'))
-            ->get();
-
+        $order = DB::table('orders as o')
+                    ->select(
+                        'u.id',
+                        'u.name',
+                        'u.email',
+                        'o.order_id',
+                        'e.evt_name',
+                        'et.ticket_title',
+                        'et.ticket_price',
+                        'od.QTY',
+                        DB::raw('(od.QTY * et.ticket_price) AS total_amount'),
+                        'o.created_at',
+                        'os.status_name',
+                        'os.status_color'
+                    )
+                    ->join('users as u', 'o.user_id', '=', 'u.id')
+                    ->join('orderstatus as os', 'o.status_id', '=', 'os.status_id')
+                    ->join('order_details as od', 'od.order_id', '=', 'o.order_id')
+                    ->join('events as e', 'od.evt_id', '=', 'e.evt_id')
+                    ->join('event_tickets as et', 'od.ticket_id', '=', 'et.ticket_id')
+                    ->where('o.user_id', $request->query('user_id'))
+                    ->get();
         if(!$order) {
             return response()->json([
                 'status' => 0,

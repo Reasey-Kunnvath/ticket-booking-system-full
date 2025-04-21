@@ -37,7 +37,7 @@ class EventFactory extends Factory
             'evt_address_link' => 'https://maps.app.goo.gl/RmLLd97uGT7TPG9T6',
             'status' => '1',
             'evt_status' => '1',
-            'cate_id' => 1,
+            'cate_id' => $this->faker->randomElement([1, 2, 3]),
             'partnership_id' => 1,
         ];
     }

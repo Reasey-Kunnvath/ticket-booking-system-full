@@ -17,7 +17,9 @@ class CartController extends Controller
         $cart = Cart::select(
             'carts.id AS cart_id',
             'users.id AS user_id',
+            'events.evt_id',
             'events.evt_name',
+            'event_tickets.ticket_id',
             'event_tickets.ticket_title',
             'event_tickets.ticket_price',
             'carts.QTY',

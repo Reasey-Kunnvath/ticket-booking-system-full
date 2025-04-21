@@ -496,14 +496,14 @@
                     });
                     if (this.user.confirm_password != this.user.new_password) {
                         Swal.fire({
-                            title: "Womp Womp NIGGA!",
+                            title: "Womp Womp",
                             html: 'Your New Password Must Match Your Confirm Password',
                             icon: "error",
                         })
                     } else if (!this.user.current_password || !this.user.new_password || !this.user
                         .confirm_password) {
                         Swal.fire({
-                            title: "Womp Womp NIGGA!",
+                            title: "Womp Womp",
                             html: 'All Fields Are Required',
                             icon: "error",
                         })
@@ -523,7 +523,7 @@
                                 });
                             } else {
                                 swal.fire({
-                                    title: "Womp Womp NIGGA!",
+                                    title: "Womp Womp",
                                     html: `${response.data.message}`,
                                     icon: "error",
                                 })
@@ -545,7 +545,6 @@
         });
 
         // Your Order
-
         new Vue({
             el: '#yourOrder',
             data: {
@@ -564,7 +563,7 @@
                         })
                         .then(response => {
                             this.order = response.data.data;
-                            // console.log(this.order)
+                            console.log(this.order)
                         })
                         .catch(error => {
                             console.log(error)

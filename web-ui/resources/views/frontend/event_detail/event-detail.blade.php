@@ -257,6 +257,10 @@
                                     title: "Item Added to Cart",
                                     html: `Go to <a href="/cart?uid=${this.payload.user_id}&token=${this.payload.token}" style="font-weight:bold; color: #3085d6; text-decoration: underline;">Cart</a> to Checkout`,
                                     icon: "success"
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.reload()
+                                    }
                                 });
                             })
                             .catch((error) => {

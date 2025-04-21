@@ -198,13 +198,16 @@
                         <div class="ticket-item">
                             <div class="thumb">
                                 <img src={{ asset('frontend/assets/images/ticket-02.jpg') }} alt="" />
+                                <div class="category">
+                                    <span> <b>@{{ event.cate_name }}</b> </span>
+                                </div>
                                 <div class="price">
                                     <span>1 ticket<br />from <em>$ @{{ event.ticket_price }}</em></span>
                                 </div>
 
                             </div>
                             <div class="down-content">
-                                <span>There Are @{{ event.ticket_in_stock }} Tickets Left For This Show</span>
+                                <span>@{{ event.total_tickets_sold }} Tickets Sold</span>
                                 <h4>@{{ event.evt_name }}</h4>
                                 <ul>
                                     <li>
@@ -244,13 +247,16 @@
                         <div class="ticket-item">
                             <div class="thumb">
                                 <img src={{ asset('frontend/assets/images/ticket-02.jpg') }} alt="" />
+                                <div class="category">
+                                    <span> <b>@{{ comingE.cate_name }}</b> </span>
+                                </div>
                                 <div class="price">
                                     <span>1 ticket<br />from <em>$ @{{ comingE.ticket_price }}</em></span>
                                 </div>
 
                             </div>
                             <div class="down-content">
-                                <span>There Are @{{ comingE.ticket_in_stock }} Tickets Left For This Show</span>
+                                <span>@{{ comingE.total_tickets_sold }} Tickets Sold</span>
                                 <h4>@{{ comingE.evt_name }}</h4>
                                 <ul>
                                     <li>
@@ -364,16 +370,16 @@
                     coming: [],
                 },
                 mounted() {
-                    this.mostpopular(),
-                        this.comingevent();
+                    this.mostpopular();
+                    this.comingevent();
                 },
                 methods: {
                     mostpopular() {
                         try {
                             axios.get('http://127.0.0.1:8000/api/popularEvents')
                                 .then((response) => {
-                                    this.eventpopular = response.data.data;
-                                    console.log(this.eventpopular);
+                                    this.eventpopular = response.data.data.data;
+                                    // console.log("aaa", response.data.data.data);
                                 })
                                 .catch((error) => {
                                     console.log("Error", error);
@@ -387,8 +393,8 @@
                         try {
                             axios.get('http://127.0.0.1:8000/api/comingEvents')
                                 .then((response) => {
-                                    this.coming = response.data.data;
-                                    console.log(this.coming);
+                                    this.coming = response.data.data.data;
+                                    // console.log(response.data);
                                 })
                                 .catch((error) => {
                                     console.log("Error", error);

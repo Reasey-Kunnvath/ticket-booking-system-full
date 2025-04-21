@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('ambassador_name');
             $table->string('ambassador_email');
             $table->string('ambassador_phone');
-            $table->enum('status', ['0', '1'])->default(1);
-            $table->enum('req_status', ['0', '1', '2'])->default(0);
+            $table->enum('status', ['0', '1'])->default(0); // 0 = inactive, 1 = active
+            $table->enum('req_status', ['0', '1', '2'])->default(0); // 0 = pending, 1 = approved, 2 = rejected
             $table->timestamps();
 
 

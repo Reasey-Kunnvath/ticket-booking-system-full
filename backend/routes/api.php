@@ -33,7 +33,10 @@ use App\Http\Controllers\Api\User\{
     SupportTicketController as USupportTicketController,
     CartController as UCartController,
     ChangePasswordController,
-    CouponController as UCouponController
+    CouponController as UCouponController,
+    KhqrController,
+    TransactionController as UTransactionController,
+    HeaderController as UHeaderController
 };
 use App\Http\Controllers\Api\PartnershipRequestController;
 use App\Http\Controllers\Api\AuthController;
@@ -49,6 +52,10 @@ Route::post('/register/verify/{id}', [AuthController::class, 'verify_email']);
 Route::post('/user/login', [AuthController::class, 'user_login']);
 Route::post('/admin/login', [AuthController::class, 'admin_login']);
 Route::post('/event-provider/login', [AuthController::class, 'event_provider_login']);
+
+// for partnership request
+Route::post('/become-a-partner', [PartnershipRequestController::class, 'partnership_request'])
+    ->name('partnership-request');
 
 
 
@@ -180,9 +187,23 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
             ->names('user.coupon')
             ->only(['index', 'show']);
 
-        // for partnership request
-        Route::post('/become-a-partner', [PartnershipRequestController::class, 'partnership_request']);
+        Route::prefix('khqr')->middleware('throttle:khqr')->group(function () {
+            Route::post('generate', [KhqrController::class, 'generate']);
+            Route::post('verify', [KhqrController::class, 'verify']);
+            Route::post('decode', [KhqrController::class, 'decode']);
+            Route::post('deeplink', [KhqrController::class, 'deeplink']);
+            Route::get('check-account/{accountId}', [KhqrController::class, 'checkAccount']);
+        });
+
+        Route::apiResource('transactions', UTransactionController::class)
+            ->names('user.transactions')
+            ->only(['store']);
+
+        Route::apiResource('cartItemCount', UHeaderController::class)->only(['index']);
+
     });
+
+
 
     // general
     // Route::apiResource('event-providers', EventProviderController::class)
@@ -219,7 +240,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
         Route::get('/mostpopular', 'mostpopular')->name('mostpopular');
         Route::get('/concert', 'concert')->name('concert');
         Route::get('/conferences', 'conferences')->name('conferences');
-        Route::get('/sport', 'sport')->name('sport');
+        Route::get('/sport', 'sports')->name('sport');
     });
     Route::controller(FEventDetailController::class)->group(function () {
         Route::get('/eventdetail/{id}', 'EventDetailIndex')->name('eventdetail');

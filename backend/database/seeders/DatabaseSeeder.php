@@ -8,6 +8,7 @@ namespace Database\Seeders;
 use App\Models\SupportTicket;
 use Illuminate\Database\Seeder;
 use App\Models\transactionStatus;
+use Database\Seeders\OrderDetailSeeder;
 use Database\Seeders\OrderStatusSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -34,6 +35,7 @@ class DatabaseSeeder extends Seeder
             TransactionsSeeder::class,
             SupportTicketSeeder::class,
             CartSeeder::class,
+            OrderDetailSeeder::class,
         ]);
 
     }

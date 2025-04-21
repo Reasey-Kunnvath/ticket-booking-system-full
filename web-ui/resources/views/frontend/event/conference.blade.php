@@ -63,12 +63,15 @@
                         <div class="ticket-item">
                             <div class="thumb">
                                 <img src={{ asset('frontend/assets/images/ticket-01.jpg') }} alt="" />
+                                <div class="category">
+                                    <span> <b>@{{ econfer.cate_name }}</b> </span>
+                                </div>
                                 <div class="price">
                                     <span>1 ticket<br />from <em>$@{{ econfer.ticket_price }}</em></span>
                                 </div>
                             </div>
                             <div class="down-content">
-                                <span>There Are @{{ econfer.ticket_in_stock }} Tickets Left For This Show</span>
+                                <span>@{{ econfer.total_tickets_sold }} Tickets Sold</span>
                                 <h4>@{{ econfer.evt_name }}</h4>
                                 <ul>
                                     <li>
