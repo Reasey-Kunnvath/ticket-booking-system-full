@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class OrderDetail extends Model
 {
     protected $table = 'order_details';
+    protected $primaryKey = 'order_detail_id';
 
     protected $fillable = [
         'evt_id',
@@ -16,10 +17,15 @@ class OrderDetail extends Model
         'order_id'
     ];
 
-    // public function order()
-    // {
-    //     return $this->belongsTo(Order::class, 'order_id', 'order_id');
-    // }
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id', 'order_id');
+    }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'evt_id', 'evt_id');
+    }
 
     // public function eventTicket()
     // {

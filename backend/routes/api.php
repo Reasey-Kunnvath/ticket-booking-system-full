@@ -44,6 +44,7 @@ use App\Http\Controllers\Api\General\Event\FEventController;
 use App\Http\Controllers\Api\General\Event\FEventDetailControll;
 use App\Http\Controllers\Api\General\Event\FEventDetailController;
 use App\Http\Controllers\Api\General\Event\FHomePageController;
+use App\Http\Controllers\Api\UploadImageController;
 use Illuminate\Support\Facades\Route;
 
 // auth
@@ -66,8 +67,8 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [AuthController::class, 'profile']);
 
     Route::apiResource('home', UHomeController::class)
-    ->names('guest.home')
-    ->only(['index', 'show']);
+        ->names('guest.home')
+        ->only(['index', 'show']);
 
 
     // For role == admin
@@ -200,7 +201,6 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
             ->only(['store']);
 
         Route::apiResource('cartItemCount', UHeaderController::class)->only(['index']);
-
     });
 
 
@@ -234,18 +234,21 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
 });
 
 // General Route Accsess to Frontend/User Interface
-    Route::controller(FEventController::class)->group(function () {
-        Route::get('/allevent', 'allevent')->name('allevent');
-        Route::get('/eventcoming', 'eventcoming')->name('eventcoming');
-        Route::get('/mostpopular', 'mostpopular')->name('mostpopular');
-        Route::get('/concert', 'concert')->name('concert');
-        Route::get('/conferences', 'conferences')->name('conferences');
-        Route::get('/sport', 'sports')->name('sport');
-    });
-    Route::controller(FEventDetailController::class)->group(function () {
-        Route::get('/eventdetail/{id}', 'EventDetailIndex')->name('eventdetail');
-    });
-    Route::controller(FHomePageController::class)->group(function () {
-        Route::get('/popularEvents', 'popularEvents')->name('popularEvents');
-        Route::get('/comingEvents', 'comingEvents')->name('comingEvents');
-    });
+Route::controller(FEventController::class)->group(function () {
+    Route::get('/allevent', 'allevent')->name('allevent');
+    Route::get('/eventcoming', 'eventcoming')->name('eventcoming');
+    Route::get('/mostpopular', 'mostpopular')->name('mostpopular');
+    Route::get('/concert', 'concert')->name('concert');
+    Route::get('/conferences', 'conferences')->name('conferences');
+    Route::get('/sport', 'sports')->name('sport');
+});
+Route::controller(FEventDetailController::class)->group(function () {
+    Route::get('/eventdetail/{id}', 'EventDetailIndex')->name('eventdetail');
+});
+Route::controller(FHomePageController::class)->group(function () {
+    Route::get('/popularEvents', 'popularEvents')->name('popularEvents');
+    Route::get('/comingEvents', 'comingEvents')->name('comingEvents');
+});
+
+
+Route::post("upload-image", [UploadImageController::class, 'fileUpload']);

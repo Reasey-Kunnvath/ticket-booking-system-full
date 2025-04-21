@@ -24,7 +24,7 @@ class EventTicket extends Model
 
     public function event()
     {
-        return $this->belongsTo(Event::class, 'evt_id');
+        return $this->belongsTo(Event::class, 'evt_id', 'evt_id');
     }
     // protected $primaryKey = 'ticket_id';
 

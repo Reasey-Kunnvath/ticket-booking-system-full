@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('verifyToken')->nullable();
             $table->string('password');
             $table->string('phone_number');
+            $table->string('profile')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

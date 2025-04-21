@@ -9,11 +9,12 @@ use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
 
         $user = User::find($request->query('user_id'));
 
-        if(!$user) {
+        if (!$user) {
             return response()->json([
                 'message' => 'User Not Found',
                 'data' => null
@@ -26,24 +27,26 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id) {
-        $validator = Validator::make($request->all(),[
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'date_of_birth' => 'required',
             'email' => 'required',
-            'phone_number' => 'required'
+            'phone_number' => 'required',
+            'profile' => 'nullable|string',
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json([
                 'message' => 'All fields are mandatory',
                 'error' => $validator->messages(),
-            ],422);
+            ], 422);
         }
 
         $user = User::find($id);
 
-        if(!$user) {
+        if (!$user) {
             return response()->json([
                 'message' => 'User Not Found',
                 'data' => null

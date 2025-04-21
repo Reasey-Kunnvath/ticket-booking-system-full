@@ -10,6 +10,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -30,15 +31,33 @@ class SupportCenterResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
+        return $table->defaultSort('created_at', 'desc')
             ->columns([
-                //
+                TextColumn::make("user.name")->label("From"),
+                TextColumn::make("message_subject")
+                    ->label('Subject')
+                    ->searchable(),
+                TextColumn::make("message")
+                    ->label('Message')
+                    ->limit(50)
+                    ->searchable(),
+                TextColumn::make("status")
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        '0' => 'danger',
+                        '1' => 'success',
+                    })
+                    ->formatStateUsing(fn(string $state): string => match ($state) {
+                        '0' => 'Inactive',
+                        '1' => 'Active',
+                    }),
+
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make()->modal(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

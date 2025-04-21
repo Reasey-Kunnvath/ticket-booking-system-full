@@ -24,19 +24,21 @@ class AuthController extends Controller
         return $user->role_id == $role_id;
     }
 
-    public function generate_six_digits_token(){
+    public function generate_six_digits_token()
+    {
         return rand(100000, 999999);
     }
 
-    public function sendEmail($email,$data)
+    public function sendEmail($email, $data)
     {
         Mail::to($email)->send(new VerifyEmail($data));
     }
 
-    public function verify_email(Request $request, $id){
+    public function verify_email(Request $request, $id)
+    {
         $user = User::where('id', $id)->first();
 
-        if(!$user->verifyToken == $request[0] || !$user->verifyToken == $request){
+        if (!$user->verifyToken == $request[0] || !$user->verifyToken == $request) {
             return response()->json([
                 'message' => 'invalid token' . $user,
                 'request' => $request
@@ -79,13 +81,13 @@ class AuthController extends Controller
                 'verifyToken' => $verifyToken
             ]);
 
-            try{
-                $this->sendEmail($user->email,[
+            try {
+                $this->sendEmail($user->email, [
                     'verifyToken' => $verifyToken,
                     'user' => $user,
                     'timestamp' => now(),
                 ]);
-            }catch(\Exception $e){
+            } catch (\Exception $e) {
                 return response()->json([
                     'message' => 'Email not sent',
                     'error' => $e->getMessage()
@@ -98,8 +100,7 @@ class AuthController extends Controller
                 'message' => 'Email not verified',
                 'user' => $user
             ]);
-
-        }else{
+        } else {
             return $this->successResponse([
                 'verified' => true,
                 'access_token' => $this->generate_token($user),
@@ -110,7 +111,7 @@ class AuthController extends Controller
         }
     }
 
-        /**
+    /**
      * User Register
      **/
     public function user_register(Request $request)

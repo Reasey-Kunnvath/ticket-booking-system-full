@@ -5,16 +5,20 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\UserResource\Pages;
 use App\Models\PartnershipDetail;
 use App\Models\User;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Storage;
+
 
 class UserResource extends Resource
 {
@@ -30,6 +34,12 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
+                FileUpload::make('profile')
+                    ->image()
+                    ->imageEditor()
+                    ->disk('public')
+                    ->columnSpanFull(),
+
                 TextInput::make("name")->required(),
                 TextInput::make("email")->required(),
                 TextInput::make("phone_number")->required(),
@@ -60,6 +70,9 @@ class UserResource extends Resource
     {
         return $table->defaultSort('created_at', 'desc')
             ->columns([
+                ImageColumn::make('profile')
+                    ->circular(),
+                // ->url(fn($record) => Storage::url($record->profile)),
                 TextColumn::make('name')->searchable(),
                 TextColumn::make('role.role_name')
                     ->badge()
