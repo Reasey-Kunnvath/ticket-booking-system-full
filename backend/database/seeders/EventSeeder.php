@@ -29,6 +29,6 @@ class EventSeeder extends Seeder
         //     'partnership_id' => 1
         // ]);
 
-        Event::factory()->count(50)->create();
+        Event::factory()->count(5)->create();
     }
 }
