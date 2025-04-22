@@ -51,9 +51,9 @@ class UserResource extends Resource
                     ->relationship(
                         name: 'partnership',
                         titleAttribute: 'org_name',
-                        // modifyQueryUsing: function (Builder $query) {
-                        //     $query->where("req_status", 2)->whereDoesntHave('user');
-                        // }
+                        modifyQueryUsing: function (Builder $query) {
+                            $query->where("req_status", 2);
+                        }
                     )
                     ->visible(fn(Get $get) => $get('role_id') == 2)
                     ->required(fn(Get $get) => $get('role_id') == 2)
