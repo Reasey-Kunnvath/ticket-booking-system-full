@@ -62,7 +62,7 @@
                     <div v-for="econfer in conferences" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
-                                <img src={{ asset('frontend/assets/images/ticket-01.jpg') }} alt="" />
+                                <img :src="'http://localhost:8000/storage/' + econfer.image" alt="" />
                                 <div class="category">
                                     <span> <b>@{{ econfer.cate_name }}</b> </span>
                                 </div>

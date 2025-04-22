@@ -197,7 +197,7 @@
                     <div v-for="event in eventpopular" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
-                                <img src={{ asset('frontend/assets/images/ticket-02.jpg') }} alt="" />
+                                <img :src="'http://localhost:8000/storage/' + event.image" alt="" />
                                 <div class="category">
                                     <span> <b>@{{ event.cate_name }}</b> </span>
                                 </div>
@@ -246,7 +246,7 @@
                     <div v-for="comingE in coming" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
-                                <img src={{ asset('frontend/assets/images/ticket-02.jpg') }} alt="" />
+                                <img :src="'http://localhost:8000/storage/' + comingE.image" alt="" />
                                 <div class="category">
                                     <span> <b>@{{ comingE.cate_name }}</b> </span>
                                 </div>

@@ -61,7 +61,7 @@
                     <div v-for="sport in sports" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
-                                <img src={{ asset('frontend/assets/images/ticket-01.jpg') }} alt="" />
+                                <img :src="'http://localhost:8000/storage/' + sport.image" alt="" />
                                 <div class="category">
                                     <span> <b>@{{ sport.cate_name }}</b> </span>
                                 </div>

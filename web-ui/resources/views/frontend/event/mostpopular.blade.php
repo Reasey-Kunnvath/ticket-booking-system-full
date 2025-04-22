@@ -61,7 +61,7 @@
                     <div v-for="eventpop in eventpopular" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
-                                <img src={{ asset('frontend/assets/images/ticket-01.jpg') }} alt="" />
+                                <img :src="'http://localhost:8000/storage/' + eventpop.image" alt="" />
                                 <div class="category">
                                     <span> <b>@{{ eventpop.cate_name }}</b> </span>
                                 </div>

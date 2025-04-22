@@ -62,7 +62,7 @@
                     <div v-for="concert in concerts" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
-                                <img src={{ asset('frontend/assets/images/ticket-01.jpg') }} alt="" />
+                                <img :src="'http://localhost:8000/storage/' + concert.image" alt="" />
                                 <div class="category">
                                     <span> <b>@{{ concert.cate_name }}</b> </span>
                                 </div>
