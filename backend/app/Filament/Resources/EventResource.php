@@ -105,8 +105,8 @@ class EventResource extends Resource
                             ->schema([
                                 Select::make('status')
                                     ->options([
-                                        '0' => 'Active',
-                                        '1' => 'Inactive',
+                                        '0' => 'Inactive',
+                                        '1' => 'Active',
                                     ])
                                     ->required(),
 

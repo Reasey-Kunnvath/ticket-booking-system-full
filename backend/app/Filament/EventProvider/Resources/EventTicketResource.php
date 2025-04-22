@@ -4,6 +4,7 @@ namespace App\Filament\EventProvider\Resources;
 
 use App\Filament\EventProvider\Resources\EventTicketResource\Pages;
 use App\Filament\EventProvider\Resources\EventTicketResource\RelationManagers;
+use App\Models\Event;
 use App\Models\EventTicket;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -37,7 +38,8 @@ class EventTicketResource extends Resource
                         Forms\Components\Grid::make(2)
                             ->schema([
                                 Select::make('evt_id')
-                                    ->relationship('event', 'evt_name')
+                                    ->options(Event::where('partnership_id', auth()->user()->partnership_id)->pluck('evt_name', 'evt_id'))
+
                                     ->label("Event")
                                     ->required(),
 

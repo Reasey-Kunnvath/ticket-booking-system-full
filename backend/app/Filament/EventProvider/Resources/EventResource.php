@@ -46,8 +46,8 @@ class EventResource extends Resource
                                     ->required(),
                                 Select::make('status')
                                     ->options([
-                                        '0' => 'Active',
-                                        '1' => 'Inactive',
+                                        '0' => 'Inactive',
+                                        '1' => 'Active',
                                     ])
                                     ->required(),
                                 TextInput::make("evt_name")
