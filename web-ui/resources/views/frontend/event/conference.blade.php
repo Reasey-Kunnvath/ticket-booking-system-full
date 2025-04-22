@@ -62,7 +62,10 @@
                     <div v-for="econfer in conferences" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
-                                <img :src="'http://localhost:8000/storage/' + econfer.image" alt="" />
+                                <img v-if="econfer.image" :src="'http://localhost:8000/storage/' + econfer.image"
+                                    alt="" style="width: 415.983px; height: 303.25px" />
+                                <img v-else src="{{ asset('frontend/assets/images/noimage.jpg') }}" alt="No Image"
+                                    style="width: 415.983px; height: 303.25px">
                                 <div class="category">
                                     <span> <b>@{{ econfer.cate_name }}</b> </span>
                                 </div>

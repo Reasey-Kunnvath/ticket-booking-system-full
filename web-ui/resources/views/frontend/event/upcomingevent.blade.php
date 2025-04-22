@@ -62,7 +62,10 @@
                     <div v-for="ticket in tickets" v-else :key="ticket.ticket_id" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
-                                <img :src="'http://localhost:8000/storage/' + ticket.image" alt="" />
+                                <img v-if="ticket.image" :src="'http://localhost:8000/storage/' + ticket.image"
+                                    alt="" style="width: 415.983px; height: 303.25px" />
+                                <img v-else src="{{ asset('frontend/assets/images/noimage.jpg') }}" alt="No Image"
+                                    style="width: 415.983px; height: 303.25px">
                                 <div class="category">
                                     <span> <b>@{{ ticket.cate_name }}</b> </span>
                                 </div>
