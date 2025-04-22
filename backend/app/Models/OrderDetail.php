@@ -31,4 +31,8 @@ class OrderDetail extends Model
     // {
     //     return $this->belongsTo(EventTicket::class, 'ticket_id', 'ticket_id');
     // }
+    public function ticket()
+    {
+        return $this->belongsTo(\App\Models\EventTicket::class, 'ticket_id', 'ticket_id');
+    }
 }
