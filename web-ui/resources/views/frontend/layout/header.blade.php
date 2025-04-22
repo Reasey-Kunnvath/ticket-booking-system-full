@@ -88,7 +88,7 @@
                 <a :href="'/user-profile?uid=' + payload.user_id + '&token=' + payload.token"
                     class="nav-item nav-link d-flex align-items-center">
                     <div class="p-2 me-2">
-                        <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Icon"
+                        <img class="img-fluid" :src="'http://localhost:8000/storage/' + image" alt="Icon"
                             style="width: 50px; height: 50px; border-radius: 50%;">
                     </div>
                 </a>
@@ -133,13 +133,16 @@
                 user_id: localStorage.getItem('uid?'),
                 token: localStorage.getItem('token')
             },
-            ItemCount: 0
+            ItemCount: 0,
+            image: null,
+            response: {}
 
         },
         mounted() {
             this.loggedInStatus();
             this.cartItemCount()
-            // console.log(this.isLoggedIn);
+            this.profileImage()
+            
         },
         methods: {
             loggedInStatus() {
@@ -154,6 +157,17 @@
                 }).then((response) => {
                     // console.log(response.data);
                     this.ItemCount = response.data.data
+                })
+            },
+            async profileImage(){
+                await axios.get('v1/user/profile/information', {
+                    params: {
+                        user_id: this.payload.user_id,
+                        token: this.payload.token
+                    }
+                }).then((response) => {
+                    this.response = response.data.data;
+                    this.image = this.response.profile;
                 })
             }
         },

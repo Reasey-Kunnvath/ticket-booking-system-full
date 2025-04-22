@@ -149,7 +149,7 @@
         <h4 class="fw-bold py-3 mb-4">Account settings</h4>
         <div class="card-xl overflow-hidden">
             <div class="row row-bordered row-border-primary">
-                <div id="mainApp" class="col-md-2 pt-0">
+                <div id="mainApp" class="col-md-3 pt-0">
                     <div class="list-group list-group-flush account-settings-links">
                         <a class="list-group-item list-group-item-action active" data-bs-toggle="list" href="#accountInfo">
                             <i class="fa fa-user me-2"></i> Your Information
@@ -175,7 +175,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-md-10">
+                <div class="col-md-9">
                     <div class="tab-content">
                         <div id="accountInfo" class="tab-pane fade show active">
                             <!-- Account General Section -->

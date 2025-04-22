@@ -22,7 +22,7 @@ class EventService
         ->join('event_categories', 'events.cate_id', '=', 'event_categories.cate_id')
         ->leftJoin('order_details', 'event_tickets.ticket_id', '=', 'order_details.ticket_id') // Left join to include events with 0 sales
         ->where('events.evt_status', '1')
-        ->orderBy('total_tickets_sold', 'desc') // Order by total tickets sold
+        ->orderBy('total_tickets_sold', 'desc')
         ->groupBy([
             'events.evt_id',
             'events.evt_name',

@@ -61,7 +61,9 @@
                     <div v-for="event in allevents" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
-                                <img src={{ asset('frontend/assets/images/ticket-02.jpg') }} alt="" />
+                                <img :src="'http://localhost:8000/storage/' + image"
+                                    alt="{{ asset('frontend/assets/images/noimage.jpg') }}"
+                                    style="width: 415.983px; height: 303.25px" />
                                 <div class="category">
                                     <span> <b>@{{ event.cate_name }}</b> </span>
                                 </div>

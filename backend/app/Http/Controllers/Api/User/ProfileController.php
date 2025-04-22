@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api\User;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Storage;
 
 
 class ProfileController extends Controller
@@ -34,6 +34,7 @@ class ProfileController extends Controller
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
         $file = $request->file('image');
         $filename = time() . uniqid() . '.' . $file->getClientOriginalExtension();
         Storage::disk('public')->put($filename, file_get_contents($file));
