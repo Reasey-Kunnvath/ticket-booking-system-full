@@ -61,9 +61,11 @@
                     <div v-for="event in allevents" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
-                                <img :src="'http://localhost:8000/storage/' + event.image"
+                                <img v-if="event.image" :src="'http://localhost:8000/storage/' + event.image"
                                     alt="{{ asset('frontend/assets/images/noimage.jpg') }}"
                                     style="width: 415.983px; height: 303.25px" />
+                                <img v-else src="{{ asset('frontend/assets/images/noimage.jpg') }}" alt="No Image"
+                                    style="width: 415.983px; height: 303.25px">
                                 <div class="category">
                                     <span> <b>@{{ event.cate_name }}</b> </span>
                                 </div>
