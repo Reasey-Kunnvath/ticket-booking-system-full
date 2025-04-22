@@ -72,7 +72,25 @@ class EventTicketResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->defaultSort('created_at', 'desc')
+            ->query(
+                EventTicket::query()
+                    ->select([
+                                'event_tickets.ticket_id',
+                                'event_tickets.ticket_title',
+                                'event_tickets.ticket_price',
+                                'event_tickets.ticket_status',
+                                'event_tickets.ticket_in_stock',
+                                'events.evt_name',
+                                'event_tickets.ticket_expiry_date',
+                                'event_tickets.ticket_description',
+                                'partnership_details.partnership_id',
+                            ])
+                            ->join('events', 'event_tickets.evt_id', '=', 'events.evt_id')
+                            ->join('partnership_details', 'events.partnership_id', '=', 'partnership_details.partnership_id')
+                            ->join('users', 'partnership_details.partnership_id', '=', 'users.partnership_id')
+                            ->where('partnership_details.partnership_id', auth()->user()->partnership_id)
+
+            )
             ->columns([
                 TextColumn::make("ticket_title")
                     ->label("Title")
@@ -83,7 +101,8 @@ class EventTicketResource extends Resource
                     ->label("Price")
                     ->sortable(),
 
-                TextColumn::make('ticket_status')->label("Ticket Status")
+                TextColumn::make('ticket_status')
+                    ->label("Ticket Status")
                     ->formatStateUsing(fn(string $state): string => match ($state) {
                         '0' => 'Rejected',
                         '1' => 'Approved',
@@ -100,7 +119,7 @@ class EventTicketResource extends Resource
                     ->label("In Stock")
                     ->sortable(),
 
-                TextColumn::make("event.evt_name")
+                TextColumn::make("evt_name")
                     ->label("Event")
                     ->sortable()
                     ->searchable(),
@@ -123,20 +142,18 @@ class EventTicketResource extends Resource
                     ->form([
                         DatePicker::make('ticket_expiry_date_from')
                             ->label('Expired Date From'),
-
                         DatePicker::make('ticket_expiry_date_until')
                             ->label('Expired Date Until'),
                     ])
                     ->query(function (Builder $query, array $data) {
                         return $query
-                            ->when($data['ticket_expiry_date_from'], fn($q, $date) => $q->whereDate('ticket_expiry_date', '>=', $date))
-                            ->when($data['ticket_expiry_date_until'], fn($q, $date) => $q->whereDate('ticket_expiry_date', '<=', $date));
+                            ->when($data['ticket_expiry_date_from'], fn($q, $date) => $q->whereDate('event_tickets.ticket_expiry_date', '>=', $date))
+                            ->when($data['ticket_expiry_date_until'], fn($q, $date) => $q->whereDate('event_tickets.ticket_expiry_date', '<=', $date));
                     }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->modal()->color('primary'),
                 Tables\Actions\DeleteAction::make(),
-
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
