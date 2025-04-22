@@ -20,8 +20,12 @@ use Filament\Forms\Components\Card;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Model;
+use Filament\Tables\Actions\Action;
+
 
 class EventResource extends Resource
 {
@@ -109,9 +113,9 @@ class EventResource extends Resource
                                 Select::make('evt_status')
                                     ->label("Event Status")
                                     ->options([
-                                        '0' => 'Pending',
+                                        '0' => 'Rejected',
                                         '1' => 'Approved',
-                                        '2' => 'Rejected',
+                                        '2' => 'Pending',
                                     ])
                                     ->required(),
                             ]),
@@ -121,7 +125,9 @@ class EventResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table->defaultSort('created_at', 'desc')
+        return $table
+            ->defaultSort('created_at', 'desc')
+            ->actionsPosition(Tables\Enums\ActionsPosition::BeforeColumns)
             ->columns([
                 ImageColumn::make('image')->circular(),
                 TextColumn::make('evt_name')->label("Name")->searchable(),
@@ -140,16 +146,16 @@ class EventResource extends Resource
                         '1' => 'success',
                         '2' => 'warning',
                     }),
-                TextColumn::make("status")
-                    ->formatStateUsing(fn(string $state): string => match ($state) {
-                        '0' => 'Inactive',
-                        '1' => 'Active',
-                    })
-                    ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        '0' => 'danger',
-                        '1' => 'success',
-                    }),
+                // TextColumn::make("status")
+                //     ->formatStateUsing(fn(string $state): string => match ($state) {
+                //         '0' => 'Inactive',
+                //         '1' => 'Active',
+                //     })
+                //     ->badge()
+                //     ->color(fn(string $state): string => match ($state) {
+                //         '0' => 'danger',
+                //         '1' => 'success',
+                //     }),
                 TextColumn::make("eventCategory.cate_name")->label("Event Category"),
                 TextColumn::make("partnership.org_name")->label("Partnership"),
 
@@ -202,8 +208,59 @@ class EventResource extends Resource
             ])
 
             ->actions([
-                Tables\Actions\EditAction::make()->modal(),
-                Tables\Actions\DeleteAction::make(),
+                // Tables\Actions\EditAction::make()->modal(),
+                // Tables\Actions\DeleteAction::make(),
+                ActionGroup::make([
+                    Tables\Actions\EditAction::make()->modal()->color('primary'),
+                    Action::make('toggle_status')
+                        ->label(fn(Model $record): string => match ($record->evt_status) {
+                            '1' => 'Reject',
+                            '0' => 'Approve',
+                            '2' => 'Update Request Status',
+                            default => 'Update Status',
+                        })
+                        ->color(fn(Model $record) => match ($record->evt_status) {
+                            '1' => 'danger',
+                            '0' => 'success',
+                            '2' => 'warning',
+                            default => 'warning',
+                        })
+                        ->icon(fn(Model $record) => match ($record->evt_status) {
+                            '1' => 'heroicon-o-x-circle',
+                            '0' => 'heroicon-o-check-circle',
+                            '2' => 'heroicon-o-exclamation-circle',
+                            default => 'heroicon-o-pencil',
+                        })
+                        ->requiresConfirmation()
+                        ->modalHeading(fn(Model $record) => $record->evt_status == '2'
+                            ? 'Pending Request'
+                            : 'Confirm Status Change')
+                        ->modalHeading(fn(Model $record) => $record->evt_status == '2'
+                            ? 'Do you want to approve or reject this pending request?'
+                            : 'Are you sure you want to change the request status?')
+                        ->modalButton(fn(Model $record) => $record->evt_status == '1' ? 'Reject' : 'Approve')
+                        ->extraModalFooterActions(
+                            fn(Model $record) => $record->evt_status == '2'
+                                ? [
+                                    Tables\Actions\Action::make('reject')
+                                        ->label('Reject')
+                                        ->color('danger')
+                                        ->action(fn(Model $record) => $record->update(['evt_status' => '0'])),
+                                ]
+                                : []
+                        )
+                        ->action(function (Model $record) {
+                            if ($record->evt_status == '1') {
+                                $record->update(['evt_status' => '0']);
+                            } elseif ($record->evt_status == '0') {
+                                $record->update(['evt_status' => '1']);
+                            } elseif ($record->evt_status == '2') {
+                                $record->update(['evt_status' => '1']);
+                            }
+                        }),
+                    Tables\Actions\DeleteAction::make(),
+
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

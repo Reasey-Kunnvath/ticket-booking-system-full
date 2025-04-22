@@ -18,7 +18,8 @@ class EventTicket extends Model
         'ticket_in_stock',
         'ticket_description',
         'ticket_expiry_date',
-        'evt_id'
+        'evt_id',
+        'ticket_status'
     ];
 
 

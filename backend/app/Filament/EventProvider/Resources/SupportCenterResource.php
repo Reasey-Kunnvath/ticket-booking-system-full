@@ -19,7 +19,7 @@ class SupportCenterResource extends Resource
 {
     protected static ?string $model = SupportTicket::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
 
     public static function form(Form $form): Form
     {
@@ -77,8 +77,8 @@ class SupportCenterResource extends Resource
     {
         return [
             'index' => Pages\ListSupportCenters::route('/'),
-            'create' => Pages\CreateSupportCenter::route('/create'),
-            'edit' => Pages\EditSupportCenter::route('/{record}/edit'),
+            // 'create' => Pages\CreateSupportCenter::route('/create'),
+            // 'edit' => Pages\EditSupportCenter::route('/{record}/edit'),
         ];
     }
 }

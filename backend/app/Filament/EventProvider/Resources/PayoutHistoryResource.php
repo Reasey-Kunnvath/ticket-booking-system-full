@@ -20,7 +20,7 @@ class PayoutHistoryResource extends Resource
 {
     protected static ?string $model = Transactions::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
 
     public static function form(Form $form): Form
     {
@@ -63,7 +63,7 @@ class PayoutHistoryResource extends Resource
             ])
             ->actions([
                 // Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                // Tables\Actions\DeleteAction::make(),
             ]);
         // ->bulkActions([
         //     Tables\Actions\BulkActionGroup::make([
@@ -83,8 +83,8 @@ class PayoutHistoryResource extends Resource
     {
         return [
             'index' => Pages\ListPayoutHistories::route('/'),
-            'create' => Pages\CreatePayoutHistory::route('/create'),
-            'edit' => Pages\EditPayoutHistory::route('/{record}/edit'),
+            // 'create' => Pages\CreatePayoutHistory::route('/create'),
+            // 'edit' => Pages\EditPayoutHistory::route('/{record}/edit'),
         ];
     }
 }

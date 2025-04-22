@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\EventProvider\Resources;
 
-use App\Filament\Resources\EventTicketResource\Pages;
-use App\Filament\Resources\EventTicketResource\RelationManagers;
+use App\Filament\EventProvider\Resources\EventTicketResource\Pages;
+use App\Filament\EventProvider\Resources\EventTicketResource\RelationManagers;
 use App\Models\EventTicket;
 use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
-use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Columns\ImageColumn;
 use Illuminate\Database\Eloquent\Model;
@@ -28,8 +27,6 @@ class EventTicketResource extends Resource
     protected static ?string $model = EventTicket::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-ticket';
-
-    protected static ?string $navigationGroup = 'Event Management';
 
     public static function form(Form $form): Form
     {
@@ -74,7 +71,6 @@ class EventTicketResource extends Resource
     {
         return $table
             ->defaultSort('created_at', 'desc')
-            ->actionsPosition(Tables\Enums\ActionsPosition::BeforeColumns)
             ->columns([
                 TextColumn::make("ticket_title")
                     ->label("Title")
@@ -136,59 +132,9 @@ class EventTicketResource extends Resource
                     }),
             ])
             ->actions([
-                // Tables\Actions\EditAction::make()->modal(),
-                // Tables\Actions\DeleteAction::make(),
-                ActionGroup::make([
-                    Tables\Actions\EditAction::make()->modal()->color('primary'),
-                    Action::make('toggle_status')
-                        ->label(fn(Model $record): string => match ($record->ticket_status) {
-                            '1' => 'Reject',
-                            '0' => 'Approve',
-                            '2' => 'Update Ticket Status',
-                            default => 'Update Status',
-                        })
-                        ->color(fn(Model $record) => match ($record->ticket_status) {
-                            '1' => 'danger',
-                            '0' => 'success',
-                            '2' => 'warning',
-                            default => 'warning',
-                        })
-                        ->icon(fn(Model $record) => match ($record->ticket_status) {
-                            '1' => 'heroicon-o-x-circle',
-                            '0' => 'heroicon-o-check-circle',
-                            '2' => 'heroicon-o-exclamation-circle',
-                            default => 'heroicon-o-pencil',
-                        })
-                        ->requiresConfirmation()
-                        ->modalHeading(fn(Model $record) => $record->ticket_status == '2'
-                            ? 'Pending Request'
-                            : 'Confirm Status Change')
-                        ->modalHeading(fn(Model $record) => $record->ticket_status == '2'
-                            ? 'Do you want to approve or reject this pending request?'
-                            : 'Are you sure you want to change the request status?')
-                        ->modalButton(fn(Model $record) => $record->ticket_status == '1' ? 'Reject' : 'Approve')
-                        ->extraModalFooterActions(
-                            fn(Model $record) => $record->ticket_status == '2'
-                                ? [
-                                    Tables\Actions\Action::make('reject')
-                                        ->label('Reject')
-                                        ->color('danger')
-                                        ->action(fn(Model $record) => $record->update(['ticket_status' => '0'])),
-                                ]
-                                : []
-                        )
-                        ->action(function (Model $record) {
-                            if ($record->ticket_status == '1') {
-                                $record->update(['ticket_status' => '0']);
-                            } elseif ($record->ticket_status == '0') {
-                                $record->update(['ticket_status' => '1']);
-                            } elseif ($record->ticket_status == '2') {
-                                $record->update(['ticket_status' => '1']);
-                            }
-                        }),
-                    Tables\Actions\DeleteAction::make(),
+                Tables\Actions\EditAction::make()->modal()->color('primary'),
+                Tables\Actions\DeleteAction::make(),
 
-                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -196,7 +142,6 @@ class EventTicketResource extends Resource
                 ]),
             ]);
     }
-
 
     public static function getRelations(): array
     {

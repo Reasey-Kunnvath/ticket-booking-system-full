@@ -42,8 +42,8 @@ class EventProviderPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/EventProvider/Widgets'), for: 'App\\Filament\\EventProvider\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                // Widgets\AccountWidget::class,
+                // Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
