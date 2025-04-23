@@ -7,6 +7,8 @@ use Filament\Tables;
 use App\Models\Order;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\OrderDetail;
+use App\Models\OrderSummaryView;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\DB;
 use Filament\Tables\Columns\TextColumn;
@@ -15,7 +17,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\EventProvider\Resources\OrderResource\Pages;
 use App\Filament\EventProvider\Resources\OrderResource\RelationManagers;
-use App\Models\OrderDetail;
 
 class OrderResource extends Resource
 {
@@ -33,71 +34,49 @@ class OrderResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $partnershipId = auth()->user()->partnership_id;
+
         return $table
-            ->query(
-                OrderDetail::query()
-                    ->select([
-                        'order_details.id',
-                        'order_details.order_id',
-                        'order_details.ticket_id',
-                        'order_details.QTY',
-                        'order_details.created_at',
-                    ])
-                    ->with([
-                        'order:id,status_id',
-                        'order.status:id,status_name',
-                        'ticket:id,evt_id,ticket_title,ticket_price',
-                        'ticket.event:id,partnership_id,evt_name',
-                    ])
-                    ->whereHas('ticket.event', function ($query) {
-                        $query->where('partnership_id', auth()->user()->partnership_id);
-                    })
-            )
-            ->columns([
-                TextColumn::make("order_id")
-                    ->label("Order ID"),
-                TextColumn::make("ticket.event.evt_name")
-                    ->label("Event")
-                    ->searchable(),
-
-                TextColumn::make("ticket.ticket_title")
-                    ->label("Ticket")
-                    ->searchable(),
-
-                TextColumn::make("ticket.ticket_price")
-                    ->label("Unit Price")
-                    ->money('USD'),
-
-                TextColumn::make("QTY")
-                    ->label("Quantity")
-                    ->suffix(' Tickets')
-                    ->sortable(),
-
-                TextColumn::make("total_amount")
-                    ->label("Total Amount")
-                    ->state(function ($record) {
-                        return $record->QTY * $record->ticket->ticket_price;
-                    })
-                    ->money('USD')
-                    ->sortable(),
-
-                TextColumn::make("order.status.status_name")
-                    ->label("Status")
-                    ->badge()
-                    ->color(function ($record) {
-                        $status = $record->order->status->status_name ?? '';
-                        return match ($status) {
-                            'complete' => 'success',
-                            'processing' => 'warning',
-                            default => 'danger',
-                        };
-                    }),
-
-                TextColumn::make("created_at")
-                    ->label("Order Date")
-                    ->dateTime('M d, Y h:i A'),
-            ])
-            ->filters([
+        ->query(
+            OrderDetail::query()
+                ->select([
+                    'order_details.order_detail_id',
+                    'events.evt_name',
+                    'event_tickets.ticket_title',
+                    'event_tickets.ticket_price',
+                    'order_details.QTY',
+                    DB::raw('(order_details.QTY * event_tickets.ticket_price) as total_amount'),
+                    'order_details.created_at'
+                ])
+                ->join('event_tickets', 'event_tickets.ticket_id', '=', 'order_details.ticket_id')
+                ->join('events', 'events.evt_id', '=', 'event_tickets.evt_id')
+                ->where('events.partnership_id', $partnershipId)
+        )
+        ->columns([
+            TextColumn::make("order_detail_id")
+                ->label("Order ID"),
+            TextColumn::make("evt_name")
+                ->label("Event")
+                ->searchable(),
+            TextColumn::make("ticket_title")
+                ->label("Ticket")
+                ->searchable(),
+            TextColumn::make("ticket_price")
+                ->label("Unit Price")
+                ->money('USD'),
+            TextColumn::make("QTY")
+                ->label("Quantity")
+                ->suffix(' Tickets')
+                ->sortable(),
+            TextColumn::make("total_amount")
+                ->label("Total Amount")
+                ->money('USD')
+                ->sortable(),
+            TextColumn::make("created_at")
+                ->label("Order Date")
+                ->dateTime('M d, Y h:i A'),
+        ]);
+            // ->filters([
                 // SelectFilter::make('status')
                 //     ->relationship('status', 'status_name')
                 //     ->label('Order Status'),
@@ -120,7 +99,7 @@ class OrderResource extends Resource
                 //             );
                 //     })
                 //     ->label('Order Date'),
-            ]);
+            // ]);
         // ->actions([
         //     Tables\Actions\DeleteAction::make(),
         // ])
