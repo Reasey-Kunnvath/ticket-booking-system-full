@@ -29,33 +29,43 @@
                         <a class="btn btn-link text-white-50" href="">Terms & Condition</a>
                     </div>
                     <div class="col-lg-4 col-md-6">
-                        <h5 class="text-white mb-4">Photo Gallery</h5>
+                        <h5 class="text-white mb-4">Team's Profile</h5>
                         <div class="row g-2 pt-2">
-                            <div class="col-4">
-                                <img class="img-fluid rounded bg-light p-1"
-                                    src="{{ asset('frontend/assets/img/property-1.jpg') }}"alt="">
+                            <div class="col-3">
+                                <a href="https://github.com/Reasey-Kunnvath" target="_blank">
+                                    <img class="img-fluid rounded bg-light p-1"
+                                        src="{{ asset('frontend/assets/images/kunvath.jpg') }}"alt="facebook.com">
+                                </a>
                             </div>
-                            <div class="col-4">
-                                <img class="img-fluid rounded bg-light p-1"
-                                    src="{{ asset('frontend/assets/img/property-2.jpg') }}" alt="">
+                            <div class="col-3">
+                                <a href="https://github.com/lyyhourr" target="_blank">
+                                    <img class="img-fluid rounded bg-light p-1"
+                                        src="{{ asset('frontend/assets/images/hua.jpg') }}" alt="">
+                                </a>
                             </div>
-                            <div class="col-4">
-                                <img class="img-fluid rounded bg-light p-1"
-                                    src="{{ asset('frontend/assets/img/property-3.jpg') }}" alt="">
+                            <div class="col-3">
+                                <a href="https://github.com/phanithsreng" target="_blank">
+                                    <img class="img-fluid rounded bg-light p-1"
+                                        src="{{ asset('frontend/assets/images/phanit2.jpg') }}" alt="">
+                                </a>
                             </div>
-                            <div class="col-4">
-                                <img class="img-fluid rounded bg-light p-1"
-                                    src="{{ asset('frontend/assets/img/property-4.jpg') }}" alt="">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid rounded bg-light p-1"
-                                    src="{{ asset('frontend/assets/img/property-5.jpg') }}" alt="">
-                            </div>
-                            <div class="col-4">
-                                <img class="img-fluid rounded bg-light p-1"
-                                    src="{{ asset('frontend/assets/img/property-6.jpg') }}" alt="">
+                            <div class="col-3">
+                                <a href="https://github.com/phorakden2024" target="_blank">
+                                    <img class="img-fluid rounded bg-light p-1"
+                                        src="{{ asset('frontend/assets/images/den.jpg') }}" alt="">
+                                </a>
                             </div>
                         </div>
+                        {{-- <div class="row g-2 pt-2" >
+                            <div class="col-4">
+                                <img class="img-fluid rounded bg-light p-1"
+                                    src="{{ asset('frontend/assets/images/phanit2.jpg') }}" alt="">
+                            </div>
+                            <div class="col-4">
+                                <img class="img-fluid rounded bg-light p-1"
+                                    src="{{ asset('frontend/assets/images/den.jpg') }}" alt="">
+                            </div>
+                        </div> --}}
                     </div>
                     {{-- <div class="col-lg-3 col-md-6">
                         <h5 class="text-white mb-4">Newsletter</h5>
