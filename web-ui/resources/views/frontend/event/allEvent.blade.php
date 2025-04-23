@@ -58,6 +58,9 @@
                             <h1 class="p-3">All Events</h1>
                         </div>
                     </div>
+                    <div v-if=isLoading class="d-flex justify-content-center">
+                        <img src="{{ asset('frontend/assets/img/infinity.svg') }}" alt="">
+                    </div>
                     <div v-for="event in allevents" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
@@ -131,6 +134,7 @@
                 data: {
                     allevents: [],
                     pagination: '',
+                    isLoading: true
 
                 },
                 methods: {
@@ -140,7 +144,8 @@
                                 .then((response) => {
                                     this.allevents = response.data.data.data;
                                     this.pagination = response.data.data;
-                                    console.log(this.allevents);
+                                    // console.log(this.allevents);
+                                    this.isLoading = false
                                 })
                                 .catch((error) => {
                                     console.log("Error", error);

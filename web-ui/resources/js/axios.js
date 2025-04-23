@@ -7,17 +7,33 @@ if (token) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 }
 
-// console.log("Token: ", token);
-
 axios.defaults.headers.post["Content-Type"] = "application/json";
+
+const publicRoutes = [
+    "/",
+    "/all-event",
+    "/concert",
+    "/conference",
+    "/sport",
+    "/about",
+    "/sell-your-ticket",
+    "/upcoming-event",
+    "/most-popular-event",
+    "/event-detail",
+];
 
 axios.interceptors.response.use(
     (config) => config,
     (error) => {
-        if (error.response.status === 401) {
+        if (
+            error.response &&
+            error.response.status === 401 &&
+            !publicRoutes.some((route) => error.config.url.includes(route))
+        ) {
             localStorage.removeItem("token");
             window.location.href = "/login";
         }
+        return Promise.reject(error);
     }
 );
 

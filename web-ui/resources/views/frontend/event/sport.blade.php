@@ -58,6 +58,9 @@
                             <h2>Sports</h2>
                         </div>
                     </div>
+                    <div v-if=isLoading class="d-flex justify-content-center">
+                        <img src="{{ asset('frontend/assets/img/infinity.svg') }}" alt="">
+                    </div>
                     <div v-for="sport in sports" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
@@ -127,6 +130,7 @@
                 data: {
                     sports: [],
                     pagination: '',
+                    isLoading: true
                 },
                 mounted() {
                     this.fetch();
@@ -138,6 +142,7 @@
                                 .then((response) => {
                                     this.sports = response.data.data.data;
                                     this.pagination = response.data.data;
+                                    this.isLoading = false
                                 })
                                 .catch((error) => {
                                     console.log("Error", error);
