@@ -58,6 +58,9 @@
                             <h2>Most Popular</h2>
                         </div>
                     </div>
+                    <div v-if=isLoading class="d-flex justify-content-center">
+                        <img src="{{ asset('frontend/assets/img/infinity.svg') }}" alt="">
+                    </div>
                     <div v-for="eventpop in eventpopular" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
@@ -129,6 +132,7 @@
                 data: {
                     eventpopular: [],
                     pagination: '',
+                    isLoading: true
                 },
                 mounted() {
                     this.fetch();
@@ -140,6 +144,7 @@
                                 .then((response) => {
                                     this.eventpopular = response.data.data.data;
                                     this.pagination = response.data.data;
+                                    this.isLoading = false
                                 })
                                 .catch((error) => {
                                     console.log("Error", error);

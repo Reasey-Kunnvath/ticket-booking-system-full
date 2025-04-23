@@ -185,103 +185,124 @@
 
     <!-- Events -->
     <div id="homepage">
-        <!-- Pupular Events -->
-        <div class="tickets-page">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="heading">
-                            <h1 class="p-3 text-center">Most Popular Events</h1>
+        <div v-if=isLoading class="d-flex justify-content-center">
+            <img src="{{ asset('frontend/assets/img/infinity.svg') }}" alt="">
+        </div>
+        <div v-else>
+            <div class="tickets-page">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="heading">
+                                <h1 class="p-3 text-center">Most Popular Events</h1>
+                            </div>
                         </div>
-                    </div>
-                    <div v-for="event in eventpopular" class="col-lg-4">
-                        <div class="ticket-item">
-                            <div class="thumb">
-                                <img :src="'http://localhost:8000/storage/' + event.image" alt="" />
-                                <div class="category">
-                                    <span> <b>@{{ event.cate_name }}</b> </span>
-                                </div>
-                                <div class="price">
-                                    <span>1 ticket<br />from <em>$ @{{ event.ticket_price }}</em></span>
-                                </div>
+                        <div v-for="event in eventpopular" class="col-lg-4">
+                            <div class="ticket-item">
+                                <div class="thumb">
+                                    <div v-if="event.image">
+                                        <img :src="'http://localhost:8000/storage/' + event.image"
+                                            style="width: 415.983px; height: 303.25px" />
+                                    </div>
+                                    <div v-else>
+                                        <img src="{{ asset('frontend/assets/images/noimage.jpg') }}"
+                                            style="width: 415.983px; height: 303.25px" />
+                                    </div>
 
-                            </div>
-                            <div class="down-content">
-                                <span>@{{ event.total_tickets_sold }} Tickets Sold</span>
-                                <h4>@{{ event.evt_name }}</h4>
-                                <ul>
-                                    <li>
-                                        <i class="fa fa-clock-o"></i>@{{ event.evt_start_date }}
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-map-marker"></i>@{{ event.evt_address }}
-                                    </li>
-                                </ul>
-                                <div class="main-dark-button">
-                                    <a :href="'/event-detail/' + event.evt_id">Purchase Tickets</a>
+                                    <div class="category">
+                                        <span> <b>@{{ event.cate_name }}</b> </span>
+                                    </div>
+                                    <div class="price">
+                                        <span>1 ticket<br />from <em>$ @{{ event.ticket_price }}</em></span>
+                                    </div>
+
+                                </div>
+                                <div class="down-content">
+                                    <span>@{{ event.total_quantity_sold }} Tickets Sold</span>
+                                    <h4>@{{ event.evt_name }}</h4>
+                                    <ul>
+                                        <li>
+                                            <i class="fa fa-clock-o"></i>@{{ event.evt_start_date }}
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-map-marker"></i>@{{ event.evt_address }}
+                                        </li>
+                                    </ul>
+                                    <div class="main-dark-button">
+                                        <a :href="'/event-detail/' + event.evt_id">Purchase Tickets</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-12">
+                            <div class="pagination">
+                                <ul>
+                                    <li><a href="{{ route('Most-Popular-Events') }}">Browse Popular Events</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-12">
-                        <div class="pagination">
-                            <ul>
-                                <li><a href="{{ route('Most-Popular-Events') }}">Browse Popular Events</a></li>
-                            </ul>
+                </div>
+            </div>
+            <!-- End Pupular Events -->
+            <!-- Upcoming Events -->
+            <div class="tickets-page">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="heading">
+                                <h1 class="p-3 text-center">Upcoming Events</h1>
+                            </div>
+                        </div>
+                        <div v-for="comingE in coming" class="col-lg-4">
+                            <div class="ticket-item">
+                                <div class="thumb">
+                                    <div v-if="comingE.image">
+                                        <img :src="'http://localhost:8000/storage/' + comingE.image"
+                                            style="width: 415.983px; height: 303.25px" />
+                                    </div>
+                                    <div v-else>
+                                        <img src="{{ asset('frontend/assets/images/noimage.jpg') }}"
+                                            style="width: 415.983px; height: 303.25px" />
+                                    </div>
+                                    <div class="category">
+                                        <span> <b>@{{ comingE.cate_name }}</b> </span>
+                                    </div>
+                                    <div class="price">
+                                        <span>1 ticket<br />from <em>$ @{{ comingE.ticket_price }}</em></span>
+                                    </div>
+
+                                </div>
+                                <div class="down-content">
+                                    <span>@{{ comingE.total_tickets_sold }} Tickets Sold</span>
+                                    <h4>@{{ comingE.evt_name }}</h4>
+                                    <ul>
+                                        <li>
+                                            <i class="fa fa-clock-o"></i>@{{ comingE.evt_start_date }}
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-map-marker"></i>@{{ comingE.evt_address }}
+                                        </li>
+                                    </ul>
+                                    <div class="main-dark-button">
+                                        <a :href="'/event-detail/' + comingE.evt_id">Purchase Tickets</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="pagination">
+                                <ul>
+                                    <li><a href="{{ route('Upcoming-Events') }}">Browse Upcoming Events</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End Pupular Events -->
-        <!-- Upcoming Events -->
-        <div class="tickets-page">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="heading">
-                            <h1 class="p-3 text-center">Upcoming Events</h1>
-                        </div>
-                    </div>
-                    <div v-for="comingE in coming" class="col-lg-4">
-                        <div class="ticket-item">
-                            <div class="thumb">
-                                <img :src="'http://localhost:8000/storage/' + comingE.image" alt="" />
-                                <div class="category">
-                                    <span> <b>@{{ comingE.cate_name }}</b> </span>
-                                </div>
-                                <div class="price">
-                                    <span>1 ticket<br />from <em>$ @{{ comingE.ticket_price }}</em></span>
-                                </div>
 
-                            </div>
-                            <div class="down-content">
-                                <span>@{{ comingE.total_tickets_sold }} Tickets Sold</span>
-                                <h4>@{{ comingE.evt_name }}</h4>
-                                <ul>
-                                    <li>
-                                        <i class="fa fa-clock-o"></i>@{{ comingE.evt_start_date }}
-                                    </li>
-                                    <li>
-                                        <i class="fa fa-map-marker"></i>@{{ comingE.evt_address }}
-                                    </li>
-                                </ul>
-                                <div class="main-dark-button">
-                                    <a :href="'/event-detail/' + comingE.evt_id">Purchase Tickets</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="pagination">
-                            <ul>
-                                <li><a href="{{ route('Upcoming-Events') }}">Browse Upcoming Events</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <!-- End Upcoming Events -->
         <!-- Reuseble Component -->
         {{-- <div class="tickets-page">
@@ -368,6 +389,7 @@
                 data: {
                     eventpopular: [],
                     coming: [],
+                    isLoading: true
                 },
                 mounted() {
                     this.mostpopular();
@@ -379,7 +401,7 @@
                             axios.get('http://127.0.0.1:8000/api/popularEvents')
                                 .then((response) => {
                                     this.eventpopular = response.data.data.data;
-                                    // console.log("aaa", response.data.data.data);
+                                    this.isLoading = false
                                 })
                                 .catch((error) => {
                                     console.log("Error", error);

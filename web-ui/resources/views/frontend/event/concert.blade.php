@@ -59,6 +59,9 @@
                             <h2>Concerts</h2>
                         </div>
                     </div>
+                    <div v-if=isLoading class="d-flex justify-content-center">
+                        <img src="{{ asset('frontend/assets/img/infinity.svg') }}" alt="">
+                    </div>
                     <div v-for="concert in concerts" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
@@ -132,6 +135,7 @@
                 data: {
                     concerts: [],
                     pagination: '',
+                    isLoading: true
                 },
                 methods: {
                     fetch(page) {
@@ -140,6 +144,7 @@
                                 .then((response) => {
                                     this.concerts = response.data.data.data;
                                     this.pagination = response.data.data;
+                                    this.isLoading = false
                                 })
                                 .catch((error) => {
                                     console.log("Error", error);
