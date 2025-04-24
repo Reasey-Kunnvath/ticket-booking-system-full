@@ -75,28 +75,26 @@ class EventTicketResource extends Resource
             ->query(
                 EventTicket::query()
                     ->select([
-                                'event_tickets.ticket_id',
-                                'event_tickets.ticket_title',
-                                'event_tickets.ticket_price',
-                                'event_tickets.ticket_status',
-                                'event_tickets.ticket_in_stock',
-                                'events.evt_name',
-                                'event_tickets.ticket_expiry_date',
-                                'event_tickets.ticket_description',
-                                'partnership_details.partnership_id',
-                            ])
-                            ->join('events', 'event_tickets.evt_id', '=', 'events.evt_id')
-                            ->join('partnership_details', 'events.partnership_id', '=', 'partnership_details.partnership_id')
-                            ->join('users', 'partnership_details.partnership_id', '=', 'users.partnership_id')
-                            ->where('partnership_details.partnership_id', auth()->user()->partnership_id)
+                        'event_tickets.ticket_id',
+                        'event_tickets.ticket_title',
+                        'event_tickets.ticket_price',
+                        'event_tickets.ticket_status',
+                        'event_tickets.ticket_in_stock',
+                        'events.evt_name',
+                        'event_tickets.ticket_expiry_date',
+                        'event_tickets.ticket_description',
+                        'partnership_details.partnership_id',
+                    ])
+                    ->join('events', 'event_tickets.evt_id', '=', 'events.evt_id')
+                    ->join('partnership_details', 'events.partnership_id', '=', 'partnership_details.partnership_id')
+                    ->join('users', 'partnership_details.partnership_id', '=', 'users.partnership_id')
+                    ->where('partnership_details.partnership_id', auth()->user()->partnership_id)
 
             )
             ->columns([
                 TextColumn::make("ticket_title")
                     ->label("Title")
-                    ->searchable()
-                    ->sortable(),
-
+                    ->searchable(),
                 TextColumn::make("ticket_price")
                     ->label("Price")
                     ->sortable(),
