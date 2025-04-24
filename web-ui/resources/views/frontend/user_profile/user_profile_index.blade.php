@@ -713,6 +713,7 @@
                                 title: 'Image Uploaded',
                                 text: 'Your profile picture has been updated successfully.'
                             });
+
                         }
 
                     } catch (error) {

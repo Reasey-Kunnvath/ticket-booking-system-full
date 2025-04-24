@@ -218,7 +218,8 @@
                         @keydown="handleKeydown($event, index)" class="m-2 text-center form-control rounded" />
                 </div>
                 <div class="mt-4">
-                    <button id="validateBtn" class="btn btn-danger px-4 validate" @click="validateOTP">
+                    <button id="validateBtn" class="btn btn-danger px-4 validate" @click="validateOTP"
+                        :disabled="loading">
                         Validate
                     </button>
                 </div>
@@ -247,6 +248,7 @@
             otpLength: 6,
             otp: ['', '', '', '', '', ''],
             user_id: "{{ $id }}",
+            loading: false
 
         },
         methods: {
@@ -278,6 +280,7 @@
                     this.converted_otp += this.otp[i];
                 }
                 // console.log(typeof otp, this.converted_otp);
+                this.loading = true
                 axios.post(`/register/verify/${this.user_id}`, this.converted_otp)
                     .then((response) => {
                         this.APIResponse = response.data;
@@ -285,11 +288,13 @@
                         if (this.APIResponse.access_token) {
                             localStorage.setItem('token', this.APIResponse.access_token);
                             localStorage.setItem('isLoggedIn', true)
+                            localStorage.setItem('uid?', this.APIResponse.user.id);
                             window.location.href = '/';
                         } else {
                             alert(this.APIResponse.message)
                         }
                     })
+                this.loading = false
             },
 
         },
