@@ -355,8 +355,8 @@
                             <img class="img-fluid flex-shrink-0 rounded mt-3"
                                 src={{ asset('frontend/assets/images/hua.jpg') }} style="width: 45px; height: 45px;">
                             <div class="ps-3 mt-3">
-                                <h6 class="fw-bold mb-1">Man Lyhua</h6>
-                                <small>Dashboard Manager | Senior developer</small>
+                                <h6 class="fw-bold mb-1">Mam Lyhua</h6>
+                                <small>Develop Dashboard</small>
                             </div>
                         </div>
                     </div>
