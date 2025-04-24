@@ -342,7 +342,7 @@
                                 src={{ asset('frontend/assets/images/kunvath.jpg') }} style="width: 45px; height: 45px;">
                             <div class="ps-3 mt-3">
                                 <h6 class="fw-bold mb-1">Reasey Kunnvath</h6>
-                                <small>Project Owner | Developer</small>
+                                <small>Lead Developer</small>
                             </div>
                         </div>
                     </div>
@@ -356,7 +356,7 @@
                                 src={{ asset('frontend/assets/images/hua.jpg') }} style="width: 45px; height: 45px;">
                             <div class="ps-3 mt-3">
                                 <h6 class="fw-bold mb-1">Mam Lyhua</h6>
-                                <small>Develop Dashboard</small>
+                                <small>Developer</small>
                             </div>
                         </div>
                     </div>
@@ -384,7 +384,7 @@
                                 src={{ asset('frontend/assets/images/den.jpg') }} style="width: 45px; height: 45px;">
                             <div class="ps-3 mt-3">
                                 <h6 class="fw-bold mb-1">Da Phadenphorakden</h6>
-                                <small>Assistant developer</small>
+                                <small>Developer</small>
                             </div>
                         </div>
                     </div>
