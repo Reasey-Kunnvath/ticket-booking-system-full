@@ -26,7 +26,6 @@ class GuestRouteMiddleware
             '/upcoming-event',
             '/most-popular-event',
             '/event-detail',
-            '/help-center',
         ];
 
         $currentPath = $request->path();

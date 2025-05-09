@@ -58,7 +58,9 @@
                             <h2>Events Upcoming</h2>
                         </div>
                     </div>
-                    <div v-if="loading" class="col-lg-4">Loading...</div>
+                    <div v-if=isLoading class="d-flex justify-content-center">
+                        <img src="{{ asset('frontend/assets/img/infinity.svg') }}" alt="">
+                    </div>
                     <div v-for="ticket in tickets" v-else :key="ticket.ticket_id" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
@@ -130,7 +132,7 @@
                 data: {
                     tickets: [],
                     pagination: '',
-                    loading: true
+                    isLoading: true
                 },
                 mounted() {
                     this.fetch();
@@ -142,7 +144,7 @@
                                 .then((response) => {
                                     this.tickets = response.data.data.data;
                                     this.pagination = response.data.data;
-                                    this.loading = false;
+                                    this.isLoading = false;
                                 })
                                 .catch((error) => {
                                     console.log("Error", error);
