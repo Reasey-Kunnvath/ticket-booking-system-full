@@ -37,9 +37,9 @@ class PayoutHistoryResource extends Resource
                 TextColumn::make('order.user.name')
                     ->label('Order By')
                     ->searchable(),
-                TextColumn::make('order.ticket.ticket_title')
-                    ->label('Ticket')
-                    ->searchable(),
+                // TextColumn::make('order.ticket.ticket_title')
+                //     ->label('Ticket')
+                // ->searchable(),
                 TextColumn::make('amount')
                     ->label('Amount')
                     ->sortable(),

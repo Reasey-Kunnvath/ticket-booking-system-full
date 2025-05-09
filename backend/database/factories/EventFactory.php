@@ -21,8 +21,14 @@ class EventFactory extends Factory
     {
         return [
             'evt_name' => $this->faker->randomElement([
-                'Diddy Party', 'Tena Concert', 'Kane VS John Cena', 'Kane VS Undertaker', 'Kane VS Triple H',
-                'Kanye West Concert', 'Donald J. Trump Conference', 'FOMC Minutes'
+                'Diddy Party',
+                'Tena Concert',
+                'Kane VS John Cena',
+                'Kane VS Undertaker',
+                'Kane VS Triple H',
+                'Kanye West Concert',
+                'Donald J. Trump Conference',
+                'FOMC Minutes'
             ]), // Replaced offensive term
             'evt_description' => 'ABC',
             'evt_policy' => '18+',
@@ -39,6 +45,7 @@ class EventFactory extends Factory
             'evt_status' => '1',
             'cate_id' => $this->faker->randomElement([1, 2, 3]),
             'partnership_id' => 1,
+            'image' => 'event-image.png'
         ];
     }
 }

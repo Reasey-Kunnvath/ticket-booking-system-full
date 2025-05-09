@@ -52,7 +52,8 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'email verified',
-            'access_token' => $this->generate_token($user)
+            'access_token' => $this->generate_token($user),
+            'user' => $user
         ]);
     }
     private function login_handler($request, $role_id)
