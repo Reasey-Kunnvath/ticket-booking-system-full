@@ -85,13 +85,13 @@
             </div>
             <div v-if="isLoggedIn">
                 {{-- /cart?uid=${this.payload.user_id}&token=${this.payload.token}" --}}
-                <a :href="'/user-profile?uid=' + payload.user_id + '&token=' + payload.token"
-                    class="nav-item nav-link d-flex align-items-center">
-                    <div class="p-2 me-2">
-                        <img class="img-fluid" :src="'http://localhost:8000/storage/' + image" alt="Icon"
+                <a :href="'/user-profile?uid=' + payload.user_id + '&token=' + payload.token" class="nav-item nav-link d-flex align-items-center">
+
+                </a>
+                <div class="p-2 me-2">
+                        <img class="img-fluid" :src="'http://localhost:8000/storage/1746758356681d6ad4ac212.jpg'" alt="Icon"
                             style="width: 50px; height: 50px; border-radius: 50%;">
                     </div>
-                </a>
             </div>
             <div v-else>
                 <a href="{{ url('/login') }}" class="nav-item nav-link">
@@ -142,7 +142,7 @@
             this.loggedInStatus();
             this.cartItemCount()
             this.profileImage()
-            
+
         },
         methods: {
             loggedInStatus() {
