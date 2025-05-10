@@ -65,7 +65,7 @@
                     <div v-for="concert in concerts" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
-                                <img v-if="concert.image" :src="'http://localhost:8000/storage/' + concert.image"
+                                <img v-if="concert.image" :src="'http:///104.248.159.164:8000/storage/' + concert.image"
                                     alt="" style="width: 415.983px; height: 303.25px" />
                                 <img v-else src="{{ asset('frontend/assets/images/noimage.jpg') }}" alt="No Image"
                                     style="width: 415.983px; height: 303.25px">
@@ -140,7 +140,7 @@
                 methods: {
                     fetch(page) {
                         try {
-                            axios.get(`http://127.0.0.1:8000/api/concert?page=${page}`)
+                            axios.get(`/concert?page=${page}`)
                                 .then((response) => {
                                     this.concerts = response.data.data.data;
                                     this.pagination = response.data.data;

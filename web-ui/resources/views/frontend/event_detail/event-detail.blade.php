@@ -245,7 +245,7 @@
                         }
                         // console.log(ticket_id, ticket_price);
 
-                        axios.post('v1/user/cart', {
+                        axios.post('/v1/user/cart', {
                                 user_id: this.payload.user_id,
                                 token: this.payload.token,
                                 evt_id: localStorage.getItem('evt_id'),

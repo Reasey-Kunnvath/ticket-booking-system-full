@@ -479,7 +479,7 @@
                     try {
                         this.processingMsg = 'Requesting QR code...';
                         const khqrResponse = await axios.post(
-                            `v1/user/khqr/generate`, {
+                            `/v1/user/khqr/generate`, {
                                 "type": "merchant",
                                 "accountId": "merchant@bakong",
                                 "merchantName": "Ticket Booking By OG",
@@ -536,7 +536,7 @@
                     //     items: this.items
                     // })
 
-                    await axios.post(`v1/user/transactions`, {
+                    await axios.post(`/v1/user/transactions`, {
                         use_Coupon: this.codeApplied.coupons_id ? 1 : 0,
                         coupon_id: this.codeApplied.coupons_id || 0,
                         total_amount: this.finalTotal,
