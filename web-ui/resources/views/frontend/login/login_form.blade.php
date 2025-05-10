@@ -407,8 +407,8 @@
                                     .message.password[0] : '' || response.data.message;
                             }
                         }).catch((error) => {
-                            this.loginErr.emailErr = error.response.data.message
-                            // console.log(error)
+                            // this.loginErr.emailErr = error.response.data.message
+                            console.log(error)
                         })
                 } catch (error) {
                     console.log(error)

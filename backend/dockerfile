@@ -2,10 +2,28 @@ FROM php:8.3-apache
 
 # Install system dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
-    libpng-dev libjpeg-dev libfreetype6-dev zip unzip git curl \
-    libicu-dev libzip-dev \
+                libpng-dev \
+                libjpeg-dev \
+                libfreetype6-dev \
+                zip \
+                unzip \
+                git \
+                curl \
+                nano \
+                libxml2-dev \
+                libicu-dev \
+                libzip-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql intl zip
+    && docker-php-ext-install \
+                gd \
+                pdo \
+                pdo_mysql \
+                intl \
+                zip \
+                xml \
+                dom \
+                simplexml
+
 
 # Ensure www-data user exists (group already exists in php:8.3-apache)
 RUN useradd -u 33 -g www-data -m www-data || true

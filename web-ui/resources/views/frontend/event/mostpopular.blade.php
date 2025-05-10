@@ -64,7 +64,7 @@
                     <div v-for="eventpop in eventpopular" class="col-lg-4">
                         <div class="ticket-item">
                             <div class="thumb">
-                                <img v-if="eventpop.image" :src="'http://localhost:8000/storage/' + eventpop.image"
+                                <img v-if="eventpop.image" :src="'http:///104.248.159.164:8000/storage/' + eventpop.image"
                                     alt="" style="width: 415.983px; height: 303.25px" />
                                 <img v-else src="{{ asset('frontend/assets/images/noimage.jpg') }}" alt="No Image"
                                     style="width: 415.983px; height: 303.25px">
@@ -140,7 +140,7 @@
                 methods: {
                     fetch(page) {
                         try {
-                            axios.get(`http://127.0.0.1:8000/api/mostpopular?page=${page}`)
+                            axios.get(`/mostpopular?page=${page}`)
                                 .then((response) => {
                                     this.eventpopular = response.data.data.data;
                                     this.pagination = response.data.data;

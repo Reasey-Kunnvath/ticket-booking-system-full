@@ -2,14 +2,28 @@ FROM php:8.3-apache
 
 # Install system dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
-    libpng-dev libjpeg-dev libfreetype6-dev zip unzip git curl \
-    libicu-dev libzip-dev \
+        libpng-dev \
+        libjpeg-dev \
+        libfreetype6-dev \
+        zip \
+        unzip \
+        libxml2-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql intl zip
+    && docker-php-ext-install \
+        gd \
+        pdo \
+        pdo_mysql \
+        xml \
+        dom \
+        simplexml
+
 
 # Install Node.js and npm (required for Vite)
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs
+RUN apt update && apt install -y curl \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt install -y nodejs \
+    && npm install -g npm@latest
+
 
 # Ensure www-data user exists (group already exists in php:8.3-apache)
 RUN useradd -u 33 -g www-data -m www-data || true

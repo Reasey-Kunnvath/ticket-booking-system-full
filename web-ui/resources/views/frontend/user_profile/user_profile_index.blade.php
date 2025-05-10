@@ -192,7 +192,7 @@
                             </div>
 
                             <div class="card-body d-flex align-items-center">
-                                <img v-if="image" :src="'http://localhost:8000/storage/' + image" alt="Profile Image"
+                                <img v-if="image" :src="'http:///104.248.159.164:8000/storage/' + image" alt="Profile Image"
                                     class="d-block ui-w-80" />
                                 <img v-else src="{{ asset('frontend/assets/img/userprofile.png') }}" alt="Default Image"
                                     class="d-block ui-w-80" />

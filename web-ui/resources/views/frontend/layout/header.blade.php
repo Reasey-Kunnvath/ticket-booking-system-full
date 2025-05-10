@@ -88,7 +88,7 @@
                 <a :href="'/user-profile?uid=' + payload.user_id + '&token=' + payload.token"
                     class="nav-item nav-link d-flex align-items-center">
                     <div class="p-2 me-2">
-                        <img class="img-fluid" :src="'http://localhost:8000/storage/' + image" alt="Icon"
+                        <img class="img-fluid" :src="'http:///104.248.159.164:8000/storage/' + image" alt="Icon"
                             style="width: 50px; height: 50px; border-radius: 50%;">
                     </div>
                 </a>
